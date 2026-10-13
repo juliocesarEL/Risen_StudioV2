@@ -1,0 +1,15 @@
+.next
+node_modules
+coverage
+playwright-report
+test-results
+public
+pnpm-lock.yaml
+next-env.d.ts
+.screenshots
+
+# gerado no build pelo `cn` (ver cn.config.mjs)
+src/lib/cn-tables.ts
+
+# código de terceiros (React Bits): mantém a formatação original
+src/components/reactbits/vendor

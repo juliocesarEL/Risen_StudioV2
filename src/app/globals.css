@@ -1,0 +1,363 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+
+/*
+ * ============================================================================
+ * Risen Studio — design tokens
+ * ============================================================================
+ * Única fonte de verdade para cores, gradientes, tipografia, espaçamento,
+ * raios e sombras. Componentes nunca usam cores fixas: sempre estes tokens
+ * (via utilitários do Tailwind ou var(--token)).
+ *
+ * Hoje existe apenas o tema escuro. Para criar um tema claro, basta
+ * redefinir as variáveis da seção "Paleta base" e "Superfícies" em um
+ * seletor como [data-theme='light'] — todo o restante é derivado.
+ */
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  color-scheme: dark;
+
+  /* ---- Paleta base (identidade visual) ---------------------------------- */
+  --bg: #0a0a0f;
+  --bg2: #13131a;
+  --bg3: #1c1c24;
+
+  --text: #f4f4f5; /* títulos e texto principal */
+  --text-body: #a1a1aa; /* parágrafos */
+  --text-quote: #d4d4d8; /* destaques e citações */
+  --text-muted: #71717a; /* 4,1:1 sobre --bg — só texto grande, ícones ou placeholders */
+  --text-dim: #52525b; /* decorativo */
+  --text-faint: #3f3f46; /* decorativo */
+
+  --accent: #c084fc;
+
+  --line: #27272a;
+  --line2: #3f3f46;
+
+  --surface-avatar: #27272a;
+
+  /* ---- Gradientes --------------------------------------------------------- */
+  --gradient-primary-from: #3b82f6;
+  --gradient-primary-via: #8b5cf6;
+  --gradient-primary-to: #ec4899;
+  --gradient-primary: linear-gradient(
+    90deg,
+    var(--gradient-primary-from),
+    var(--gradient-primary-via),
+    var(--gradient-primary-to)
+  ); /* botões e títulos */
+
+  --gradient-text-from: #60a5fa;
+  --gradient-text-via: #a78bfa;
+  --gradient-text-to: #c084fc;
+  --gradient-text: linear-gradient(
+    90deg,
+    var(--gradient-text-from),
+    var(--gradient-text-via),
+    var(--gradient-text-to)
+  ); /* texto em gradiente */
+
+  /* ---- Janela macOS (mockups) -------------------------------------------- */
+  --window-red: #ff5f57;
+  --window-yellow: #febc2e;
+  --window-green: #28c840;
+
+  /* ---- Derivados da paleta ----------------------------------------------- */
+  /* Texto secundário pequeno com contraste AA (≥ 4,8:1 em --bg, --bg2 e --bg3). */
+  --text-subtle: color-mix(in srgb, var(--text-body) 50%, var(--text-muted));
+  /* Texto sobre o acento e sobre o gradiente primário (≥ 4,6:1 em todo o gradiente). */
+  --on-accent: var(--bg);
+  --danger: var(--window-red);
+  --success: var(--window-green);
+  --whatsapp: var(--window-green);
+
+  /* ---- Superfícies translúcidas ------------------------------------------ */
+  --surface-glass: color-mix(in srgb, var(--bg2) 64%, transparent);
+  --surface-card: color-mix(in srgb, var(--bg2) 82%, transparent);
+  --surface-chip: color-mix(in srgb, var(--text) 5%, transparent);
+  --surface-hover: color-mix(in srgb, var(--text) 7%, transparent);
+  --surface-ghost: color-mix(in srgb, var(--text) 3%, transparent);
+  --surface-accent: color-mix(in srgb, var(--accent) 12%, transparent);
+  --nav-bg: color-mix(in srgb, var(--bg) 78%, transparent);
+  --overlay: color-mix(in srgb, var(--bg) 72%, transparent);
+  --spotlight: color-mix(in srgb, var(--accent) 55%, var(--text));
+  --border-glass: color-mix(in srgb, var(--text) 9%, transparent);
+
+  /* ---- Tipografia ---------------------------------------------------------- */
+  /* Famílias: ver @theme abaixo (--font-display, --font-body, --font-mono).
+     Escala fluida: cresce suavemente entre 320px e 1440px. */
+  --font-size-display: clamp(2.75rem, 1.15rem + 6.4vw, 6.75rem);
+  --font-size-page-title: clamp(2.75rem, 1.6rem + 3.6vw, 5.5rem); /* h1 das páginas internas */
+  --font-size-h2: clamp(2.25rem, 1.55rem + 3vw, 4.25rem);
+  --font-size-title: clamp(1.75rem, 1.2rem + 1.4vw, 2.5rem); /* destaque entre h2 e h3 */
+  --font-size-h3: clamp(1.375rem, 1.22rem + 0.65vw, 1.75rem);
+  --font-size-lead: clamp(1.0625rem, 0.99rem + 0.36vw, 1.3125rem);
+  --font-size-body: 1rem;
+  --font-size-small: 0.875rem;
+  --font-size-eyebrow: 0.6875rem;
+
+  --display-stretch: 75%; /* largura condensada da fonte de títulos (eixo wdth) */
+  --display-stretch-semi: 87.5%; /* títulos menores (cards) */
+
+  /* ---- Espaçamento e layout ---------------------------------------------- */
+  --section-space: clamp(5rem, 3.6rem + 6vw, 9.5rem);
+  --gutter: clamp(1rem, 0.35rem + 3vw, 3rem);
+  --container-max: 76rem;
+  --nav-height: 4.5rem;
+
+  /* ---- Forma (raios e sombras específicos: ver @theme abaixo) ------------ */
+  --radius: 0.875rem;
+
+  /* ---- Integração com shadcn/ui ------------------------------------------ */
+  /* `--accent` é o acento da Risen (violeta). No shadcn padrão, "accent" é um
+     cinza de hover; os componentes em src/components/ui usam --surface-hover. */
+  --background: var(--bg);
+  --foreground: var(--text);
+  --card: var(--bg2);
+  --card-foreground: var(--text);
+  --popover: var(--bg2);
+  --popover-foreground: var(--text);
+  --primary: var(--accent);
+  --primary-foreground: var(--on-accent);
+  --secondary: var(--bg3);
+  --secondary-foreground: var(--text);
+  --muted: var(--bg3);
+  --muted-foreground: var(--text-muted);
+  --accent-foreground: var(--on-accent);
+  --destructive: var(--danger);
+  --border: var(--line);
+  --input: var(--line);
+  --ring: var(--accent);
+}
+
+/* Tokens que já pertencem a um namespace do Tailwind ficam definidos aqui uma
+   única vez: viram variáveis CSS em :root e também utilitários
+   (font-display, rounded-card, shadow-glow...). */
+@theme {
+  /* As famílias vêm de src/styles/fonts.ts (next/font). Trocar a fonte = editar só aquele arquivo. */
+  --font-display: var(--font-family-display), ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-family-body), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-family-mono), ui-monospace, 'SFMono-Regular', monospace;
+
+  --radius-card: 1.5rem;
+  --radius-pill: 999px;
+
+  --shadow-card:
+    inset 0 1px 0 0 color-mix(in srgb, var(--text) 5%, transparent),
+    0 24px 48px -28px color-mix(in srgb, var(--bg) 90%, transparent);
+  --shadow-glow:
+    0 0 0 1px color-mix(in srgb, var(--accent) 28%, transparent),
+    0 16px 48px -16px color-mix(in srgb, var(--accent) 45%, transparent);
+  --shadow-window: 0 40px 80px -40px color-mix(in srgb, var(--bg) 95%, transparent);
+}
+
+@theme inline {
+  /* Cores (shadcn) */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Cores (Risen) */
+  --color-bg2: var(--bg2);
+  --color-bg3: var(--bg3);
+  --color-body: var(--text-body);
+  --color-quote: var(--text-quote);
+  --color-subtle: var(--text-subtle);
+  --color-dim: var(--text-dim);
+  --color-faint: var(--text-faint);
+  --color-line: var(--line);
+  --color-line-2: var(--line2);
+  --color-on-accent: var(--on-accent);
+  --color-danger: var(--danger);
+  --color-success: var(--success);
+  --color-whatsapp: var(--whatsapp);
+  --color-avatar: var(--surface-avatar);
+  --color-glass: var(--surface-glass);
+  --color-surface-card: var(--surface-card);
+  --color-chip: var(--surface-chip);
+  --color-surface-hover: var(--surface-hover);
+  --color-ghost: var(--surface-ghost);
+  --color-accent-soft: var(--surface-accent);
+  --color-nav: var(--nav-bg);
+  --color-overlay: var(--overlay);
+  --color-border-glass: var(--border-glass);
+  --color-window-red: var(--window-red);
+  --color-window-yellow: var(--window-yellow);
+  --color-window-green: var(--window-green);
+
+  /* Família padrão do Tailwind = corpo de texto */
+  --font-sans: var(--font-body);
+
+  /* Tamanhos (com altura de linha e espaçamento entre letras) */
+  --text-display: var(--font-size-display);
+  --text-display--line-height: 0.9;
+  --text-display--letter-spacing: -0.015em;
+  --text-page-title: var(--font-size-page-title);
+  --text-page-title--line-height: 0.92;
+  --text-page-title--letter-spacing: -0.01em;
+  --text-h2: var(--font-size-h2);
+  --text-h2--line-height: 0.95;
+  --text-h2--letter-spacing: -0.01em;
+  --text-title: var(--font-size-title);
+  --text-title--line-height: 1.05;
+  --text-h3: var(--font-size-h3);
+  --text-h3--line-height: 1.15;
+  --text-lead: var(--font-size-lead);
+  --text-lead--line-height: 1.6;
+  --text-eyebrow: var(--font-size-eyebrow);
+  --text-eyebrow--line-height: 1.4;
+  --text-eyebrow--letter-spacing: 0.14em;
+
+  /* Espaçamento e larguras */
+  --spacing-section: var(--section-space);
+  --spacing-gutter: var(--gutter);
+  --spacing-nav: var(--nav-height);
+  --container-content: var(--container-max);
+
+  /* Raios */
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+/* ---- Utilitários do sistema ------------------------------------------------ */
+
+@utility container-page {
+  width: 100%;
+  max-width: calc(var(--container-max) + var(--gutter) * 2);
+  margin-inline: auto;
+  padding-inline: max(var(--gutter), env(safe-area-inset-left))
+    max(var(--gutter), env(safe-area-inset-right));
+}
+
+@utility bg-gradient-primary {
+  background-image: var(--gradient-primary);
+}
+
+@utility text-gradient {
+  background-image: var(--gradient-text);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+@utility font-stretch-display {
+  font-stretch: var(--display-stretch);
+}
+
+@utility font-stretch-semi {
+  font-stretch: var(--display-stretch-semi);
+}
+
+/* Rótulo em mono maiúsculo. A cor fica a cargo de quem usa (ex.: text-subtle). */
+@utility eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-eyebrow);
+  line-height: 1.4;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* ---- Base ------------------------------------------------------------------ */
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    @apply font-body;
+    scroll-behavior: smooth;
+    scroll-padding-top: calc(var(--nav-height) + 1rem);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    @apply bg-background text-body antialiased;
+    font-size: var(--font-size-body);
+    line-height: 1.65;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply text-foreground;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background-color: color-mix(in srgb, var(--accent) 35%, transparent);
+    color: var(--text);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 3px;
+  }
+
+  button:not(:disabled),
+  [role='button']:not(:disabled) {
+    cursor: pointer;
+  }
+
+  /* Entradas animadas (components/shared/reveal.tsx): o estado inicial oculto só
+     vale com JavaScript ativo (classe .js no <html>) e sem movimento reduzido.
+     Sem JS ou com movimento reduzido, o conteúdo aparece direto. */
+  @media (prefers-reduced-motion: no-preference) {
+    .js [data-reveal]:not([data-revealed]) {
+      opacity: 0;
+      transform: translateY(1.5rem);
+    }
+
+    .js [data-reveal='draw']:not([data-revealed]) {
+      opacity: 1;
+      transform: scale(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    /* Transições e animações em CSS (menu, accordion, select, botões...) ficam instantâneas. */
+    *,
+    ::before,
+    ::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
