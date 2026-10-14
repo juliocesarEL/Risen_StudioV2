@@ -14,6 +14,7 @@ import { useContactSubmission } from '@/components/sections/contact/use-contact-
 import { useEarlyInput } from '@/components/sections/contact/use-early-input'
 import { useQuotePreselection } from '@/components/sections/contact/use-quote-preselection'
 import { Button } from '@/components/ui/button'
+import { buildMailtoUrl } from '@/lib/mailto'
 import { type ContactFormData, type ContactFormValues, contactSchema } from '@/lib/schemas/contact'
 
 export interface ContactFormProps extends ContactFieldsProps {
@@ -34,7 +35,7 @@ const defaultValues: DefaultValues<ContactFormValues> = {
   budget: undefined,
   message: '',
   consent: false,
-  website: '',
+  hpCampo: '',
 }
 
 /**
@@ -104,6 +105,14 @@ export function ContactForm({
             copy={copy.errors}
             whatsappHref={whatsappHrefs.afterError}
             email={email}
+            emailHref={
+              email
+                ? buildMailtoUrl(email, {
+                    subject: copy.errors.emailSubject,
+                    body: form.getValues('message'),
+                  })
+                : undefined
+            }
             onRetry={() => void handleSubmit()}
             retrying={isSubmitting}
           />

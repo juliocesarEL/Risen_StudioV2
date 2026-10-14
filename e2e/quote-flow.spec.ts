@@ -122,9 +122,13 @@ test.describe('fluxo de orçamento', () => {
       'href',
       /^https:\/\/wa\.me\/\d+\?text=/,
     )
-    // A alternativa "Enviar e-mail" só aparece com um e-mail comercial definido em site.ts.
-    const emailLink = alert.getByRole('link', { name: /Enviar e-mail/ })
-    if ((await emailLink.count()) > 0) await expect(emailLink).toHaveAttribute('href', /^mailto:/)
+    // Com e-mail comercial definido em site.ts, o endereço aparece escrito, com
+    // link já preenchido (assunto e a mensagem digitada) e botão de copiar.
+    const emailLink = alert.locator('a[href^="mailto:"]')
+    if ((await emailLink.count()) > 0) {
+      await expect(emailLink).toHaveAttribute('href', /\?subject=.+&body=Preciso/)
+      await expect(alert.getByRole('button', { name: 'Copiar e-mail' })).toBeVisible()
+    }
     await expect(page.getByText('Recebemos sua solicitação!')).toHaveCount(0)
     await expect(submit).toBeEnabled()
   })

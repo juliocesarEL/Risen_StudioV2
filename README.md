@@ -264,6 +264,11 @@ Os testes e2e fazem o build, sobem o servidor na porta 3100 e forçam
 5. Depois do deploy:
    - teste o formulário com a chave configurada;
    - meça no PageSpeed Insights.
+6. **Compromisso da política de privacidade:** a política promete apagar em até
+   12 meses os dados de quem não fechou negócio (e-mails e conversas antigas de
+   orçamento). Confirme se esse prazo serve antes de publicar e cumpra-o na
+   prática. Para mudar o prazo, edite a seção "Por quanto tempo guardamos" em
+   `src/content/legal/privacidade.mdx`.
 
 **Limite de envios.** O limite do formulário fica em memória, separado em cada
 instância do servidor. Para um limite global, troque por um armazenamento

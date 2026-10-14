@@ -85,7 +85,12 @@ export const contactFormCopy = {
       'Algo deu errado no envio. Verifique sua conexão e tente novamente, ou use o WhatsApp ou o e-mail.',
     retryCta: 'Tentar novamente',
     whatsappCta: 'Falar no WhatsApp',
-    emailCta: 'Enviar e-mail',
+    emailPrompt: 'Ou escreva para',
+    /** Assunto do e-mail aberto pelo link (o texto vem da mensagem digitada). */
+    emailSubject: 'Orçamento pelo site da Risen Studio',
+    copyEmail: 'Copiar e-mail',
+    emailCopied: 'E-mail copiado.',
+    emailCopyFailed: 'Não foi possível copiar. Selecione o endereço e copie manualmente.',
   },
 }
 

@@ -19,7 +19,7 @@ const validValues: ContactFormValues = {
   budget: '2k-5k',
   message: 'Preciso de uma página para divulgar o lançamento de um curso.',
   consent: true,
-  website: '',
+  hpCampo: '',
 }
 
 /** Primeira mensagem de erro do campo (ou undefined quando o campo é válido). */
@@ -135,7 +135,7 @@ describe('contactSchema', () => {
 
   it('deixa a decisão sobre o honeypot para o caso de uso', () => {
     expect(
-      contactSchema.safeParse({ ...validValues, website: 'https://spam.example' }).success,
+      contactSchema.safeParse({ ...validValues, hpCampo: 'https://spam.example' }).success,
     ).toBe(true)
   })
 })

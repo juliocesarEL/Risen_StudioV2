@@ -4,6 +4,7 @@ import { CircleCheck, Mail, RotateCcw, TriangleAlert } from 'lucide-react'
 import { useEffect, useRef } from 'react'
 
 import type { ContactActionErrorCode } from '@/app/actions/contact'
+import { CopyEmailButton } from '@/components/sections/contact/copy-email-button'
 import { WhatsAppButton } from '@/components/shared/whatsapp-button'
 import { Button } from '@/components/ui/button'
 import type { contactFormCopy } from '@/content/contact'
@@ -30,6 +31,8 @@ interface SubmissionErrorProps {
   whatsappHref: string
   /** null enquanto não houver e-mail real: a alternativa por e-mail some. */
   email: string | null
+  /** Link mailto com assunto e a mensagem já preenchidos. */
+  emailHref?: string
   onRetry: () => void
   retrying: boolean
 }
@@ -40,6 +43,7 @@ export function SubmissionError({
   copy,
   whatsappHref,
   email,
+  emailHref,
   onRetry,
   retrying,
 }: SubmissionErrorProps) {
@@ -72,14 +76,28 @@ export function SubmissionError({
             label={copy.whatsappCta}
             variant="whatsapp"
           />
-          {email ? (
-            <Button asChild variant="ghost">
-              <a href={`mailto:${email}`}>
-                <Mail aria-hidden="true" />
-                {copy.emailCta}
-              </a>
-            </Button>
-          ) : null}
+        </div>
+      ) : null}
+      {/* O endereço fica escrito: o link mailto só abre algo quando o aparelho tem
+          um programa de e-mail configurado (quem usa o Gmail no navegador não tem). */}
+      {showAlternatives && email ? (
+        <div className="flex flex-wrap items-center gap-x-2 text-sm text-quote">
+          <Mail aria-hidden="true" className="size-4 text-subtle" />
+          {copy.emailPrompt}
+          <a
+            href={emailHref ?? `mailto:${email}`}
+            className="inline-flex min-h-11 items-center font-medium text-foreground underline underline-offset-4"
+          >
+            {email}
+          </a>
+          <CopyEmailButton
+            email={email}
+            copy={{
+              label: copy.copyEmail,
+              success: copy.emailCopied,
+              failure: copy.emailCopyFailed,
+            }}
+          />
         </div>
       ) : null}
     </div>

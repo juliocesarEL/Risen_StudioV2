@@ -103,6 +103,6 @@ function toCommand(data: ContactFormData): SubmitContactRequestCommand {
     budget: budget ? { id: budget.id, label: budget.label } : undefined,
     message: data.message,
     consent: data.consent,
-    honeypot: data.website,
+    honeypot: data.hpCampo,
   }
 }

@@ -77,7 +77,9 @@ export const contactSchema = z.object({
     .max(contactLimits.messageMax, messages.messageMax),
   consent: z.boolean().refine((accepted) => accepted, messages.consentRequired),
   /** Honeypot: invisível para pessoas. Se vier preenchido, o envio é tratado como spam. */
-  website: z.string().max(contactLimits.honeypotMax).optional(),
+  // Campo isca (honeypot). Nome sem significado para que o preenchimento
+  // automático do navegador e gerenciadores de senha não o reconheçam.
+  hpCampo: z.string().max(contactLimits.honeypotMax).optional(),
 })
 
 /** Valores do formulário (entrada). */

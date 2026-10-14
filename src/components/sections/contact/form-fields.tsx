@@ -281,12 +281,23 @@ export function ConsentField({ children }: ConsentFieldProps) {
  */
 export function HoneypotField({ label }: { label: string }) {
   const { register } = useFormContext<ContactFormValues>()
-  const { id } = fieldIds('website')
+  const { id } = fieldIds('hpCampo')
 
   return (
     <div aria-hidden="true" className="sr-only">
       <label htmlFor={id}>{label}</label>
-      <input id={id} type="text" tabIndex={-1} autoComplete="off" {...register('website')} />
+      {/* data-*-ignore: 1Password, LastPass e Bitwarden não preenchem este campo. */}
+      <input
+        id={id}
+        type="text"
+        tabIndex={-1}
+        autoComplete="off"
+        data-1p-ignore=""
+        data-lpignore="true"
+        data-bwignore=""
+        data-form-type="other"
+        {...register('hpCampo')}
+      />
     </div>
   )
 }
