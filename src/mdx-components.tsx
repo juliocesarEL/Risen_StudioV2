@@ -61,7 +61,7 @@ const components: MDXComponents = {
   ),
   blockquote: (props) => (
     <blockquote
-      className="my-10 border-l-2 border-accent pl-6 font-display text-h3 text-quote font-stretch-semi"
+      className="my-10 border-l border-accent pl-6 font-display text-h3 text-quote font-stretch-semi"
       {...props}
     />
   ),

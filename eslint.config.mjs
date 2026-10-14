@@ -76,6 +76,13 @@ const eslintConfig = defineConfig([
       'import/order': 'off',
     },
   },
+  {
+    // Scripts rodam direto no Node, fora do Next: lá o alias @/ não existe.
+    files: ['scripts/**'],
+    rules: {
+      'no-restricted-imports': 'off',
+    },
+  },
   globalIgnores([
     '.next/**',
     'out/**',

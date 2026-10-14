@@ -57,19 +57,19 @@ O modelo comentado está em [`.env.example`](.env.example).
 
 ## Scripts
 
-| Comando                       | O que faz                                                                        |
-| ----------------------------- | -------------------------------------------------------------------------------- |
-| `pnpm dev`                    | Servidor de desenvolvimento.                                                     |
-| `pnpm build` / `pnpm start`   | Build de produção e servidor de produção.                                        |
-| `pnpm check`                  | Tipos + lint + formatação + testes unitários. Rode antes de publicar.            |
-| `pnpm typecheck`              | Gera os tipos de rota do Next e roda o TypeScript.                               |
-| `pnpm lint` / `pnpm lint:fix` | ESLint (inclui as regras de fronteira da arquitetura).                           |
-| `pnpm format`                 | Prettier (inclui a ordenação de classes do Tailwind).                            |
-| `pnpm test`                   | Testes unitários (Vitest).                                                       |
-| `pnpm test:e2e`               | Testes ponta a ponta e de acessibilidade (Playwright), em desktop e celular.     |
-| `pnpm screenshots`            | Capturas nas larguras de referência (320 a 1920 px); acusa rolagem horizontal.   |
-| `pnpm capture:project-images` | Recaptura as imagens do projeto "Site da Risen Studio" (com `pnpm dev` rodando). |
-| `pnpm generate:icons`         | Gera favicon, ícone da Apple e ícones do manifesto a partir do logo.             |
+| Comando                       | O que faz                                                                                                                                                                |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `pnpm dev`                    | Servidor de desenvolvimento.                                                                                                                                             |
+| `pnpm build` / `pnpm start`   | Build de produção e servidor de produção.                                                                                                                                |
+| `pnpm check`                  | Tipos + lint + formatação + testes unitários. Rode antes de publicar.                                                                                                    |
+| `pnpm typecheck`              | Gera os tipos de rota do Next e roda o TypeScript.                                                                                                                       |
+| `pnpm lint` / `pnpm lint:fix` | ESLint (inclui as regras de fronteira da arquitetura).                                                                                                                   |
+| `pnpm format`                 | Prettier (inclui a ordenação de classes do Tailwind).                                                                                                                    |
+| `pnpm test`                   | Testes unitários (Vitest).                                                                                                                                               |
+| `pnpm test:e2e`               | Testes ponta a ponta e de acessibilidade (Playwright), em desktop e celular.                                                                                             |
+| `pnpm screenshots`            | Capturas nas larguras de referência (320 a 1920 px); acusa rolagem horizontal.                                                                                           |
+| `pnpm capture:project-images` | Recaptura as imagens do projeto "Site da Risen Studio" (com `pnpm dev` rodando; ou `--gpu --url=...` a partir do servidor de produção, numa máquina com placa de vídeo). |
+| `pnpm generate:icons`         | Gera favicon, ícone da Apple e ícones do manifesto a partir do logo.                                                                                                     |
 
 Exemplo de capturas: `pnpm screenshots --url=http://localhost:3000 --paths=/,/privacidade --full`.
 
@@ -77,27 +77,28 @@ Exemplo de capturas: `pnpm screenshots --url=http://localhost:3000 --paths=/,/pr
 
 Nenhum texto fica dentro dos componentes: tudo está em `src/content`.
 
-| Arquivo                          | Conteúdo                                                                                          |
-| -------------------------------- | ------------------------------------------------------------------------------------------------- |
-| `site.ts`                        | Contato (e-mail, WhatsApp e mensagens), redes, SEO, fundador, tecnologias e opções do formulário. |
-| `sections.ts`                    | Títulos e textos das seções da home (hero, serviços, projetos...).                                |
-| `services.ts`                    | As três frentes de serviço.                                                                       |
-| `projects.ts` + `projects/*.mdx` | Projetos e estudos de caso.                                                                       |
-| `differentials.ts`, `process.ts` | Diferenciais e etapas do processo.                                                                |
-| `needs.ts`                       | "Qual é a sua necessidade?" (cada item leva ao formulário ou ao WhatsApp).                        |
-| `faq.ts`                         | Perguntas frequentes (também geram os dados estruturados de FAQ).                                 |
-| `contact.ts`                     | Textos do formulário, validação, sucesso e erros, e o e-mail de notificação.                      |
-| `navigation.ts`, `ui.ts`         | Menu, rodapé e textos de interface.                                                               |
-| `legal/privacidade.mdx`          | Política de privacidade.                                                                          |
+| Arquivo                          | Conteúdo                                                                                                   |
+| -------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `site.ts`                        | Contato (e-mail, WhatsApp e mensagens), redes, SEO, fundador, tecnologias e opções do formulário.          |
+| `sections.ts`                    | Títulos e textos das seções da home (hero, serviços, projetos...).                                         |
+| `services.ts`                    | As três frentes de serviço.                                                                                |
+| `projects.ts` + `projects/*.mdx` | Projetos e estudos de caso.                                                                                |
+| `differentials.ts`, `process.ts` | Diferenciais e etapas do processo.                                                                         |
+| `needs.ts`                       | "Qual é a sua necessidade?" (cada item leva ao formulário ou ao WhatsApp).                                 |
+| `faq.ts`                         | Perguntas frequentes (também geram os dados estruturados de FAQ).                                          |
+| `contact.ts`                     | Textos do formulário, validação, sucesso e erros, e o e-mail de notificação.                               |
+| `workbench.ts`                   | Bancada ao vivo do hero: o código digitado em cada aba (site, sistema, integração) e os textos do preview. |
+| `navigation.ts`, `ui.ts`         | Menu, rodapé e textos de interface.                                                                        |
+| `legal/privacidade.mdx`          | Política de privacidade.                                                                                   |
 
-**Itens provisórios.** Tudo que precisa de dado real está marcado com
-`SUBSTITUIR` em `src/content/site.ts`: e-mail, WhatsApp, redes e fundador. O
-número de WhatsApp de exemplo usa o DDD 00 de propósito, para nunca abrir a
-conversa de outra pessoa.
+**Itens provisórios.** O que ainda precisa de dado real está marcado com
+`SUBSTITUIR` em `src/content/site.ts`: o e-mail comercial, os links do LinkedIn
+e do GitHub e a foto do fundador.
 
 **Formulário.** Para tirar um tipo de projeto do formulário, use `enabled: false`
-em `site.ts` (`contactForm.projectTypes`). O tipo "Loja virtual" também controla
-o exemplo "Lojas virtuais" no card de serviços.
+em `site.ts` (`contactForm.projectTypes`). O tipo "Loja virtual" está desligado
+(a Risen não oferece esse serviço) e também controla o exemplo "Lojas virtuais"
+no painel de serviços.
 
 ## Adicionar um projeto
 
@@ -159,13 +160,28 @@ O ESLint impede que o domínio e a aplicação importem Next, React, Resend ou Z
 
 ## Cores, fontes e tokens
 
-- **Fonte única dos tokens:** `src/app/globals.css`. Cores exatas da marca, tokens
-  derivados, tamanhos fluidos, espaçamentos e o mapeamento para o shadcn/ui.
-  Componentes não usam valores hexadecimais.
-- **Espelho em hexadecimal:** `src/styles/brand-colors.ts`, para imagens Open Graph
-  e o e-mail. Um teste garante que ele continua igual ao CSS.
-- **Fontes:** `src/styles/fonts.ts` (Bricolage Grotesque, Figtree e Martian Mono,
-  via `next/font`).
+- **Fonte única dos tokens:** `src/app/globals.css`. Inclui as cores da marca, os
+  tokens derivados, os tamanhos fluidos, os espaçamentos e o mapeamento para o
+  shadcn/ui. Componentes não usam valores hexadecimais.
+- **Paleta:** extraída do logotipo oficial (`public/images/favicon.jpeg` e
+  `og-image.jpeg`):
+  - o gradiente do R: azul `#3386FE` → índigo `#5658F8` → violeta `#8457FC`;
+  - o fundo azul-noite;
+  - o branco frio do logotipo.
+
+  Os botões principais usam uma versão um pouco mais profunda do gradiente, para
+  o texto branco manter o contraste.
+
+- **Espelho em hexadecimal:** `src/styles/brand-colors.ts`, para imagens Open Graph,
+  ícones e o e-mail. Um teste garante que ele continua igual ao CSS.
+- **Monograma:** o R oficial redesenhado em vetor fica em `src/lib/brand-mark.ts`.
+  O logo do site, os ícones (`pnpm generate:icons`) e as imagens de compartilhamento
+  dos estudos de caso usam esse mesmo desenho. A imagem de compartilhamento do
+  site é a oficial (`src/app/opengraph-image.jpg`).
+- **Fontes:** `src/styles/fonts.ts`, via `next/font`.
+  - **Archivo:** uma fonte variável, larga (125%) nos títulos, como o logotipo,
+    e normal no texto.
+  - **Martian Mono:** código e rótulos.
 - **Merge de classes (`cn`):** as tabelas são compiladas no build a partir de
   `cn.config.mjs` e do tema do CSS, e gravadas em `src/lib/cn-tables.ts`.
   - Esse arquivo é gerado: não edite à mão.
@@ -186,7 +202,15 @@ Decisões tomadas para o celular:
   - A checagem de GPU roda num Web Worker, sem travar a página.
   - Com movimento reduzido, economia de dados, aparelho modesto ou renderização
     por software, fica a versão estática.
+- **Bancada ao vivo (hero):** o código é digitado e o preview se monta em CSS
+  puro, com os tempos calculados em `src/lib/workbench-timing.ts`.
+  - A animação começa na primeira pintura, sem esperar o JavaScript.
+  - Ela percorre as três abas uma vez, só enquanto está visível, e tem botão
+    de pausa.
+  - Com movimento reduzido, aparece montada.
 - **Entradas animadas** com um único observador e animações da Motion (`motion/mini`).
+  Os títulos das seções entram "se alargando", como as letras largas do logotipo,
+  usando só transform, opacity e filter, sem mudança de layout.
 - **Vercel Analytics e Speed Insights** só são incluídos quando o site roda na Vercel.
 
 **Sobre o Lighthouse.**

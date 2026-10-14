@@ -27,7 +27,7 @@ const linkClass =
 function FooterColumn({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className="flex flex-col gap-3">
-      <h2 className="eyebrow text-subtle">{title}</h2>
+      <h2 className="group-label text-subtle">{title}</h2>
       <ul className="flex flex-col">{children}</ul>
     </div>
   )
@@ -63,12 +63,14 @@ export function Footer() {
               {contact.whatsapp.display}
             </WhatsAppLink>
           </li>
-          <li>
-            <a href={`mailto:${contact.email}`} className={linkClass}>
-              <Mail aria-hidden="true" className="size-4 text-subtle" />
-              {contact.email}
-            </a>
-          </li>
+          {contact.email ? (
+            <li>
+              <a href={`mailto:${contact.email}`} className={linkClass}>
+                <Mail aria-hidden="true" className="size-4 text-subtle" />
+                {contact.email}
+              </a>
+            </li>
+          ) : null}
           <li className="inline-flex min-h-11 items-center gap-2 text-body">
             <MapPin aria-hidden="true" className="size-4 text-subtle" />
             {location.city}, {location.state}
@@ -88,10 +90,17 @@ export function Footer() {
         </FooterColumn>
       </div>
 
-      <div className="container-page">
-        <div className="flex flex-col gap-2 border-t border-line py-6 text-sm text-subtle sm:flex-row sm:items-center sm:justify-between">
-          <p>
-            © <CurrentYear /> {siteConfig.name}. {uiCopy.footer.rights}
+      {/* Barra de status: fecha a página como a barra da bancada fecha o editor. */}
+      <div className="border-t border-line bg-bg2/60">
+        <div className="container-page flex flex-col gap-1 py-3 font-mono text-[0.6875rem] text-subtle sm:flex-row sm:items-center sm:justify-between">
+          <p className="flex flex-wrap items-center gap-x-4 gap-y-1">
+            <span className="inline-flex items-center gap-2">
+              <span aria-hidden="true" className="size-1.5 rounded-xs bg-gradient-primary" />
+              {location.city}, {location.state}
+            </span>
+            <span>
+              © <CurrentYear /> {siteConfig.name}. {uiCopy.footer.rights}
+            </span>
           </p>
           <Link href={privacyLink.href} className={linkClass}>
             {privacyLink.label}

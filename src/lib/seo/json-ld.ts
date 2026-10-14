@@ -22,9 +22,9 @@ export function buildOrganizationJsonLd(): JsonLdObject {
     legalName: siteConfig.legalName,
     description: siteConfig.seo.description,
     url: absoluteUrl('/'),
-    image: absoluteUrl('/opengraph-image'),
-    logo: absoluteUrl('/icon.png'),
-    email: contact.email,
+    image: absoluteUrl('/images/og-image.jpeg'),
+    logo: absoluteUrl('/brand/icon-512.png'),
+    ...(contact.email ? { email: contact.email } : {}),
     telephone: `+${contact.whatsapp.number}`,
     address: {
       '@type': 'PostalAddress',

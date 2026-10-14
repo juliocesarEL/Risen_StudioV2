@@ -1,5 +1,5 @@
 /**
- * Gera os ícones do site a partir do símbolo da marca.
+ * Gera os ícones do site a partir do monograma "R" oficial.
  *
  * Uso: pnpm generate:icons
  *
@@ -9,33 +9,35 @@
  *  - src/app/apple-icon.png    ícone de tela inicial do iOS (180×180)
  *  - public/brand/icon-*.png   ícones do manifesto e logo do JSON-LD
  *
- * Ao trocar o logotipo, ajuste os desenhos abaixo e rode o script de novo.
- * As cores espelham os tokens de globals.css (ver src/styles/brand-colors.ts).
+ * A geometria vem de src/lib/brand-mark.ts e as cores de
+ * src/styles/brand-colors.ts (o Node 22.18+ importa TypeScript direto).
  */
 import { mkdir, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
 
 import { chromium } from '@playwright/test'
 
-const colors = {
-  bg: '#0a0a0f',
-  bg2: '#13131a',
-  text: '#f4f4f5',
-  from: '#3b82f6',
-  via: '#8b5cf6',
-  to: '#ec4899',
+import { brandMark } from '../src/lib/brand-mark.ts'
+import { brandColors } from '../src/styles/brand-colors.ts'
+
+const { x1, y1, x2, y2 } = brandMark.gradient
+const defs = `<defs><linearGradient id="g" gradientUnits="userSpaceOnUse" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"><stop offset="0" stop-color="${brandColors.gradientPrimaryFrom}"/><stop offset=".5" stop-color="${brandColors.gradientPrimaryVia}"/><stop offset="1" stop-color="${brandColors.gradientPrimaryTo}"/></linearGradient></defs>`
+const mark = `<path fill="url(#g)" d="${brandMark.gradientPath}"/><path fill="${brandColors.text}" d="${brandMark.strokePath}"/>`
+
+/**
+ * Coloca o monograma num quadro de `frame` unidades, com `padding` de margem.
+ * O viewBox do quadro é maior que o do R: a escala sai da proporção entre os dois.
+ */
+function framed({ frame, padding, background, radius = 0 }) {
+  const scale = (frame - padding * 2) / brandMark.size
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${frame} ${frame}">${defs}<rect width="${frame}" height="${frame}" rx="${radius}" fill="${background}"/><g transform="translate(${padding} ${padding}) scale(${scale})">${mark}</g></svg>`
 }
 
-const gradient = `<defs><linearGradient id="g" gradientUnits="userSpaceOnUse" x1="0" y1="32" x2="32" y2="0"><stop offset="0" stop-color="${colors.from}"/><stop offset=".55" stop-color="${colors.via}"/><stop offset="1" stop-color="${colors.to}"/></linearGradient></defs>`
-
-/** Símbolo: sol nascendo (arco sobre o horizonte), com traços mais grossos para tamanhos pequenos. */
-const mark = `<path d="M8.5 21a7.5 7.5 0 0 1 15 0" fill="none" stroke="url(#g)" stroke-width="3.2" stroke-linecap="round"/><path d="M6.5 21h19" stroke="${colors.text}" stroke-width="2.4" stroke-linecap="round"/>`
-
-/** Favicon: bloco arredondado. */
-const faviconSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">${gradient}<rect width="32" height="32" rx="8" fill="${colors.bg2}"/>${mark}</svg>`
+/** Favicon: bloco arredondado escuro, com o R ocupando quase todo o espaço. */
+const faviconSvg = framed({ frame: 32, padding: 5, background: brandColors.bg, radius: 7 })
 
 /** Ícones de app: quadrado cheio (o sistema aplica o próprio recorte) com margem segura. */
-const appIconSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">${gradient}<rect width="32" height="32" fill="${colors.bg}"/><g transform="translate(4.8 4.8) scale(.7)">${mark}</g></svg>`
+const appIconSvg = framed({ frame: 32, padding: 8, background: brandColors.bg })
 
 /** Empacota um PNG em um arquivo .ico (formato aceito por todos os navegadores). */
 function pngToIco(png, size) {

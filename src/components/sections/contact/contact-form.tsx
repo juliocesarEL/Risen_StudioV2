@@ -17,7 +17,7 @@ import { Button } from '@/components/ui/button'
 import { type ContactFormData, type ContactFormValues, contactSchema } from '@/lib/schemas/contact'
 
 export interface ContactFormProps extends ContactFieldsProps {
-  email: string
+  email: string | null
   whatsappHrefs: { afterSubmit: string; afterError: string }
   /** id do título da seção (nomeia o formulário para leitores de tela). */
   labelledBy: string

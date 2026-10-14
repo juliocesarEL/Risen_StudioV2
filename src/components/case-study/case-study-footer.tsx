@@ -4,7 +4,6 @@ import Link from 'next/link'
 import { CTAButton } from '@/components/shared/cta-button'
 import { Reveal } from '@/components/shared/reveal'
 import { Container } from '@/components/shared/section'
-import { Eyebrow } from '@/components/shared/section-heading'
 import { WhatsAppButton } from '@/components/shared/whatsapp-button'
 import type { caseStudyCopy } from '@/content/case-study'
 import type { Project, ProjectTypeId } from '@/types/content'
@@ -26,7 +25,6 @@ export function CaseStudyCta({ copy, projectType, whatsappHref }: CaseStudyCtaPr
             className="absolute inset-0 -z-10 bg-[radial-gradient(60%_80%_at_85%_0%,color-mix(in_srgb,var(--accent)_18%,transparent),transparent_70%)]"
           />
           <div className="flex max-w-xl flex-col gap-4">
-            <Eyebrow>{copy.eyebrow}</Eyebrow>
             <h2
               id="cta-titulo"
               className="font-display text-h2 font-semibold text-foreground font-stretch-display"
@@ -72,7 +70,7 @@ export function NextProjectNav({ next, allProjectsHref, copy }: NextProjectNavPr
           className="group flex items-center justify-between gap-6 border-t border-line pt-8"
         >
           <span className="flex flex-col gap-2">
-            <span className="eyebrow text-subtle">
+            <span className="group-label text-subtle">
               {next ? copy.nextProject : copy.portfolioLabel}
             </span>
             <span className="font-display text-h3 font-semibold text-foreground font-stretch-semi transition-colors group-hover:text-accent sm:text-title">

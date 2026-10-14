@@ -2,7 +2,6 @@ import { Check } from 'lucide-react'
 
 import { Reveal } from '@/components/shared/reveal'
 import { Container } from '@/components/shared/section'
-import { Eyebrow } from '@/components/shared/section-heading'
 
 import type { ReactNode } from 'react'
 
@@ -53,7 +52,9 @@ export function CaseStudyOverview({ problem, solution, copy }: OverviewProps) {
               key={item.label}
               className="flex flex-col gap-3 rounded-card border border-line bg-ghost p-6 sm:p-8"
             >
-              <Eyebrow>{item.label}</Eyebrow>
+              <h2 className="font-display text-h3 font-semibold text-foreground font-stretch-semi">
+                {item.label}
+              </h2>
               <p className="text-lead text-quote">{item.text}</p>
             </div>
           ))}

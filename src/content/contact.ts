@@ -3,7 +3,6 @@ import type { SectionCopy } from '@/types/content'
 /** Textos da seção de contato e do formulário de orçamento. */
 export const contactSection = {
   heading: {
-    eyebrow: 'Contato e orçamento',
     title: 'Sua ideia merece sair do papel.',
     description:
       'Conte um pouco sobre o seu projeto e vamos entender como transformá-lo em uma solução digital.',
@@ -12,6 +11,8 @@ export const contactSection = {
   directContact: {
     title: 'Prefere falar direto?',
     description: 'Também respondemos pelo WhatsApp e por e-mail.',
+    /** Usada enquanto não houver e-mail comercial definido (site.ts). */
+    descriptionWithoutEmail: 'Também respondemos pelo WhatsApp.',
     whatsappCta: 'Chamar no WhatsApp',
     emailLabel: 'E-mail comercial',
     copyEmail: 'Copiar e-mail',

@@ -13,7 +13,6 @@ export const uiCopy = {
   provisionalImage: 'Imagem provisória',
   browserFrameAddress: 'risenstudio',
   notFound: {
-    eyebrow: 'Erro 404',
     title: 'Esta página não existe (ou mudou de lugar).',
     description: 'Confira o endereço ou volte para a página inicial.',
     cta: 'Ir para a página inicial',

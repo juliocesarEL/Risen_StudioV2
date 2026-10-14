@@ -48,12 +48,7 @@ export default function HomePage() {
     <>
       <JsonLd data={buildOrganizationJsonLd()} />
 
-      <Hero
-        id={sectionIds.hero}
-        content={heroContent}
-        projectsHref={`#${sectionIds.projects}`}
-        highlights={services.map((service) => service.shortTitle)}
-      />
+      <Hero id={sectionIds.hero} content={heroContent} projectsHref={`#${sectionIds.projects}`} />
       <Suspense>
         <Services id={sectionIds.services} copy={servicesSection} services={services} />
       </Suspense>

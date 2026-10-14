@@ -78,9 +78,15 @@ function firstErrorByField(error: z.ZodError<ContactFormValues>) {
   ) as Partial<Record<ContactFieldName, string>>
 }
 
-/** Identifica quem envia para o rate limiting (IP repassado pela plataforma). */
+/**
+ * Identifica quem envia para o rate limiting.
+ *
+ * Usa o último IP de x-forwarded-for: é o que o proxy da hospedagem acrescentou,
+ * enquanto os primeiros podem ser enviados pelo próprio visitante para escapar
+ * do limite. Na Vercel o cabeçalho é reescrito pela plataforma e tem um só IP.
+ */
 function getClientKey(requestHeaders: Headers): string {
-  const forwardedFor = requestHeaders.get('x-forwarded-for')?.split(',')[0]?.trim()
+  const forwardedFor = requestHeaders.get('x-forwarded-for')?.split(',').at(-1)?.trim()
   return forwardedFor || requestHeaders.get('x-real-ip')?.trim() || 'desconhecido'
 }
 

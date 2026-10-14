@@ -12,6 +12,15 @@ const securityHeaders = [
     value: 'camera=(), microphone=(), geolocation=(), browsing-topics=()',
   },
   { key: 'Strict-Transport-Security', value: 'max-age=63072000' },
+  // Política de conteúdo mínima, que não depende de nonce (o site é estático):
+  // impede <base> e envio de formulários para outros domínios, embutir o site em
+  // iframes e plugins (<object>/<embed>).
+  {
+    key: 'Content-Security-Policy',
+    value: "base-uri 'self'; form-action 'self'; frame-ancestors 'none'; object-src 'none'",
+  },
+  // Isola a janela do site de páginas abertas a partir dele (e vice-versa).
+  { key: 'Cross-Origin-Opener-Policy', value: 'same-origin' },
 ]
 
 const nextConfig: NextConfig = {

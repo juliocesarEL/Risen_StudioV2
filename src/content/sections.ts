@@ -8,7 +8,6 @@ const joinWithAnd = (items: string[]) =>
   items.length > 1 ? `${items.slice(0, -1).join(', ')} e ${items.at(-1)}` : (items[0] ?? '')
 
 export const heroContent = {
-  eyebrow: `Estúdio de design e desenvolvimento · ${city}, ${state}`,
   title: {
     lead: 'Ideias extraordinárias merecem',
     highlight: 'experiências digitais à altura.',
@@ -22,7 +21,6 @@ export const heroContent = {
 
 export const servicesSection = {
   heading: {
-    eyebrow: 'Serviços',
     title: 'Do primeiro site ao sistema que sustenta a operação',
     description:
       'Três frentes de trabalho com o mesmo cuidado: entender o objetivo antes de escrever a primeira linha de código.',
@@ -33,7 +31,6 @@ export const servicesSection = {
 
 export const projectsSection = {
   heading: {
-    eyebrow: 'Projetos',
     title: 'Trabalhos que mostram como pensamos e construímos',
     description:
       'Cada projeto traz um selo que indica sua origem: feito para um cliente, autoral ou conceito.',
@@ -58,7 +55,6 @@ export const projectsSection = {
 
 export const differentialsSection = {
   heading: {
-    eyebrow: 'Diferenciais',
     title: 'O que você pode esperar de nós',
     description: 'Compromissos que guiam cada projeto, do primeiro esboço à entrega.',
   } satisfies SectionCopy,
@@ -66,7 +62,6 @@ export const differentialsSection = {
 
 export const processSection = {
   heading: {
-    eyebrow: 'Processo',
     title: 'Como um projeto ganha forma',
     description: 'Etapas claras, para você saber o que acontece em cada momento.',
   } satisfies SectionCopy,
@@ -75,7 +70,6 @@ export const processSection = {
 
 export const needsSection = {
   heading: {
-    eyebrow: 'Soluções por necessidade',
     title: 'Qual é o seu momento?',
     description: 'Escolha a situação mais parecida com a sua. A conversa já começa no ponto certo.',
   } satisfies SectionCopy,
@@ -86,7 +80,6 @@ export const needsSection = {
 
 export const aboutSection = {
   heading: {
-    eyebrow: 'Sobre',
     title: 'Quem está por trás da Risen Studio',
   } satisfies SectionCopy,
   workingTitle: 'Como trabalhamos',
@@ -109,7 +102,6 @@ export const aboutSection = {
 
 export const faqSection = {
   heading: {
-    eyebrow: 'Perguntas frequentes',
     title: 'Dúvidas comuns antes de começar',
   } satisfies SectionCopy,
   moreQuestions: 'Não encontrou sua dúvida?',

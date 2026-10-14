@@ -47,7 +47,7 @@ export type IconName =
 
 /** Ícones de tecnologias (mapeados em components/shared/tech-icon.tsx). */
 export type TechIconId =
-  'nextjs' | 'react' | 'typescript' | 'tailwindcss' | 'nodejs' | 'postgresql' | 'figma' | 'vercel'
+  'javascript' | 'typescript' | 'react' | 'nodejs' | 'express' | 'sqlite' | 'postgresql'
 
 /* ---------------------------------------------------------------------------
  * Blocos reutilizáveis
@@ -66,8 +66,6 @@ export interface Link {
 }
 
 export interface SectionCopy {
-  /** Rótulo curto acima do título. */
-  eyebrow: string
   title: string
   description?: string
 }
@@ -119,7 +117,8 @@ export interface SiteConfig {
     serviceAreas: string[]
   }
   contact: {
-    email: string
+    /** E-mail comercial. null enquanto não houver um real: o site então o omite. */
+    email: string | null
     whatsapp: {
       /** Apenas dígitos, com DDI e DDD (ex.: 55 + DDD + número). */
       number: string
@@ -193,6 +192,38 @@ export interface Project {
    * desenvolvimento e nunca é publicado em produção.
    */
   placeholder?: boolean
+}
+
+/* ---------------------------------------------------------------------------
+ * Bancada ao vivo (hero)
+ * ------------------------------------------------------------------------- */
+
+/** Papel de um trecho de código no realce de sintaxe. */
+export type SyntaxRole =
+  'keyword' | 'component' | 'attribute' | 'string' | 'punctuation' | 'plain' | 'comment'
+
+export interface CodeLine {
+  /** Nível de recuo (cada nível equivale a dois espaços). */
+  indent: number
+  tokens: [SyntaxRole, string][]
+  /** Peça do preview que surge quando esta linha termina de ser digitada. */
+  builds?: string
+}
+
+export type WorkbenchTabId = 'site' | 'sistema' | 'integracao'
+
+export interface WorkbenchTab {
+  id: WorkbenchTabId
+  /** Nome do arquivo exibido na aba. */
+  file: string
+  /** Nome acessível da aba. */
+  label: string
+  projectType: ProjectTypeId
+  /** O que a demonstração mostra, para leitores de tela. */
+  summary: string
+  /** Rótulo do botão de orçamento deste tipo de projeto. */
+  quoteLabel: string
+  code: CodeLine[]
 }
 
 export interface Differential {

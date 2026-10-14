@@ -13,8 +13,8 @@
 const cnConfig = {
   extend: {
     theme: {
-      text: ['display', 'page-title', 'h2', 'title', 'h3', 'lead', 'eyebrow'],
-      shadow: ['card', 'glow', 'window'],
+      text: ['display', 'page-title', 'h2', 'title', 'h3', 'lead'],
+      shadow: ['card', 'glow', 'glow-strong', 'window'],
       radius: ['card', 'pill'],
       spacing: ['section', 'gutter', 'nav'],
       container: ['content'],

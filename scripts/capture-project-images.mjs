@@ -4,6 +4,8 @@
  *
  * Uso: com `pnpm dev` rodando em outro terminal (o parâmetro ?cena só vale em desenvolvimento):
  *      pnpm capture:project-images [--url=http://localhost:3000]
+ * Ou, numa máquina com placa de vídeo, a partir do servidor de produção:
+ *      pnpm capture:project-images --gpu --url=http://localhost:3100
  */
 import { mkdir } from 'node:fs/promises'
 import { join } from 'node:path'
@@ -23,11 +25,13 @@ const viewport = { width: 1600, height: 1000 }
 
 /**
  * Captura -> seletor da seção (null = topo da página) e espera antes de capturar.
- * A capa espera mais: a cena WebGL carrega quando o navegador fica ocioso e tem
- * uma entrada animada (mais lenta no navegador sem GPU usado aqui).
+ * A capa espera a bancada do hero terminar a primeira aba (~6,6 s desde a
+ * abertura) e a cena WebGL carregar, mas não a troca automática de aba (~10 s).
  */
+const COVER_WAIT_MS = 7000
+
 const shots = [
-  { file: 'capa.png', selector: null, waitMs: 9000 },
+  { file: 'capa.png', selector: null, waitMs: COVER_WAIT_MS },
   { file: 'servicos.png', selector: '#servicos', waitMs: 2500 },
   { file: 'processo.png', selector: '#processo', waitMs: 2500 },
   { file: 'contato.png', selector: '#contato', waitMs: 2500 },
@@ -36,13 +40,20 @@ const shots = [
 const HIDE_OVERLAYS =
   'nextjs-portal, [aria-label="Conversar no WhatsApp"] { visibility: hidden !important; }'
 
+/**
+ * --gpu: usa a placa de vídeo da máquina (Windows/Direct3D). Assim a cena WebGL
+ * carrega como num aparelho real e a captura pode vir do servidor de produção.
+ * Sem a opção, o navegador renderiza por software e precisa do ?cena (só no dev).
+ */
+const useGpu = args.gpu === 'true'
+const gpuArgs = useGpu
+  ? ['--use-angle=d3d11', '--enable-gpu', '--ignore-gpu-blocklist']
+  : ['--use-angle=swiftshader', '--enable-unsafe-swiftshader']
+
 await mkdir(outDir, { recursive: true })
-const browser = await chromium.launch({
-  args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader'],
-})
+const browser = await chromium.launch({ args: gpuArgs })
 const page = await browser.newPage({ viewport, deviceScaleFactor: 1 })
-// ?cena força a cena WebGL no modo de desenvolvimento (este navegador não tem GPU).
-await page.goto(new URL('/?cena', baseUrl).toString(), { waitUntil: 'networkidle' })
+await page.goto(new URL(useGpu ? '/' : '/?cena', baseUrl).toString(), { waitUntil: 'networkidle' })
 await page.evaluate(() => document.fonts.ready)
 await page.addStyleTag({ content: HIDE_OVERLAYS })
 

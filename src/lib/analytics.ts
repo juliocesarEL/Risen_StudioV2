@@ -14,7 +14,14 @@ export const analyticsEvents = {
 
 /** Onde o CTA de orçamento foi clicado. */
 export type CtaSource =
-  'navbar' | 'menu-mobile' | 'hero' | 'servico' | 'projetos' | 'necessidade' | 'estudo-de-caso'
+  | 'navbar'
+  | 'menu-mobile'
+  | 'hero'
+  | 'bancada'
+  | 'servico'
+  | 'projetos'
+  | 'necessidade'
+  | 'estudo-de-caso'
 
 /** Onde o botão de WhatsApp foi clicado. */
 export type WhatsAppSource =

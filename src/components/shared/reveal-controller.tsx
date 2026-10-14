@@ -11,6 +11,12 @@ const EASE_OUT = [0.22, 1, 0.36, 1] as const
 const ENTRANCE = { duration: 0.7, distance: '1.5rem' }
 /** Trilhos que se "desenham" (data-reveal="draw"). */
 const DRAW = { duration: 1.4 }
+/**
+ * Títulos (data-reveal="title"): se alargam até a largura final, saindo do
+ * desfoque, como as letras largas do logotipo. Só transform, opacity e filter:
+ * nenhuma mudança de layout.
+ */
+const TITLE = { duration: 1.1, fromScale: 0.84, fromBlur: '8px' }
 
 /** A entrada começa quando o elemento passa 10% da altura da tela. */
 const VIEWPORT_MARGIN = '0px 0px -10% 0px'
@@ -27,6 +33,20 @@ function reveal(element: HTMLElement) {
       element,
       { transform: ['scale(0)', 'scale(1)'] },
       { duration: DRAW.duration, ease: EASE_OUT },
+    )
+    return
+  }
+
+  if (element.dataset.reveal === 'title') {
+    element.style.transformOrigin = 'left center'
+    animate(
+      element,
+      {
+        opacity: [0, 1],
+        transform: [`scaleX(${TITLE.fromScale})`, 'none'],
+        filter: [`blur(${TITLE.fromBlur})`, 'blur(0px)'],
+      },
+      { duration: TITLE.duration, ease: EASE_OUT },
     )
     return
   }

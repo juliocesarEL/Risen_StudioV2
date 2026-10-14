@@ -1,0 +1,211 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-13T00:00:00Z",
+  "title": "Design System: Risen Studio",
+  "extensions": {
+    "colorMeta": {
+      "night": { "role": "neutral", "displayName": "Noite", "canonical": "#03040b", "tonalRamp": ["#03040b", "#11142b", "#282c4f", "#4d5274", "#7a80a6", "#a4a9c6", "#cdd0e4", "#ececef"] },
+      "night-raised": { "role": "neutral", "displayName": "Noite Elevada", "canonical": "#090b19", "tonalRamp": ["#03040b", "#11142b", "#282c4f", "#4d5274", "#7a80a6", "#a4a9c6", "#cdd0e4", "#ececef"] },
+      "night-deep-panel": { "role": "neutral", "displayName": "Painel Profundo", "canonical": "#11142b", "tonalRamp": ["#03040b", "#11142b", "#282c4f", "#4d5274", "#7a80a6", "#a4a9c6", "#cdd0e4", "#ececef"] },
+      "logo-white": { "role": "neutral", "displayName": "Branco do Logotipo", "canonical": "#ececef", "tonalRamp": ["#03040b", "#11142b", "#282c4f", "#4d5274", "#7a80a6", "#a4a9c6", "#cdd0e4", "#ececef"] },
+      "body-mist": { "role": "neutral", "displayName": "Névoa de Texto", "canonical": "#a4a9c6", "tonalRamp": ["#03040b", "#11142b", "#282c4f", "#4d5274", "#7a80a6", "#a4a9c6", "#cdd0e4", "#ececef"] },
+      "quote-mist": { "role": "neutral", "displayName": "Névoa Clara", "canonical": "#cdd0e4", "tonalRamp": ["#03040b", "#11142b", "#282c4f", "#4d5274", "#7a80a6", "#a4a9c6", "#cdd0e4", "#ececef"] },
+      "muted-slate": { "role": "neutral", "displayName": "Ardósia", "canonical": "#7a80a6", "tonalRamp": ["#03040b", "#11142b", "#282c4f", "#4d5274", "#7a80a6", "#a4a9c6", "#cdd0e4", "#ececef"] },
+      "dim-slate": { "role": "neutral", "displayName": "Ardósia Apagada (decorativa)", "canonical": "#4d5274", "tonalRamp": ["#03040b", "#11142b", "#282c4f", "#4d5274", "#7a80a6", "#a4a9c6", "#cdd0e4", "#ececef"] },
+      "faint-slate": { "role": "neutral", "displayName": "Ardósia Esmaecida (decorativa)", "canonical": "#2e3253", "tonalRamp": ["#03040b", "#11142b", "#282c4f", "#4d5274", "#7a80a6", "#a4a9c6", "#cdd0e4", "#ececef"] },
+      "line": { "role": "neutral", "displayName": "Linha", "canonical": "#191c35", "tonalRamp": ["#03040b", "#11142b", "#191c35", "#282c4f", "#4d5274", "#7a80a6", "#a4a9c6", "#ececef"] },
+      "line-strong": { "role": "neutral", "displayName": "Linha Forte", "canonical": "#282c4f", "tonalRamp": ["#03040b", "#11142b", "#191c35", "#282c4f", "#4d5274", "#7a80a6", "#a4a9c6", "#ececef"] },
+      "accent-violet": { "role": "secondary", "displayName": "Violeta de Acento", "canonical": "#9c7cff", "tonalRamp": ["#251a52", "#3d2b85", "#5a40b8", "#7a5be6", "#9c7cff", "#b7a0ff", "#d3c5ff", "#eee8ff"] },
+      "brand-blue": { "role": "primary", "displayName": "Azul-Elétrico do R", "canonical": "#3386fe", "tonalRamp": ["#0a1f45", "#103171", "#18479f", "#2160d4", "#3386fe", "#6aa6ff", "#a5c9ff", "#dbe9ff"] },
+      "brand-indigo": { "role": "primary", "displayName": "Índigo do R", "canonical": "#5658f8", "tonalRamp": ["#14154a", "#1f2178", "#2d30a8", "#4245d6", "#5658f8", "#8384fa", "#b1b2fc", "#e0e0fe"] },
+      "brand-violet": { "role": "primary", "displayName": "Violeta do R", "canonical": "#8457fc", "tonalRamp": ["#22104f", "#371a80", "#5029b4", "#6b3fe6", "#8457fc", "#a586fd", "#c7b3fe", "#e9e0ff"] },
+      "field-blue": { "role": "tertiary", "displayName": "Campo Azul Profundo", "canonical": "#0119c3", "tonalRamp": ["#000a52", "#011185", "#0119c3", "#1f3ae6", "#4f66f0", "#8394f5", "#b8c2fa", "#e5e9fe"] },
+      "field-violet": { "role": "tertiary", "displayName": "Campo Violeta Profundo", "canonical": "#3310ac", "tonalRamp": ["#170650", "#230a7e", "#3310ac", "#4c2bd0", "#6e55e0", "#9884ea", "#c3b6f3", "#ebe6fb"] },
+      "action-from": { "role": "primary", "displayName": "Ação — Azul", "canonical": "#2a62ee", "tonalRamp": ["#0a1f45", "#103171", "#18479f", "#2a62ee", "#3386fe", "#6aa6ff", "#a5c9ff", "#dbe9ff"] },
+      "action-via": { "role": "primary", "displayName": "Ação — Índigo", "canonical": "#4f50ee", "tonalRamp": ["#14154a", "#1f2178", "#2d30a8", "#4f50ee", "#5658f8", "#8384fa", "#b1b2fc", "#e0e0fe"] },
+      "action-to": { "role": "primary", "displayName": "Ação — Violeta", "canonical": "#7448f0", "tonalRamp": ["#22104f", "#371a80", "#5029b4", "#7448f0", "#8457fc", "#a586fd", "#c7b3fe", "#e9e0ff"] },
+      "text-gradient-from": { "role": "primary", "displayName": "Texto em Gradiente — Azul", "canonical": "#4f94ff", "tonalRamp": ["#0a1f45", "#103171", "#18479f", "#2160d4", "#4f94ff", "#6aa6ff", "#a5c9ff", "#dbe9ff"] },
+      "text-gradient-via": { "role": "primary", "displayName": "Texto em Gradiente — Índigo", "canonical": "#7d7dff", "tonalRamp": ["#14154a", "#1f2178", "#2d30a8", "#4245d6", "#7d7dff", "#8384fa", "#b1b2fc", "#e0e0fe"] },
+      "text-gradient-to": { "role": "primary", "displayName": "Texto em Gradiente — Violeta", "canonical": "#a585ff", "tonalRamp": ["#22104f", "#371a80", "#5029b4", "#6b3fe6", "#a585ff", "#a586fd", "#c7b3fe", "#e9e0ff"] },
+      "on-gradient": { "role": "neutral", "displayName": "Branco sobre Gradiente", "canonical": "#ffffff", "tonalRamp": ["#03040b", "#11142b", "#282c4f", "#4d5274", "#7a80a6", "#a4a9c6", "#ececef", "#ffffff"] },
+      "window-red": { "role": "tertiary", "displayName": "Semáforo Vermelho (perigo)", "canonical": "#ff5f57", "tonalRamp": ["#4a0f0c", "#7a1a16", "#b02a24", "#e3433b", "#ff5f57", "#ff8d87", "#ffbcb8", "#ffe6e4"] },
+      "window-yellow": { "role": "tertiary", "displayName": "Semáforo Amarelo (compilando)", "canonical": "#febc2e", "tonalRamp": ["#4a3205", "#7a530a", "#ad7712", "#e09d1f", "#febc2e", "#fed06a", "#fee3a6", "#fff5df"] },
+      "window-green": { "role": "tertiary", "displayName": "Semáforo Verde (sucesso, WhatsApp)", "canonical": "#28c840", "tonalRamp": ["#0a3a12", "#10601e", "#178a2b", "#1eb036", "#28c840", "#64da74", "#a2e9aa", "#dcf8df"] },
+      "syntax-component": { "role": "tertiary", "displayName": "Sintaxe — Componente", "canonical": "#5c9bff", "tonalRamp": ["#0a1f45", "#103171", "#18479f", "#2160d4", "#5c9bff", "#6aa6ff", "#a5c9ff", "#dbe9ff"] },
+      "syntax-attribute": { "role": "tertiary", "displayName": "Sintaxe — Atributo", "canonical": "#8f90ff", "tonalRamp": ["#14154a", "#1f2178", "#2d30a8", "#4245d6", "#8f90ff", "#8384fa", "#b1b2fc", "#e0e0fe"] },
+      "syntax-string": { "role": "tertiary", "displayName": "Sintaxe — Texto", "canonical": "#c4b4ff", "tonalRamp": ["#251a52", "#3d2b85", "#5a40b8", "#7a5be6", "#9c7cff", "#c4b4ff", "#d3c5ff", "#eee8ff"] },
+      "syntax-comment": { "role": "tertiary", "displayName": "Sintaxe — Comentário", "canonical": "#6b7196", "tonalRamp": ["#03040b", "#11142b", "#282c4f", "#4d5274", "#6b7196", "#a4a9c6", "#cdd0e4", "#ececef"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Só o H1 do hero, Archivo larga (wdth 125%, 112% abaixo de 640px); o destaque recebe o único texto em gradiente do site." },
+      "page-title": { "displayName": "Page Title", "purpose": "H1 das páginas internas (estudo de caso, privacidade)." },
+      "headline": { "displayName": "Headline", "purpose": "H2 de seção; entra 'se alargando' (scaleX 0,84 → 1, desfoque 8px → 0)." },
+      "title": { "displayName": "Title", "purpose": "Destaque entre H2 e H3: convite de projeto, card de projeto em destaque. Largura semi (112%)." },
+      "title-small": { "displayName": "Title Small", "purpose": "H3 de serviços, projetos e itens. Largura semi (112%)." },
+      "lead": { "displayName": "Lead", "purpose": "Subtítulo do hero e descrições de seção." },
+      "body": { "displayName": "Body", "purpose": "Texto corrido em body-mist, text-wrap pretty." },
+      "label": { "displayName": "Rótulo de grupo", "purpose": "Títulos de grupos de itens, em caixa de frase e text-subtle. Substitui eyebrows." },
+      "label-mono": { "displayName": "Label Mono", "purpose": "Caminho, abas e barra de status da bancada; barra de status do rodapé; selos (10px, caixa alta, 0,12em)." },
+      "code": { "displayName": "Code", "purpose": "Linhas da bancada, 10px no celular, 11px a partir de 640px, 12px a partir de 1280px." }
+    },
+    "gradients": [
+      { "name": "gradient-primary", "value": "linear-gradient(90deg, #3386fe, #5658f8, #8457fc)", "purpose": "Gradiente exato do R: traços, linhas de aba, sublinhados, monograma. Nunca fundo de texto." },
+      { "name": "gradient-action", "value": "linear-gradient(90deg, #2a62ee, #4f50ee, #7448f0)", "purpose": "Fundos com texto branco (≥ 5,1:1): botões principais e região do convite de projeto." },
+      { "name": "gradient-text", "value": "linear-gradient(90deg, #4f94ff, #7d7dff, #a585ff)", "purpose": "Só o destaque do H1 do hero (≥ 6:1 sobre a noite), com varredura lenta de 9s." }
+    ],
+    "shadows": [
+      { "name": "shadow-card", "value": "inset 0 1px 0 0 color-mix(in srgb, var(--text) 5%, transparent), 0 24px 48px -28px color-mix(in srgb, var(--bg) 90%, transparent)", "purpose": "Cards de projeto: filete de luz no topo e sombra longa e escura." },
+      { "name": "shadow-glow", "value": "inset 0 1px 0 0 color-mix(in srgb, var(--on-gradient) 22%, transparent), 0 14px 36px -14px color-mix(in srgb, var(--brand-indigo) 70%, transparent)", "purpose": "Botão em gradiente em repouso." },
+      { "name": "shadow-glow-strong", "value": "inset 0 1px 0 0 color-mix(in srgb, var(--on-gradient) 30%, transparent), 0 20px 44px -14px color-mix(in srgb, var(--brand-violet) 75%, transparent)", "purpose": "Botão em gradiente no hover." },
+      { "name": "shadow-window", "value": "0 40px 80px -40px color-mix(in srgb, var(--bg) 95%, transparent)", "purpose": "Janelas e molduras de navegador." },
+      { "name": "shadow-workbench", "value": "inset 0 1px 0 0 color-mix(in srgb, var(--text) 7%, transparent), 0 40px 80px -32px color-mix(in srgb, var(--field-blue) 45%, transparent), 0 24px 48px -24px color-mix(in srgb, var(--bg) 90%, transparent)", "purpose": "Só a janela da bancada do hero: a única superfície com sombra azulada." }
+    ],
+    "motion": [
+      { "name": "ease-out", "value": "cubic-bezier(0.22, 1, 0.36, 1)", "purpose": "Curva única de todas as entradas e da coreografia da bancada." },
+      { "name": "entrance", "value": "700ms, translateY(1.5rem) → 0, opacity 0 → 1", "purpose": "Blocos marcados com Reveal." },
+      { "name": "stagger", "value": "80ms", "purpose": "Intervalo entre itens de lista que entram em sequência." },
+      { "name": "title-widen", "value": "1100ms, scaleX(0.84) → none, blur(8px) → 0, origem à esquerda", "purpose": "Títulos de seção 'se alargam', como o logotipo largo." },
+      { "name": "draw", "value": "1400ms, scale(0) → scale(1)", "purpose": "Traços em gradiente que se desenham (topo dos painéis de serviço, trilho do processo)." },
+      { "name": "tab-draw", "value": "500ms, scaleX(0) → 1", "purpose": "Linha da aba ativa da bancada e sublinhado da aba ativa do menu." },
+      { "name": "assemble", "value": "650ms, translateY(0.5rem) scale(0.96) blur(6px) → none, contorno azul a 55%", "purpose": "Peça do preview da bancada surgindo com 'hot reload'." },
+      { "name": "sweep", "value": "1100ms", "purpose": "Varredura de luz quando o projeto da bancada 'compila'." },
+      { "name": "button-gradient-slide", "value": "500ms ease-out, background-position left → right sobre fundo a 180%", "purpose": "Hover do botão principal: a luz corre pelo R." },
+      { "name": "reduced-motion", "value": "animation/transition-duration 0.01ms, delays 0s", "purpose": "Com movimento reduzido, tudo aparece montado; a bancada não avança sozinha." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" },
+      { "name": "xl", "value": "1280px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Botão em Gradiente",
+      "kind": "button",
+      "refersTo": "button-gradient",
+      "description": "Ação principal (orçamento): pílula no gradiente de ação, texto branco, brilho índigo; o gradiente desliza no hover.",
+      "html": "<button class=\"ds-btn-gradient\">Solicitar orçamento<svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg></button>",
+      "css": ".ds-btn-gradient { display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 20px; border: 1px solid transparent; border-radius: 999px; background-image: var(--gradient-action); background-size: 180% 100%; background-position: left; color: var(--on-gradient); font-family: var(--font-body); font-size: 0.875rem; font-weight: 600; box-shadow: var(--shadow-glow); cursor: pointer; transition: background-position 500ms ease-out, box-shadow 500ms ease-out, transform 200ms; } .ds-btn-gradient:hover { background-position: right; box-shadow: var(--shadow-glow-strong); } .ds-btn-gradient:active { transform: translateY(1px); } .ds-btn-gradient:focus-visible { outline: none; box-shadow: var(--shadow-glow), 0 0 0 2px var(--bg), 0 0 0 5px color-mix(in srgb, var(--accent) 60%, transparent); }"
+    },
+    {
+      "name": "Botão Inverso",
+      "kind": "button",
+      "refersTo": "button-inverse",
+      "description": "Só sobre regiões em gradiente, onde o botão em gradiente sumiria.",
+      "html": "<div class=\"ds-inverse-stage\"><button class=\"ds-btn-inverse\">Solicitar orçamento</button></div>",
+      "css": ".ds-inverse-stage { padding: 24px; border-radius: 1.5rem; background-image: var(--gradient-action); } .ds-btn-inverse { display: inline-flex; align-items: center; height: 44px; padding: 0 20px; border: 1px solid transparent; border-radius: 999px; background: var(--text); color: var(--bg); font-family: var(--font-body); font-size: 0.875rem; font-weight: 600; cursor: pointer; transition: background-color 200ms, transform 200ms; } .ds-btn-inverse:hover { background: #ffffff; } .ds-btn-inverse:active { transform: translateY(1px); } .ds-btn-inverse:focus-visible { outline: 2px solid var(--ring); outline-offset: 3px; }"
+    },
+    {
+      "name": "Botão Outline",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Ação secundária (Explorar projetos, CTAs de serviço): contorno forte sobre superfície ghost.",
+      "html": "<button class=\"ds-btn-outline\">Explorar projetos</button>",
+      "css": ".ds-btn-outline { display: inline-flex; align-items: center; height: 44px; padding: 0 20px; border: 1px solid var(--line2); border-radius: 999px; background: var(--surface-ghost); color: var(--text); font-family: var(--font-body); font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: background-color 200ms, border-color 200ms, transform 200ms; } .ds-btn-outline:hover { border-color: var(--text-dim); background: var(--surface-hover); } .ds-btn-outline:active { transform: translateY(1px); } .ds-btn-outline:focus-visible { outline: 2px solid var(--ring); outline-offset: 3px; }"
+    },
+    {
+      "name": "Botão WhatsApp",
+      "kind": "button",
+      "refersTo": "button-whatsapp",
+      "description": "Contato direto: verde dos semáforos com texto na cor da noite.",
+      "html": "<button class=\"ds-btn-whatsapp\">Chamar no WhatsApp</button>",
+      "css": ".ds-btn-whatsapp { display: inline-flex; align-items: center; height: 44px; padding: 0 20px; border: 1px solid transparent; border-radius: 999px; background: var(--whatsapp); color: var(--on-accent); font-family: var(--font-body); font-size: 0.875rem; font-weight: 600; cursor: pointer; transition: filter 200ms, transform 200ms; } .ds-btn-whatsapp:hover { filter: brightness(1.1); } .ds-btn-whatsapp:active { transform: translateY(1px); } .ds-btn-whatsapp:focus-visible { outline: 2px solid var(--ring); outline-offset: 3px; }"
+    },
+    {
+      "name": "Campo de Texto",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Campo do formulário de orçamento: borda de linha, fundo ghost, foco violeta.",
+      "html": "<input class=\"ds-input\" type=\"text\" placeholder=\"Seu nome\" />",
+      "css": ".ds-input { height: 44px; width: 100%; max-width: 320px; padding: 8px 14px; border: 1px solid var(--line); border-radius: 0.7rem; background: var(--surface-ghost); color: var(--text); caret-color: var(--accent); font-family: var(--font-body); font-size: 1rem; outline: none; transition: border-color 200ms, box-shadow 200ms; } .ds-input::placeholder { color: var(--text-subtle); } .ds-input:focus-visible { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 50%, transparent); }"
+    },
+    {
+      "name": "Navegação com Aba Ativa",
+      "kind": "nav",
+      "refersTo": "nav-link-active",
+      "description": "A seção atual vira uma aba aberta: fundo translúcido e sublinhado completo no gradiente do R.",
+      "html": "<nav class=\"ds-nav\"><a href=\"#\" class=\"ds-nav-link\">Serviços</a><a href=\"#\" class=\"ds-nav-link\" aria-current=\"true\">Projetos</a><a href=\"#\" class=\"ds-nav-link\">Processo</a><a href=\"#\" class=\"ds-nav-link\">Sobre</a></nav>",
+      "css": ".ds-nav { display: flex; gap: 4px; padding: 12px; background: var(--nav-bg); } .ds-nav-link { position: relative; display: inline-flex; align-items: center; height: 44px; padding: 0 16px; border-radius: 0.875rem; color: var(--text-body); font-family: var(--font-body); font-size: 0.875rem; text-decoration: none; transition: color 300ms, background-color 300ms; } .ds-nav-link::after { content: ''; position: absolute; left: 12px; right: 12px; bottom: 4px; height: 2px; border-radius: 999px; background-image: var(--gradient-primary); transform: scaleX(0); transform-origin: left; transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1); } .ds-nav-link:hover { color: var(--text); } .ds-nav-link:hover::after { transform: scaleX(0.4); } .ds-nav-link[aria-current='true'] { background: var(--surface-hover); color: var(--text); } .ds-nav-link[aria-current='true']::after { transform: scaleX(1); } .ds-nav-link:focus-visible { outline: 2px solid var(--ring); outline-offset: 3px; }"
+    },
+    {
+      "name": "Chip de Exemplo",
+      "kind": "chip",
+      "refersTo": "chip",
+      "description": "Exemplos dentro dos painéis de serviço; não interativos.",
+      "html": "<ul class=\"ds-chips\"><li class=\"ds-chip\">Landing page</li><li class=\"ds-chip\">Site institucional</li></ul>",
+      "css": ".ds-chips { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; margin: 0; padding: 0; } .ds-chip { padding: 4px 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface-chip); color: var(--text-quote); font-family: var(--font-body); font-size: 0.875rem; }"
+    },
+    {
+      "name": "Selo de Tipo de Projeto",
+      "kind": "chip",
+      "refersTo": "badge-kind",
+      "description": "Obrigatório em todo projeto: preenchido (Cliente), contorno (Projeto autoral) ou tracejado (Conceito).",
+      "html": "<div class=\"ds-badges\"><span class=\"ds-badge ds-badge-cliente\">Cliente</span><span class=\"ds-badge ds-badge-autoral\">Projeto autoral</span><span class=\"ds-badge ds-badge-conceito\">Conceito</span></div>",
+      "css": ".ds-badges { display: flex; gap: 8px; } .ds-badge { display: inline-flex; align-items: center; height: 24px; padding: 0 10px; border: 1px solid transparent; border-radius: 999px; font-family: var(--font-mono); font-size: 0.625rem; letter-spacing: 0.12em; text-transform: uppercase; } .ds-badge-cliente { background: var(--accent); color: var(--on-accent); } .ds-badge-autoral { border-color: color-mix(in srgb, var(--accent) 45%, transparent); background: var(--surface-accent); color: var(--text); } .ds-badge-conceito { border-style: dashed; border-color: var(--line2); color: var(--text-quote); }"
+    },
+    {
+      "name": "Card de Projeto",
+      "kind": "card",
+      "refersTo": "card-project",
+      "description": "Moldura de navegador com a captura, selo, título semi-largo e link de estudo de caso em violeta.",
+      "html": "<article class=\"ds-card\"><div class=\"ds-card-frame\"></div><div class=\"ds-card-body\"><h3 class=\"ds-card-title\">Site da Risen Studio</h3><p class=\"ds-card-text\">O site que você está navegando.</p><a href=\"#\" class=\"ds-card-link\">Ver estudo de caso<svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg></a></div></article>",
+      "css": ".ds-card { display: flex; flex-direction: column; gap: 24px; max-width: 400px; padding: 16px; border: 1px solid var(--line); border-radius: 1.5rem; background: var(--surface-card); box-shadow: var(--shadow-card); transition: border-color 300ms; } .ds-card:hover { border-color: var(--line2); } .ds-card-frame { aspect-ratio: 16 / 10; border: 1px solid var(--line); border-radius: 1rem; background: var(--bg); background-image: radial-gradient(120% 80% at 0% 0%, color-mix(in srgb, var(--field-blue) 38%, transparent), transparent 60%), radial-gradient(120% 90% at 100% 100%, color-mix(in srgb, var(--field-violet) 55%, transparent), transparent 60%); box-shadow: var(--shadow-window); } .ds-card-body { display: flex; flex-direction: column; gap: 12px; padding: 0 8px 8px; } .ds-card-title { margin: 0; color: var(--text); font-family: var(--font-display); font-stretch: 112%; font-size: clamp(1.1875rem, 1.08rem + 0.45vw, 1.4375rem); font-weight: 600; line-height: 1.2; letter-spacing: -0.01em; } .ds-card-text { margin: 0; color: var(--text-body); font-family: var(--font-body); line-height: 1.65; } .ds-card-link { display: inline-flex; align-items: center; gap: 6px; color: var(--accent); font-family: var(--font-body); font-size: 0.875rem; font-weight: 500; text-decoration: none; } .ds-card-link svg { transition: transform 200ms; } .ds-card:hover .ds-card-link svg { transform: translateX(2px); } .ds-card-link:focus-visible { outline: 2px solid var(--ring); outline-offset: 3px; }"
+    },
+    {
+      "name": "Bancada ao Vivo",
+      "kind": "custom",
+      "refersTo": "workbench-window",
+      "description": "Assinatura do hero: janela do editor com abas de arquivo, código com realce e preview num campo profundo.",
+      "html": "<div class=\"ds-wb\"><div class=\"ds-wb-bar\"><span class=\"ds-wb-lights\"><i style=\"background:var(--window-red)\"></i><i style=\"background:var(--window-yellow)\"></i><i style=\"background:var(--window-green)\"></i></span><span class=\"ds-wb-path\">~/risen/projetos</span></div><div class=\"ds-wb-tabs\"><button class=\"ds-wb-tab\">site.tsx</button><button class=\"ds-wb-tab\" aria-selected=\"true\">sistema.tsx</button><button class=\"ds-wb-tab\">integracao.ts</button></div><div class=\"ds-wb-body\"><pre class=\"ds-wb-code\"><span class=\"n\">1</span><span style=\"color:var(--syntax-keyword)\">export function</span> <span style=\"color:var(--syntax-component)\">Painel</span>() {\n<span class=\"n\">2</span>  <span style=\"color:var(--syntax-keyword)\">return</span> <span style=\"color:var(--syntax-punctuation)\">&lt;</span><span style=\"color:var(--syntax-component)\">Grafico</span> <span style=\"color:var(--syntax-attribute)\">tema</span>=<span style=\"color:var(--syntax-string)\">\"risen\"</span> <span style=\"color:var(--syntax-punctuation)\">/&gt;</span>\n<span class=\"n\">3</span>}</pre><div class=\"ds-wb-preview\"></div></div><div class=\"ds-wb-status\">pronto</div></div>",
+      "css": ".ds-wb { overflow: hidden; max-width: 560px; border: 1px solid var(--line2); border-radius: 1.25rem; background: var(--bg2); box-shadow: inset 0 1px 0 0 color-mix(in srgb, var(--text) 7%, transparent), 0 40px 80px -32px color-mix(in srgb, var(--field-blue) 45%, transparent), 0 24px 48px -24px color-mix(in srgb, var(--bg) 90%, transparent); } .ds-wb-bar { display: flex; align-items: center; gap: 12px; min-height: 44px; padding: 0 16px; border-bottom: 1px solid var(--line); } .ds-wb-lights { display: flex; gap: 6px; } .ds-wb-lights i { width: 10px; height: 10px; border-radius: 999px; } .ds-wb-path, .ds-wb-status { font-family: var(--font-mono); font-size: 0.6875rem; color: var(--text-muted); } .ds-wb-tabs { display: flex; border-bottom: 1px solid var(--line); } .ds-wb-tab { position: relative; min-height: 44px; padding: 0 16px; border: 0; border-right: 1px solid var(--line); background: transparent; color: var(--text-muted); font-family: var(--font-mono); font-size: 0.75rem; cursor: pointer; transition: color 200ms, background-color 200ms; } .ds-wb-tab:hover { color: var(--text-quote); } .ds-wb-tab[aria-selected='true'] { background: color-mix(in srgb, var(--bg3) 70%, transparent); color: var(--text); } .ds-wb-tab[aria-selected='true']::before { content: ''; position: absolute; inset: 0 0 auto; height: 2px; background-image: var(--gradient-primary); } .ds-wb-tab:focus-visible { outline: 2px solid var(--ring); outline-offset: -2px; } .ds-wb-body { display: grid; grid-template-columns: 1.05fr 1fr; } .ds-wb-code { margin: 0; padding: 16px 12px 20px 0; font-family: var(--font-mono); font-size: 0.6875rem; line-height: 1.85; color: var(--syntax-plain); white-space: pre; overflow: hidden; } .ds-wb-code .n { display: inline-block; width: 2.75rem; padding-right: 14px; text-align: right; color: var(--text-muted); } .ds-wb-preview { min-height: 160px; border-left: 1px solid var(--line); background-color: var(--bg); background-image: radial-gradient(120% 80% at 0% 0%, color-mix(in srgb, var(--field-blue) 38%, transparent), transparent 60%), radial-gradient(120% 90% at 100% 100%, color-mix(in srgb, var(--field-violet) 55%, transparent), transparent 60%); } .ds-wb-status { display: flex; align-items: center; min-height: 44px; padding: 0 16px; border-top: 1px solid var(--line); color: var(--text-quote); }"
+    },
+    {
+      "name": "Barra de Status do Rodapé",
+      "kind": "custom",
+      "refersTo": "label-mono",
+      "description": "Fecha a página como a barra de status fecha o editor.",
+      "html": "<div class=\"ds-statusbar\"><span class=\"ds-statusbar-item\"><i class=\"ds-statusbar-dot\"></i>Salto, SP</span><span>© 2026 Risen Studio. Todos os direitos reservados.</span><a href=\"#\" class=\"ds-statusbar-link\">Privacidade</a></div>",
+      "css": ".ds-statusbar { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 16px; padding: 12px 24px; border-top: 1px solid var(--line); background: color-mix(in srgb, var(--bg2) 60%, transparent); color: var(--text-subtle); font-family: var(--font-mono); font-size: 0.6875rem; } .ds-statusbar-item { display: inline-flex; align-items: center; gap: 8px; } .ds-statusbar-dot { width: 6px; height: 6px; border-radius: 2px; background-image: var(--gradient-primary); } .ds-statusbar-link { margin-left: auto; color: var(--text-body); text-decoration: none; transition: color 200ms; } .ds-statusbar-link:hover { color: var(--text); } .ds-statusbar-link:focus-visible { outline: 2px solid var(--ring); outline-offset: 3px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "A Bancada ao Vivo",
+    "overview": "O site é a bancada do Julio: painéis de editor sobre a noite azul da marca, onde o código vira página em tempo real. O mundo vem inteiro do logotipo oficial: o fundo quase preto azulado, o branco frio do \"RISΞN\" e o gradiente do R (azul-elétrico → índigo → violeta). Nada é cor inventada; tudo é derivado dessas três fontes em `src/app/globals.css`, espelhadas em `src/styles/brand-colors.ts`.\n\nA hierarquia vem da profundidade, não de caixas: o que importa fica à frente e mais claro, o resto recua em camadas translúcidas da mesma noite. Os títulos são largos como o logotipo (Archivo com o eixo de largura em 125%) e entram \"se alargando\". A gramática do editor (abas, barra de status, fonte mono, realce de sintaxe) aparece no hero, na aba ativa do menu, na barra de status do rodapé e nos selos; as demais seções herdam paleta, tipografia e movimento sem virar um editor. Densidade média, ritmo vertical generoso.\n\nO mundo recusa a landing de agência escura com título centralizado inteiro em gradiente, cards de vidro em grade e brilho genérico. O gradiente é material da marca, usado em traços finos ou em regiões inteiras, nunca como verniz.",
+    "keyCharacteristics": [
+      "Paleta total do logotipo: noite azul, branco frio, gradiente do R; sem cores fora da marca exceto os semáforos da janela do editor (que também servem a sucesso, perigo e WhatsApp).",
+      "Archivo variável: larga (125%) nos títulos, normal (100%) no texto; Martian Mono no código, nos rótulos de status e nos selos.",
+      "O gradiente aparece de três formas: traço de 2px que se desenha, região inteira (convite de projeto, preview da bancada) e, uma única vez, texto no destaque do hero.",
+      "Profundidade por camadas translúcidas da noite e sombras longas e escuras; brilho colorido só sob ações em gradiente e sob a janela do editor.",
+      "Um único relógio de movimento com curva de saída suave; com movimento reduzido, tudo aparece montado."
+    ],
+    "rules": [
+      { "name": "The Logo Palette Rule", "body": "Toda cor sai do logotipo ou é derivada dele por `color-mix`. Componentes nunca escrevem hex: usam utilitários do Tailwind ou `var(--token)`. Um tema novo redefine só a paleta base e as superfícies.", "section": "colors" },
+      { "name": "The Three Gradients Rule", "body": "O gradiente do R é para traços; o de ação é para fundos com texto branco; o de texto é para letras sobre a noite. Nunca troque um pelo outro: cada um existe por causa do contraste.", "section": "colors" },
+      { "name": "The Earned Gradient Text Rule", "body": "Texto em gradiente aparece uma única vez: no destaque do H1 do hero (\"experiências digitais à altura.\"). Nenhum outro título, número ou rótulo recebe gradiente.", "section": "colors" },
+      { "name": "The Wide Title Rule", "body": "Todo título de seção usa a Archivo larga (`font-stretch-display`); subtítulos e títulos de card usam a semi-larga (`font-stretch-semi`). Texto corrido nunca é largo.", "section": "typography" },
+      { "name": "The No Eyebrow Rule", "body": "Nenhum rótulo pequeno em caixa alta acima de títulos. Grupos de itens recebem o rótulo de grupo, em caixa de frase, na fonte do texto. A caixa alta espaçada fica restrita ao logotipo e aos selos de tipo de projeto.", "section": "typography" },
+      { "name": "The Colored Light Is Earned Rule", "body": "Brilho colorido só sob a ação principal e sob a bancada. Cards e painéis recuam com sombra escura; nada de halos de neon em superfícies comuns.", "section": "elevation" },
+      { "name": "The Spotlight Rule", "body": "A luz que segue o cursor (SpotlightCard, intensidade 0,11, raio 300px) é a única luz interativa sobre superfícies, configurada igual em todo o site.", "section": "elevation" }
+    ],
+    "dos": [
+      "**Do** tirar toda cor dos tokens de `globals.css` (utilitários do Tailwind ou `var(--token)`); para uma cor nova, derive da paleta por `color-mix`.",
+      "**Do** usar o gradiente de ação, com texto branco, em todo botão principal (≥ 5,1:1); sobre uma região em gradiente, use o botão inverso.",
+      "**Do** usar a Archivo larga (125%) em títulos de seção e a semi-larga (112%) em títulos de card.",
+      "**Do** marcar títulos de seção com a entrada que \"se alarga\" e manter todo movimento na curva de saída única, só com transform, opacity e filter.",
+      "**Do** rotular grupos de itens com o rótulo de grupo (14px, 600, caixa de frase) em text-subtle.",
+      "**Do** usar a gramática do editor (mono, abas, barra de status) como acento pontual: hoje ela vive na bancada, na aba ativa do menu, no rodapé e nos selos.",
+      "**Do** manter alvos de toque de pelo menos 44px e o anel de foco violeta visível.",
+      "**Do** manter todo texto visível em `src/content`; componentes recebem a cópia por props."
+    ],
+    "donts": [
+      "**Don't** colocar rótulos pequenos em caixa alta acima de títulos (eyebrows).",
+      "**Don't** aplicar texto em gradiente fora do destaque do H1 do hero.",
+      "**Don't** usar o gradiente do R (o mais claro) como fundo de texto branco; ele não passa no contraste.",
+      "**Don't** escrever hex em componentes nem trazer cores de fora do logotipo.",
+      "**Don't** usar dim-slate ou faint-slate em texto que precise ser lido.",
+      "**Don't** dar brilho colorido a cards ou painéis comuns; sombras de superfície são escuras.",
+      "**Don't** animar propriedades de layout, nem deixar conteúdo escondido com movimento reduzido ou sem JavaScript."
+    ]
+  }
+}

@@ -60,7 +60,7 @@ function Label({ htmlFor, label, optionalTag }: LabelProps) {
   return (
     <FieldLabel htmlFor={htmlFor} className="text-sm font-medium text-foreground">
       {label}
-      {optionalTag ? <span className="eyebrow text-subtle">{optionalTag}</span> : null}
+      {optionalTag ? <span className="group-label text-subtle">{optionalTag}</span> : null}
     </FieldLabel>
   )
 }
@@ -148,7 +148,12 @@ export function SelectField({ name, label, optionalTag, placeholder, options }: 
           <Label htmlFor={id} label={label} optionalTag={optionalTag} />
           <Select
             value={field.value ?? ''}
-            onValueChange={field.onChange}
+            // O Radix sincroniza um <select> nativo escondido e, se as opções dele
+            // ainda não foram registradas (hidratação lenta), devolve "" e apagaria
+            // uma pré-seleção vinda do CTA. Pela interface não há como escolher "".
+            onValueChange={(value) => {
+              if (value) field.onChange(value)
+            }}
             // Só marca o campo como visitado ao fechar a lista, para o erro não
             // aparecer enquanto a pessoa ainda escolhe.
             onOpenChange={(open) => {

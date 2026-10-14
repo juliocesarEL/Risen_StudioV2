@@ -1,4 +1,4 @@
-import { Bricolage_Grotesque, Figtree, Martian_Mono } from 'next/font/google'
+import { Archivo, Martian_Mono } from 'next/font/google'
 
 /**
  * Fontes do site, carregadas com next/font (auto-hospedadas, sem layout shift).
@@ -8,26 +8,24 @@ import { Bricolage_Grotesque, Figtree, Martian_Mono } from 'next/font/google'
  * variáveis CSS definidas aqui.
  */
 
-/** Títulos: grotesca de largura variável, usada condensada (eixo wdth). */
-const display = Bricolage_Grotesque({
+/**
+ * Títulos e texto: Archivo, uma única fonte variável. Nos títulos ela é usada
+ * larga (eixo wdth em 125%), ecoando as letras largas do logotipo "RISΞN";
+ * no texto corrido, na largura normal.
+ */
+const sans = Archivo({
   subsets: ['latin'],
-  axes: ['wdth', 'opsz'],
+  axes: ['wdth'],
   display: 'swap',
-  variable: '--font-family-display',
+  variable: '--font-family-sans',
 })
 
-/** Texto corrido. */
-const body = Figtree({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-family-body',
-})
-
-/** Rótulos, numeração e detalhes técnicos. */
+/** Código (bancada do hero), rótulos e dados. Não bloqueia a primeira pintura. */
 const mono = Martian_Mono({
   subsets: ['latin'],
   display: 'swap',
+  preload: false,
   variable: '--font-family-mono',
 })
 
-export const fontVariables = [display.variable, body.variable, mono.variable].join(' ')
+export const fontVariables = [sans.variable, mono.variable].join(' ')

@@ -19,7 +19,7 @@ export const projects: Project[] = [
     category: 'sites',
     cover: {
       src: '/images/projects/site-risen-studio/capa.png',
-      alt: 'Página inicial do site da Risen Studio, com o título em destaque sobre a cena de partículas',
+      alt: 'Página inicial do site da Risen Studio: o título em letras largas e, ao lado, um editor de código montando uma página ao vivo, sobre a cena de partículas',
     },
     summary:
       'O site que você está navegando: cena interativa em WebGL, conteúdo editável em arquivos tipados e um fluxo de orçamento pensado para gerar conversas.',
@@ -49,7 +49,7 @@ export const projects: Project[] = [
     gallery: [
       {
         src: '/images/projects/site-risen-studio/servicos.png',
-        alt: 'Seção de serviços com três cards: sites, sistemas e integrações',
+        alt: 'Seção de serviços com três painéis lado a lado: sites, sistemas e integrações',
       },
       {
         src: '/images/projects/site-risen-studio/processo.png',

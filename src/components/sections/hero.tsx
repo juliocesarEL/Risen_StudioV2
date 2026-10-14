@@ -1,10 +1,10 @@
-import { ArrowDown } from 'lucide-react'
+import { MapPin } from 'lucide-react'
 
 import { GradientText } from '@/components/reactbits/gradient-text'
 import { HeroScene } from '@/components/reactbits/hero-scene'
+import { Workbench } from '@/components/sections/hero/workbench'
 import { CTAButton, CTALink } from '@/components/shared/cta-button'
 import { Container } from '@/components/shared/section'
-import { Eyebrow } from '@/components/shared/section-heading'
 import type { heroContent } from '@/content/sections'
 
 interface HeroProps {
@@ -12,11 +12,13 @@ interface HeroProps {
   content: typeof heroContent
   /** Âncora da seção de projetos (CTA secundário). */
   projectsHref: string
-  /** Frentes de trabalho exibidas na base do hero. */
-  highlights: string[]
 }
 
-export function Hero({ id, content, projectsHref, highlights }: HeroProps) {
+/**
+ * Hero: o título largo (como o logotipo) ocupa a linha inteira; abaixo, a
+ * proposta e os CTAs ao lado da bancada ao vivo, onde um projeto se constrói.
+ */
+export function Hero({ id, content, projectsHref }: HeroProps) {
   const titleId = `${id}-titulo`
 
   return (
@@ -26,38 +28,45 @@ export function Hero({ id, content, projectsHref, highlights }: HeroProps) {
       className="relative isolate flex min-h-svh flex-col overflow-hidden"
     >
       <HeroScene className="-z-10" />
-      {/* Esmaece o fundo atrás do texto e na transição para a próxima seção. */}
+      {/* Campos de cor da marca nos cantos (como na imagem oficial) e esmaecimento na base. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(90deg,var(--bg)_0%,color-mix(in_srgb,var(--bg)_70%,transparent)_38%,transparent_70%),linear-gradient(0deg,var(--bg)_0%,transparent_28%)]"
+        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(55%_45%_at_0%_0%,color-mix(in_srgb,var(--field-blue)_32%,transparent),transparent_70%),radial-gradient(50%_45%_at_100%_100%,color-mix(in_srgb,var(--field-violet)_38%,transparent),transparent_70%),linear-gradient(0deg,var(--bg)_0%,transparent_22%)]"
       />
 
-      <Container className="flex flex-1 flex-col justify-center gap-7 pt-[calc(var(--nav-height)+3rem)] pb-12 sm:gap-8">
-        <Eyebrow>{content.eyebrow}</Eyebrow>
+      <Container className="flex flex-1 flex-col justify-center gap-10 pt-[calc(var(--nav-height)+2.5rem)] pb-16 sm:gap-12 lg:pb-20">
         <h1
           id={titleId}
-          className="max-w-[7.4em] font-display text-display font-bold font-stretch-display"
+          className="max-w-[14em] font-display text-display font-bold font-stretch-display"
         >
           {content.title.lead} <GradientText>{content.title.highlight}</GradientText>
         </h1>
-        <p className="max-w-xl text-lead text-body">{content.subtitle}</p>
-        <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-          <CTAButton source="hero" label={content.primaryCta} size="lg" />
-          <CTALink source="hero" label={content.secondaryCta} href={projectsHref} size="lg" />
-        </div>
-        <p className="text-sm text-subtle">{content.locationNote}</p>
-      </Container>
 
-      <Container className="pb-[max(1.5rem,env(safe-area-inset-bottom))]">
-        <div className="flex items-center justify-between gap-6 border-t border-line/70 pt-5">
-          <ul className="flex flex-wrap gap-x-6 gap-y-2">
-            {highlights.map((highlight) => (
-              <li key={highlight} className="eyebrow text-body">
-                {highlight}
-              </li>
-            ))}
-          </ul>
-          <ArrowDown aria-hidden="true" className="hidden size-4 shrink-0 text-subtle sm:block" />
+        <div className="grid items-start gap-10 lg:grid-cols-12 lg:gap-12">
+          {/* min-w-0: a coluna não alarga para caber o código do editor. */}
+          <div className="flex min-w-0 flex-col gap-8 lg:col-span-5 lg:pt-2">
+            <p className="max-w-xl text-lead text-body">{content.subtitle}</p>
+            {/* Lado a lado no celular grande e a partir de 1280px; empilhados de propósito
+                entre 1024 e 1279px, onde a coluna é estreita demais para os dois. */}
+            <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap lg:flex-col lg:items-start xl:flex-row xl:flex-nowrap">
+              <CTAButton source="hero" label={content.primaryCta} size="lg" className="px-5" />
+              <CTALink
+                source="hero"
+                label={content.secondaryCta}
+                href={projectsHref}
+                size="lg"
+                className="px-5"
+              />
+            </div>
+            <p className="flex items-start gap-2 text-sm text-subtle">
+              <MapPin aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-accent" />
+              {content.locationNote}
+            </p>
+          </div>
+
+          <div className="min-w-0 lg:col-span-7">
+            <Workbench />
+          </div>
         </div>
       </Container>
     </section>

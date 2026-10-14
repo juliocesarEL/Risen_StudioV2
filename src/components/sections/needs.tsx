@@ -37,7 +37,7 @@ export function Needs({ id, copy, needs }: NeedsProps) {
                   </h3>
 
                   <div className="mt-6 flex flex-col gap-1.5">
-                    <p className="eyebrow text-subtle">{copy.solutionLabel}</p>
+                    <p className="group-label text-subtle">{copy.solutionLabel}</p>
                     <p className="flex items-center gap-2 font-medium text-foreground">
                       <CornerDownRight aria-hidden="true" className="size-4 shrink-0 text-accent" />
                       {need.solution}

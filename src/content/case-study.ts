@@ -11,7 +11,6 @@ export const caseStudyCopy = {
   galleryTitle: 'Galeria',
   technologiesTitle: 'Tecnologias utilizadas',
   cta: {
-    eyebrow: 'Próximo passo',
     title: 'Quer um projeto como este?',
     description: 'Conte sua ideia e receba uma proposta pensada para o seu negócio.',
     quote: 'Solicitar orçamento',

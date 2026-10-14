@@ -52,7 +52,7 @@ export function About({ id, copy, founder, technologies }: AboutProps) {
           </SectionHeading>
 
           <Reveal className="flex flex-col gap-5">
-            <h3 className="eyebrow text-subtle">{copy.workingTitle}</h3>
+            <h3 className="group-label text-subtle">{copy.workingTitle}</h3>
             <ul className="grid gap-4 sm:grid-cols-2">
               {copy.workingStyle.map((item) => (
                 <li
@@ -79,11 +79,16 @@ export function About({ id, copy, founder, technologies }: AboutProps) {
           </Reveal>
 
           <Reveal delay={REVEAL_STAGGER * 2} className="flex flex-col gap-4">
-            <h3 className="eyebrow text-subtle">{copy.technologiesTitle}</h3>
-            <ul className="flex flex-wrap gap-x-6 gap-y-4">
+            <h3 className="group-label text-subtle">{copy.technologiesTitle}</h3>
+            <ul className="flex flex-wrap gap-3">
               {technologies.map((technology) => (
-                <li key={technology.name} className="flex items-center gap-2 text-sm text-body">
-                  <TechIcon id={technology.icon} className="text-subtle" />
+                <li
+                  key={technology.name}
+                  className="group flex w-18 flex-col items-center gap-2 text-center text-xs text-subtle"
+                >
+                  <span className="grid size-14 place-items-center rounded-xl border border-line bg-bg2 transition-[border-color,transform] duration-300 ease-out group-hover:-translate-y-0.5 group-hover:border-line-2">
+                    <TechIcon id={technology.icon} tinted className="size-6" />
+                  </span>
                   {technology.name}
                 </li>
               ))}

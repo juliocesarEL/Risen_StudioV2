@@ -8,9 +8,10 @@ import { needs } from '@/content/needs'
 import { projects } from '@/content/projects'
 import { services } from '@/content/services'
 import { siteConfig } from '@/content/site'
+import type { ProjectTypeId } from '@/types/content'
 
 const publicFile = (src: string) => join(process.cwd(), 'public', src)
-const enabledProjectTypes = new Set(
+const enabledProjectTypes = new Set<ProjectTypeId>(
   siteConfig.contactForm.projectTypes.filter((type) => type.enabled).map((type) => type.id),
 )
 

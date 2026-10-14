@@ -28,12 +28,13 @@ export function DesktopNav({ items, label }: DesktopNavProps) {
               <Link
                 href={`/#${item.sectionId}`}
                 aria-current={isActive ? 'true' : undefined}
-                className="group relative inline-flex h-11 items-center rounded-pill px-4 text-sm text-body transition-colors hover:text-foreground aria-[current=true]:text-foreground"
+                // A seção atual vira uma "aba" aberta, como as abas da bancada do hero.
+                className="group relative inline-flex h-11 items-center rounded-lg px-4 text-sm text-body transition-colors duration-300 hover:text-foreground aria-current:bg-surface-hover aria-current:text-foreground"
               >
                 {item.label}
                 <span
                   aria-hidden="true"
-                  className="absolute inset-x-4 bottom-2 h-px origin-left scale-x-0 bg-gradient-primary transition-transform duration-300 group-aria-[current=true]:scale-x-100"
+                  className="absolute inset-x-3 bottom-1 h-0.5 origin-left scale-x-0 rounded-full bg-gradient-primary transition-transform duration-500 ease-out group-hover:scale-x-40 group-aria-current:scale-x-100"
                 />
               </Link>
             </li>

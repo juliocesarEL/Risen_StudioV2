@@ -10,9 +10,12 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default: 'bg-primary text-primary-foreground hover:bg-primary/85',
+        // O gradiente desliza no hover (azul → violeta), como a luz correndo pelo R.
         gradient:
-          'bg-gradient-primary font-semibold text-on-accent shadow-glow hover:brightness-110 hover:saturate-125',
+          'bg-gradient-action bg-[length:180%_100%] bg-left font-semibold text-on-gradient shadow-glow transition-[background-position,box-shadow,transform] duration-500 ease-out hover:bg-right hover:shadow-glow-strong',
         whatsapp: 'bg-whatsapp font-semibold text-on-accent hover:brightness-110',
+        // Sobre campos de gradiente da marca, onde o botão em gradiente sumiria.
+        inverse: 'bg-foreground font-semibold text-background hover:bg-white',
         outline:
           'border-line-2 bg-ghost text-foreground hover:border-dim hover:bg-surface-hover aria-expanded:bg-surface-hover',
         secondary: 'bg-secondary text-secondary-foreground hover:bg-surface-hover',

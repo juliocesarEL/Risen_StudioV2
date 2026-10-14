@@ -20,14 +20,13 @@ export const siteConfig = {
     serviceAreas: ['Salto', 'Itu', 'Indaiatuba'],
   },
   contact: {
-    // SUBSTITUIR: e-mail comercial.
-    email: 'contato@example.com',
+    // E-mail comercial. Se for null, o site não mostra e-mail e usa o WhatsApp
+    // como canal de contato.
+    email: 'risenstudiooficial@gmail.com',
     whatsapp: {
-      // SUBSTITUIR: apenas dígitos, com DDI 55 + DDD + número (ex.: 5511900000000).
-      // O valor atual usa o DDD 00, que não existe, para nunca acionar um número real.
-      number: '5500000000000',
-      // SUBSTITUIR: número formatado para exibição.
-      display: '(00) 00000-0000',
+      // Apenas dígitos, com DDI 55 + DDD + número.
+      number: '5511989587895',
+      display: '(11) 98958-7895',
       messages: {
         default: 'Olá! Vim pelo site da Risen Studio e gostaria de conversar sobre um projeto.',
         contactSection: 'Olá! Prefiro conversar por aqui sobre o meu projeto.',
@@ -40,11 +39,10 @@ export const siteConfig = {
       },
     },
   },
-  // SUBSTITUIR: endereços dos perfis profissionais. Remova os que não usar.
   social: [
-    { label: 'Instagram', url: 'https://www.instagram.com/' },
-    { label: 'LinkedIn', url: 'https://www.linkedin.com/' },
-    { label: 'GitHub', url: 'https://github.com/' },
+    { label: 'Instagram', url: 'https://www.instagram.com/risenstudio.dev/' },
+    { label: 'LinkedIn', url: 'https://www.linkedin.com/in/juliocesarel/' },
+    { label: 'GitHub', url: 'https://github.com/juliocesarEL' },
   ],
   seo: {
     title: 'Risen Studio — Criação de sites e sistemas web em Salto, SP',
@@ -63,35 +61,34 @@ export const siteConfig = {
     ],
   },
   founder: {
-    // SUBSTITUIR: nome, função, texto e foto de quem está por trás do estúdio.
-    name: 'Nome Sobrenome',
-    role: 'Fundador · design e desenvolvimento',
+    name: 'Julio César Lavras',
+    role: 'Fundador · desenvolvedor full stack',
     bio: [
-      'À frente da Risen Studio, acompanho cada projeto do primeiro contato à entrega: entendo a necessidade, desenho a experiência e desenvolvo a solução.',
+      'Sou desenvolvedor full stack, formado em Ciência da Computação. À frente da Risen Studio, acompanho cada projeto do primeiro contato à entrega: entendo a necessidade, desenho a experiência e desenvolvo a solução.',
       'Na prática, você conversa diretamente com quem constrói o seu produto, sem intermediários e sem perder detalhes pelo caminho.',
     ],
+    // SUBSTITUIR: foto real (retrato, proporção 4:5).
     photo: {
       src: '/images/placeholders/retrato.svg',
-      alt: 'Imagem provisória no lugar da foto do responsável pela Risen Studio',
+      alt: 'Imagem provisória no lugar da foto de Julio César Lavras',
     },
   },
-  // AJUSTAR: tecnologias que o estúdio realmente usa.
   technologies: [
-    { name: 'Next.js', icon: 'nextjs' },
-    { name: 'React', icon: 'react' },
+    { name: 'JavaScript', icon: 'javascript' },
     { name: 'TypeScript', icon: 'typescript' },
-    { name: 'Tailwind CSS', icon: 'tailwindcss' },
+    { name: 'React', icon: 'react' },
     { name: 'Node.js', icon: 'nodejs' },
+    { name: 'Express', icon: 'express' },
+    { name: 'SQLite', icon: 'sqlite' },
     { name: 'PostgreSQL', icon: 'postgresql' },
-    { name: 'Figma', icon: 'figma' },
-    { name: 'Vercel', icon: 'vercel' },
   ],
   contactForm: {
     projectTypes: [
       { id: 'site-institucional', label: 'Site institucional', enabled: true },
       { id: 'landing-page', label: 'Landing page', enabled: true },
       { id: 'portfolio', label: 'Portfólio profissional', enabled: true },
-      { id: 'loja-virtual', label: 'Loja virtual', enabled: true },
+      // A Risen não oferece lojas virtuais: desligado aqui, também some do card de serviços.
+      { id: 'loja-virtual', label: 'Loja virtual', enabled: false },
       { id: 'sistema-web', label: 'Sistema web personalizado', enabled: true },
       { id: 'plataforma-saas', label: 'Plataforma SaaS', enabled: true },
       { id: 'automacao-integracao', label: 'Automação ou integração', enabled: true },

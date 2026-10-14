@@ -51,3 +51,10 @@ next-env.d.ts
 
 # capturas de verificação visual
 /.screenshots/
+
+# fluxo de design (Impeccable): capturas e logs locais ficam fora; o contrato
+# (surfaces/) e o design.json são versionados
+/.impeccable/review/
+/.impeccable/questions/
+/.impeccable/mocks/
+/.impeccable/build/

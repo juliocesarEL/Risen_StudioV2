@@ -2,7 +2,6 @@ import { ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
 
 import { Container } from '@/components/shared/section'
-import { Eyebrow } from '@/components/shared/section-heading'
 import { Button } from '@/components/ui/button'
 import { uiCopy } from '@/content/ui'
 
@@ -18,7 +17,6 @@ export default function NotFound() {
 
   return (
     <Container className="flex min-h-[80svh] flex-col justify-center gap-6 pt-[calc(var(--nav-height)+3rem)] pb-section">
-      <Eyebrow>{copy.eyebrow}</Eyebrow>
       <h1 className="max-w-3xl font-display text-page-title font-bold text-foreground font-stretch-display">
         {copy.title}
       </h1>

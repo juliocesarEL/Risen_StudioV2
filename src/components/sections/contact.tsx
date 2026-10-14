@@ -19,7 +19,7 @@ interface ContactProps {
   budgetRanges: { id: string; label: string }[]
   privacyHref: string
   newTabHint: string
-  email: string
+  email: string | null
   social: SocialLink[]
   location: { title: string; description: string }
   whatsappHrefs: { section: string; afterSubmit: string; afterError: string }
@@ -42,7 +42,18 @@ export function Contact({
   const { directContact } = copy
 
   return (
-    <Section id={id} labelledBy={titleId} {...hideWhatsAppFloatProps}>
+    <Section
+      id={id}
+      labelledBy={titleId}
+      // overflow-clip (e não hidden): corta o fundo sem quebrar o card "sticky".
+      className="isolate overflow-clip"
+      {...hideWhatsAppFloatProps}
+    >
+      {/* O fechamento retoma os campos de cor da marca do hero (cantos da imagem oficial). */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(60%_55%_at_100%_100%,color-mix(in_srgb,var(--field-violet)_42%,transparent),transparent_70%),radial-gradient(45%_40%_at_0%_20%,color-mix(in_srgb,var(--field-blue)_22%,transparent),transparent_70%)]"
+      />
       <Container className="flex flex-col gap-12 sm:gap-16">
         <SectionHeading copy={copy.heading} titleId={titleId} focusTarget />
 
@@ -69,7 +80,9 @@ export function Contact({
                 >
                   {directContact.title}
                 </h3>
-                <p className="text-body">{directContact.description}</p>
+                <p className="text-body">
+                  {email ? directContact.description : directContact.descriptionWithoutEmail}
+                </p>
               </div>
 
               <WhatsAppButton
@@ -81,29 +94,31 @@ export function Contact({
                 className="w-full"
               />
 
-              <div className="flex flex-col gap-2">
-                <p className="eyebrow text-subtle">{directContact.emailLabel}</p>
-                <div className="flex items-center justify-between gap-2">
-                  <a
-                    href={`mailto:${email}`}
-                    className="inline-flex min-h-11 min-w-0 items-center truncate text-foreground underline-offset-4 hover:underline"
-                  >
-                    {email}
-                  </a>
-                  <CopyEmailButton
-                    email={email}
-                    copy={{
-                      label: directContact.copyEmail,
-                      success: directContact.emailCopied,
-                      failure: directContact.emailCopyFailed,
-                    }}
-                  />
+              {email ? (
+                <div className="flex flex-col gap-2">
+                  <p className="group-label text-subtle">{directContact.emailLabel}</p>
+                  <div className="flex items-center justify-between gap-2">
+                    <a
+                      href={`mailto:${email}`}
+                      className="inline-flex min-h-11 min-w-0 items-center truncate text-foreground underline-offset-4 hover:underline"
+                    >
+                      {email}
+                    </a>
+                    <CopyEmailButton
+                      email={email}
+                      copy={{
+                        label: directContact.copyEmail,
+                        success: directContact.emailCopied,
+                        failure: directContact.emailCopyFailed,
+                      }}
+                    />
+                  </div>
                 </div>
-              </div>
+              ) : null}
 
               {social.length > 0 ? (
                 <div className="flex flex-col gap-2">
-                  <p className="eyebrow text-subtle">{directContact.socialTitle}</p>
+                  <p className="group-label text-subtle">{directContact.socialTitle}</p>
                   <ul className="flex flex-wrap gap-x-5">
                     {social.map((network) => (
                       <li key={network.url}>

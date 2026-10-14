@@ -62,7 +62,7 @@ export function MobileNav({ items, copy, whatsappHref }: MobileNavProps) {
         }}
       >
         <SheetHeader className="px-6 pt-6">
-          <SheetTitle className="eyebrow text-subtle">{copy.menuTitle}</SheetTitle>
+          <SheetTitle className="group-label text-subtle">{copy.menuTitle}</SheetTitle>
           <SheetDescription className="sr-only">{copy.menuDescription}</SheetDescription>
         </SheetHeader>
 

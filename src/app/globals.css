@@ -21,55 +21,91 @@
   color-scheme: dark;
 
   /* ---- Paleta base (identidade visual) ---------------------------------- */
-  --bg: #0a0a0f;
-  --bg2: #13131a;
-  --bg3: #1c1c24;
+  /* Extraída do logotipo oficial (public/images/favicon.jpeg e og-image.jpeg):
+     a noite azul do fundo, o branco frio do "RISΞN" e o gradiente do R. */
+  --bg: #03040b;
+  --bg2: #090b19;
+  --bg3: #11142b;
 
-  --text: #f4f4f5; /* títulos e texto principal */
-  --text-body: #a1a1aa; /* parágrafos */
-  --text-quote: #d4d4d8; /* destaques e citações */
-  --text-muted: #71717a; /* 4,1:1 sobre --bg — só texto grande, ícones ou placeholders */
-  --text-dim: #52525b; /* decorativo */
-  --text-faint: #3f3f46; /* decorativo */
+  --text: #ececef; /* títulos e texto principal (branco do logotipo) */
+  --text-body: #a4a9c6; /* parágrafos (8,8:1 sobre --bg) */
+  --text-quote: #cdd0e4; /* destaques e citações */
+  --text-muted: #7a80a6; /* ≥ 4,7:1 em --bg, --bg2 e --bg3 */
+  --text-dim: #4d5274; /* decorativo */
+  --text-faint: #2e3253; /* decorativo */
 
-  --accent: #c084fc;
+  --accent: #9c7cff; /* violeta da marca, clareado para texto (6,6:1) */
 
-  --line: #27272a;
-  --line2: #3f3f46;
+  --line: #191c35;
+  --line2: #282c4f;
 
-  --surface-avatar: #27272a;
+  --surface-avatar: #191c35;
+
+  /* ---- Cores do R (gradiente do logotipo) -------------------------------- */
+  --brand-blue: #3386fe;
+  --brand-indigo: #5658f8;
+  --brand-violet: #8457fc;
+
+  /* Campos de cor profundos (os brilhos dos cantos da imagem OG). */
+  --field-blue: #0119c3;
+  --field-violet: #3310ac;
 
   /* ---- Gradientes --------------------------------------------------------- */
-  --gradient-primary-from: #3b82f6;
-  --gradient-primary-via: #8b5cf6;
-  --gradient-primary-to: #ec4899;
+  /* O gradiente exato do R: grafismos, linhas, bordas e brilhos. */
+  --gradient-primary-from: #3386fe;
+  --gradient-primary-via: #5658f8;
+  --gradient-primary-to: #8457fc;
   --gradient-primary: linear-gradient(
     90deg,
     var(--gradient-primary-from),
     var(--gradient-primary-via),
     var(--gradient-primary-to)
-  ); /* botões e títulos */
+  );
 
-  --gradient-text-from: #60a5fa;
-  --gradient-text-via: #a78bfa;
-  --gradient-text-to: #c084fc;
+  /* Botões: o mesmo gradiente um pouco mais profundo, para o texto branco
+     manter ≥ 5,1:1 em toda a extensão. */
+  --gradient-action-from: #2a62ee;
+  --gradient-action-via: #4f50ee;
+  --gradient-action-to: #7448f0;
+  --gradient-action: linear-gradient(
+    90deg,
+    var(--gradient-action-from),
+    var(--gradient-action-via),
+    var(--gradient-action-to)
+  );
+
+  /* Texto em gradiente: as mesmas cores clareadas (≥ 6:1 sobre --bg). */
+  --gradient-text-from: #4f94ff;
+  --gradient-text-via: #7d7dff;
+  --gradient-text-to: #a585ff;
   --gradient-text: linear-gradient(
     90deg,
     var(--gradient-text-from),
     var(--gradient-text-via),
     var(--gradient-text-to)
-  ); /* texto em gradiente */
+  );
 
-  /* ---- Janela macOS (mockups) -------------------------------------------- */
+  /* ---- Janela do editor (bancada do hero) -------------------------------- */
   --window-red: #ff5f57;
   --window-yellow: #febc2e;
   --window-green: #28c840;
 
+  /* Realce de sintaxe do código exibido no hero (decorativo, ≥ 4,5:1 em --bg2). */
+  --syntax-keyword: var(--accent);
+  --syntax-component: #5c9bff;
+  --syntax-attribute: #8f90ff;
+  --syntax-string: #c4b4ff;
+  --syntax-punctuation: var(--text-muted);
+  --syntax-plain: var(--text-quote);
+  --syntax-comment: #6b7196;
+
   /* ---- Derivados da paleta ----------------------------------------------- */
-  /* Texto secundário pequeno com contraste AA (≥ 4,8:1 em --bg, --bg2 e --bg3). */
+  /* Texto secundário pequeno com contraste AA (≥ 6:1 em --bg, --bg2 e --bg3). */
   --text-subtle: color-mix(in srgb, var(--text-body) 50%, var(--text-muted));
-  /* Texto sobre o acento e sobre o gradiente primário (≥ 4,6:1 em todo o gradiente). */
+  /* Texto sobre o acento claro e o verde do WhatsApp. */
   --on-accent: var(--bg);
+  /* Texto sobre o gradiente de ação (botões principais). */
+  --on-gradient: #ffffff;
   --danger: var(--window-red);
   --success: var(--window-green);
   --whatsapp: var(--window-green);
@@ -89,18 +125,26 @@
   /* ---- Tipografia ---------------------------------------------------------- */
   /* Famílias: ver @theme abaixo (--font-display, --font-body, --font-mono).
      Escala fluida: cresce suavemente entre 320px e 1440px. */
-  --font-size-display: clamp(2.75rem, 1.15rem + 6.4vw, 6.75rem);
-  --font-size-page-title: clamp(2.75rem, 1.6rem + 3.6vw, 5.5rem); /* h1 das páginas internas */
-  --font-size-h2: clamp(2.25rem, 1.55rem + 3vw, 4.25rem);
-  --font-size-title: clamp(1.75rem, 1.2rem + 1.4vw, 2.5rem); /* destaque entre h2 e h3 */
-  --font-size-h3: clamp(1.375rem, 1.22rem + 0.65vw, 1.75rem);
-  --font-size-lead: clamp(1.0625rem, 0.99rem + 0.36vw, 1.3125rem);
+  /* Títulos em Archivo larga (como o logotipo): tamanhos menores que os de uma
+     fonte condensada para a mesma presença. */
+  --font-size-display: clamp(2.125rem, 1.35rem + 3.3vw, 4.5rem);
+  --font-size-page-title: clamp(2rem, 1.35rem + 2.6vw, 3.75rem); /* h1 das páginas internas */
+  --font-size-h2: clamp(1.875rem, 1.3rem + 2.3vw, 3.375rem);
+  --font-size-title: clamp(1.5rem, 1.15rem + 1.1vw, 2.125rem); /* destaque entre h2 e h3 */
+  --font-size-h3: clamp(1.1875rem, 1.08rem + 0.45vw, 1.4375rem);
+  --font-size-lead: clamp(1.0625rem, 0.99rem + 0.36vw, 1.25rem);
   --font-size-body: 1rem;
   --font-size-small: 0.875rem;
-  --font-size-eyebrow: 0.6875rem;
 
-  --display-stretch: 75%; /* largura condensada da fonte de títulos (eixo wdth) */
-  --display-stretch-semi: 87.5%; /* títulos menores (cards) */
+  /* Largura da fonte de títulos (eixo wdth da Archivo, de 62% a 125%). Em telas
+     estreitas a largura cai um pouco, para palavras longas caberem na linha. */
+  --display-stretch: 112%;
+  --display-stretch-semi: 106%;
+
+  @media (min-width: 40rem) {
+    --display-stretch: 125%;
+    --display-stretch-semi: 112%;
+  }
 
   /* ---- Espaçamento e layout ---------------------------------------------- */
   --section-space: clamp(5rem, 3.6rem + 6vw, 9.5rem);
@@ -138,8 +182,8 @@
    (font-display, rounded-card, shadow-glow...). */
 @theme {
   /* As famílias vêm de src/styles/fonts.ts (next/font). Trocar a fonte = editar só aquele arquivo. */
-  --font-display: var(--font-family-display), ui-sans-serif, system-ui, sans-serif;
-  --font-body: var(--font-family-body), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-family-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-family-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-family-mono), ui-monospace, 'SFMono-Regular', monospace;
 
   --radius-card: 1.5rem;
@@ -149,8 +193,11 @@
     inset 0 1px 0 0 color-mix(in srgb, var(--text) 5%, transparent),
     0 24px 48px -28px color-mix(in srgb, var(--bg) 90%, transparent);
   --shadow-glow:
-    0 0 0 1px color-mix(in srgb, var(--accent) 28%, transparent),
-    0 16px 48px -16px color-mix(in srgb, var(--accent) 45%, transparent);
+    inset 0 1px 0 0 color-mix(in srgb, var(--on-gradient) 22%, transparent),
+    0 14px 36px -14px color-mix(in srgb, var(--brand-indigo) 70%, transparent);
+  --shadow-glow-strong:
+    inset 0 1px 0 0 color-mix(in srgb, var(--on-gradient) 30%, transparent),
+    0 20px 44px -14px color-mix(in srgb, var(--brand-violet) 75%, transparent);
   --shadow-window: 0 40px 80px -40px color-mix(in srgb, var(--bg) 95%, transparent);
 }
 
@@ -202,29 +249,39 @@
   --color-window-red: var(--window-red);
   --color-window-yellow: var(--window-yellow);
   --color-window-green: var(--window-green);
+  --color-on-gradient: var(--on-gradient);
+  --color-brand-blue: var(--brand-blue);
+  --color-brand-indigo: var(--brand-indigo);
+  --color-brand-violet: var(--brand-violet);
+  --color-syntax-keyword: var(--syntax-keyword);
+  --color-syntax-component: var(--syntax-component);
+  --color-syntax-attribute: var(--syntax-attribute);
+  --color-syntax-string: var(--syntax-string);
+  --color-syntax-punctuation: var(--syntax-punctuation);
+  --color-syntax-plain: var(--syntax-plain);
+  --color-syntax-comment: var(--syntax-comment);
 
   /* Família padrão do Tailwind = corpo de texto */
   --font-sans: var(--font-body);
 
   /* Tamanhos (com altura de linha e espaçamento entre letras) */
   --text-display: var(--font-size-display);
-  --text-display--line-height: 0.9;
-  --text-display--letter-spacing: -0.015em;
+  --text-display--line-height: 1.02;
+  --text-display--letter-spacing: -0.03em;
   --text-page-title: var(--font-size-page-title);
-  --text-page-title--line-height: 0.92;
-  --text-page-title--letter-spacing: -0.01em;
+  --text-page-title--line-height: 1.04;
+  --text-page-title--letter-spacing: -0.025em;
   --text-h2: var(--font-size-h2);
-  --text-h2--line-height: 0.95;
-  --text-h2--letter-spacing: -0.01em;
+  --text-h2--line-height: 1.06;
+  --text-h2--letter-spacing: -0.025em;
   --text-title: var(--font-size-title);
-  --text-title--line-height: 1.05;
+  --text-title--line-height: 1.12;
+  --text-title--letter-spacing: -0.015em;
   --text-h3: var(--font-size-h3);
-  --text-h3--line-height: 1.15;
+  --text-h3--line-height: 1.2;
+  --text-h3--letter-spacing: -0.01em;
   --text-lead: var(--font-size-lead);
   --text-lead--line-height: 1.6;
-  --text-eyebrow: var(--font-size-eyebrow);
-  --text-eyebrow--line-height: 1.4;
-  --text-eyebrow--letter-spacing: 0.14em;
 
   /* Espaçamento e larguras */
   --spacing-section: var(--section-space);
@@ -256,12 +313,8 @@
   background-image: var(--gradient-primary);
 }
 
-@utility text-gradient {
-  background-image: var(--gradient-text);
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
+@utility bg-gradient-action {
+  background-image: var(--gradient-action);
 }
 
 @utility font-stretch-display {
@@ -272,13 +325,12 @@
   font-stretch: var(--display-stretch-semi);
 }
 
-/* Rótulo em mono maiúsculo. A cor fica a cargo de quem usa (ex.: text-subtle). */
-@utility eyebrow {
-  font-family: var(--font-mono);
-  font-size: var(--font-size-eyebrow);
+/* Título discreto de um grupo de itens (benefícios, exemplos, redes...), na
+   própria fonte do texto e em caixa de frase. A cor fica a cargo de quem usa. */
+@utility group-label {
+  font-size: var(--font-size-small);
+  font-weight: 600;
   line-height: 1.4;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
 }
 
 /* ---- Base ------------------------------------------------------------------ */
@@ -321,8 +373,19 @@
   }
 
   ::selection {
-    background-color: color-mix(in srgb, var(--accent) 35%, transparent);
+    background-color: color-mix(in srgb, var(--brand-indigo) 55%, transparent);
     color: var(--text);
+  }
+
+  /* Barra de rolagem e cursor de texto também seguem a marca. */
+  html {
+    scrollbar-color: var(--line2) var(--bg);
+    scrollbar-width: thin;
+  }
+
+  input,
+  textarea {
+    caret-color: var(--accent);
   }
 
   :focus-visible {
@@ -348,16 +411,27 @@
       opacity: 1;
       transform: scale(0);
     }
+
+    /* Títulos "se alargam" ao entrar, como o logotipo largo (ver reveal-controller). */
+    .js [data-reveal='title']:not([data-revealed]) {
+      opacity: 0;
+      transform: scaleX(0.84);
+      transform-origin: left center;
+      filter: blur(8px);
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    /* Transições e animações em CSS (menu, accordion, select, botões...) ficam instantâneas. */
+    /* Transições e animações em CSS (menu, accordion, select, botões...) ficam
+       instantâneas, e sem atraso: nada fica escondido esperando a vez. */
     *,
     ::before,
     ::after {
       animation-duration: 0.01ms !important;
+      animation-delay: 0s !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
+      transition-delay: 0s !important;
     }
   }
 }

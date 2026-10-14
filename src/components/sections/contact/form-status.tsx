@@ -28,7 +28,8 @@ interface SubmissionErrorProps {
   code: SubmissionErrorCode
   copy: ErrorCopy
   whatsappHref: string
-  email: string
+  /** null enquanto não houver e-mail real: a alternativa por e-mail some. */
+  email: string | null
   onRetry: () => void
   retrying: boolean
 }
@@ -71,12 +72,14 @@ export function SubmissionError({
             label={copy.whatsappCta}
             variant="whatsapp"
           />
-          <Button asChild variant="ghost">
-            <a href={`mailto:${email}`}>
-              <Mail aria-hidden="true" />
-              {copy.emailCta}
-            </a>
-          </Button>
+          {email ? (
+            <Button asChild variant="ghost">
+              <a href={`mailto:${email}`}>
+                <Mail aria-hidden="true" />
+                {copy.emailCta}
+              </a>
+            </Button>
+          ) : null}
         </div>
       ) : null}
     </div>

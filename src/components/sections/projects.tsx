@@ -1,6 +1,7 @@
 import { FilterableProjects } from '@/components/sections/projects/filterable-projects'
 import { type ProjectCardCopy, ProjectCard } from '@/components/sections/projects/project-card'
 import { CTAButton } from '@/components/shared/cta-button'
+import { GhostMark } from '@/components/shared/logo'
 import { REVEAL_STAGGER, Reveal } from '@/components/shared/reveal'
 import { Container, Section } from '@/components/shared/section'
 import { SectionHeading } from '@/components/shared/section-heading'
@@ -16,16 +17,19 @@ interface ProjectsProps {
   newTabHint: string
 }
 
+/**
+ * O convite ao próximo projeto é a região que o gradiente do R ocupa por
+ * inteiro, com o R em contorno ao fundo, como na imagem oficial da marca.
+ */
 function NextProjectCard({ copy }: { copy: (typeof projectsSection)['nextProject'] }) {
   return (
-    <div className="flex h-full flex-col justify-between gap-8 rounded-card border border-dashed border-line-2 bg-ghost p-6 sm:p-8">
-      <div className="flex flex-col gap-3">
-        <p className="font-display text-title font-semibold text-foreground font-stretch-semi">
-          {copy.title}
-        </p>
-        <p className="text-body">{copy.description}</p>
+    <div className="relative isolate flex h-full flex-col justify-between gap-8 overflow-hidden rounded-card bg-gradient-action p-6 text-on-gradient sm:p-8 lg:p-10">
+      <GhostMark className="absolute -right-10 -bottom-16 -z-10 size-72 text-on-gradient/25 sm:size-80" />
+      <div className="flex max-w-xl flex-col gap-3">
+        <p className="font-display text-title font-semibold font-stretch-semi">{copy.title}</p>
+        <p className="text-on-gradient/90">{copy.description}</p>
       </div>
-      <CTAButton source="projetos" label={copy.cta} className="self-start" />
+      <CTAButton source="projetos" label={copy.cta} variant="inverse" className="self-start" />
     </div>
   )
 }

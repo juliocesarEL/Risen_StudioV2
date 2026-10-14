@@ -2,15 +2,18 @@ import Link from 'next/link'
 
 import { siteConfig } from '@/content/site'
 import { uiCopy } from '@/content/ui'
+import { brandMark } from '@/lib/brand-mark'
 import { cn } from '@/lib/utils'
 
-const BRAND_GRADIENT_ID = 'risen-brand-gradient'
+const MARK_GRADIENT_ID = 'risen-mark-gradient'
 
 /**
- * Gradiente da marca para SVGs. Renderizado uma única vez no layout para que
- * todas as instâncias do logotipo reutilizem o mesmo id.
+ * Gradiente do monograma. Renderizado uma única vez no layout para que todas
+ * as instâncias do logotipo reutilizem o mesmo id.
  */
 export function BrandSvgDefs() {
+  const { x1, y1, x2, y2 } = brandMark.gradient
+
   return (
     <svg
       aria-hidden="true"
@@ -18,17 +21,16 @@ export function BrandSvgDefs() {
       className="pointer-events-none absolute size-0 overflow-hidden"
     >
       <defs>
-        {/* userSpaceOnUse: com objectBoundingBox, o traço vertical (caixa de largura zero) não seria pintado. */}
         <linearGradient
-          id={BRAND_GRADIENT_ID}
+          id={MARK_GRADIENT_ID}
           gradientUnits="userSpaceOnUse"
-          x1="0"
-          y1="32"
-          x2="32"
-          y2="0"
+          x1={x1}
+          y1={y1}
+          x2={x2}
+          y2={y2}
         >
           <stop offset="0%" style={{ stopColor: 'var(--gradient-primary-from)' }} />
-          <stop offset="55%" style={{ stopColor: 'var(--gradient-primary-via)' }} />
+          <stop offset="50%" style={{ stopColor: 'var(--gradient-primary-via)' }} />
           <stop offset="100%" style={{ stopColor: 'var(--gradient-primary-to)' }} />
         </linearGradient>
       </defs>
@@ -36,29 +38,32 @@ export function BrandSvgDefs() {
   )
 }
 
-/**
- * Símbolo provisório: um arco que nasce sobre a linha do horizonte ("risen").
- * Substitua pelo símbolo oficial quando houver.
- */
+/** Monograma "R" oficial da Risen: curva em gradiente e perna dividida. */
 export function LogoMark({ className }: { className?: string }) {
   return (
-    <svg viewBox="0 0 32 32" fill="none" aria-hidden="true" className={cn('size-8', className)}>
-      <rect
-        x="0.75"
-        y="0.75"
-        width="30.5"
-        height="30.5"
-        rx="9.25"
-        className="fill-bg2 stroke-line-2"
-        strokeWidth="1.5"
-      />
-      <path
-        d="M9 20.5a7 7 0 0 1 14 0"
-        stroke={`url(#${BRAND_GRADIENT_ID})`}
-        strokeWidth="2.75"
-        strokeLinecap="round"
-      />
-      <path d="M7 20.5h18" className="stroke-foreground" strokeWidth="2" strokeLinecap="round" />
+    <svg viewBox={brandMark.viewBox} aria-hidden="true" className={cn('size-7', className)}>
+      <path d={brandMark.gradientPath} fill={`url(#${MARK_GRADIENT_ID})`} />
+      <path d={brandMark.strokePath} className="fill-foreground" />
+    </svg>
+  )
+}
+
+/**
+ * O R só em contorno, grande e discreto: o mesmo recurso da imagem oficial da
+ * marca (og-image), usado como marca d'água em campos de cor.
+ */
+export function GhostMark({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox={brandMark.viewBox}
+      aria-hidden="true"
+      className={cn('fill-none stroke-current', className)}
+      // O traço acompanha o tamanho do desenho (346 unidades): ~1px numa marca de 18rem.
+      strokeWidth={1.25}
+      vectorEffect="non-scaling-stroke"
+    >
+      <path d={brandMark.gradientPath} vectorEffect="non-scaling-stroke" />
+      <path d={brandMark.strokePath} vectorEffect="non-scaling-stroke" />
     </svg>
   )
 }
@@ -72,15 +77,17 @@ export function Logo({ className }: { className?: string }) {
       href="/"
       aria-label={uiCopy.homeLink}
       className={cn(
-        'group inline-flex min-h-11 items-center gap-2.5 rounded-md text-foreground',
+        'group inline-flex min-h-11 items-center gap-3 rounded-md text-foreground',
         className,
       )}
     >
-      <LogoMark className="transition-transform duration-300 group-hover:-translate-y-0.5" />
-      <span className="font-display text-xl leading-none font-bold tracking-tight font-stretch-display">
-        {firstWord}
+      <LogoMark className="transition-transform duration-500 ease-out group-hover:-translate-y-0.5" />
+      <span className="flex items-baseline gap-2 font-display leading-none font-stretch-display">
+        <span className="text-lg font-semibold tracking-[0.2em] uppercase">{firstWord}</span>
         {rest.length > 0 ? (
-          <span className="font-medium text-subtle"> {rest.join(' ')}</span>
+          <span className="text-xs font-medium tracking-[0.32em] text-subtle uppercase">
+            {rest.join(' ')}
+          </span>
         ) : null}
       </span>
     </Link>

@@ -38,12 +38,13 @@ test.describe('fluxo de orçamento', () => {
     page,
   }) => {
     await page.goto('/')
-    await page.getByRole('link', { name: 'Quero um sistema' }).click()
+    await page.getByRole('link', { name: 'Quero um sistema', exact: true }).click()
 
     await expect(page).toHaveURL(/\?tipo=sistema-web#contato$/)
     await expect(
       page.getByRole('heading', { name: 'Sua ideia merece sair do papel.' }),
     ).toBeInViewport()
+    await waitForQuoteForm(page)
     await expect(page.getByRole('combobox', { name: 'Tipo de projeto' })).toHaveText(
       'Sistema web personalizado',
     )
@@ -51,6 +52,7 @@ test.describe('fluxo de orçamento', () => {
 
   test('link direto com ?tipo= também pré-seleciona o formulário', async ({ page }) => {
     await page.goto('/?tipo=landing-page#contato')
+    await waitForQuoteForm(page)
 
     await expect(page.getByRole('combobox', { name: 'Tipo de projeto' })).toHaveText('Landing page')
   })
@@ -120,10 +122,9 @@ test.describe('fluxo de orçamento', () => {
       'href',
       /^https:\/\/wa\.me\/\d+\?text=/,
     )
-    await expect(alert.getByRole('link', { name: /Enviar e-mail/ })).toHaveAttribute(
-      'href',
-      /^mailto:/,
-    )
+    // A alternativa "Enviar e-mail" só aparece com um e-mail comercial definido em site.ts.
+    const emailLink = alert.getByRole('link', { name: /Enviar e-mail/ })
+    if ((await emailLink.count()) > 0) await expect(emailLink).toHaveAttribute('href', /^mailto:/)
     await expect(page.getByText('Recebemos sua solicitação!')).toHaveCount(0)
     await expect(submit).toBeEnabled()
   })

@@ -1,0 +1,404 @@
+/*
+ * Bancada ao vivo (hero). Toda a coreografia é CSS: os atrasos vêm de
+ * lib/workbench-timing.ts como variáveis (--start, --chars, --at, --total),
+ * então a animação começa já na primeira pintura, sem esperar o JavaScript.
+ * Com movimento reduzido, a regra global em globals.css zera durações e
+ * atrasos: tudo aparece montado.
+ */
+
+.wb-window {
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --char: calc(var(--per-char) * 1s);
+
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--line2);
+  border-radius: 1.25rem;
+  background-color: var(--bg2);
+  box-shadow:
+    inset 0 1px 0 0 color-mix(in srgb, var(--text) 7%, transparent),
+    0 40px 80px -32px color-mix(in srgb, var(--field-blue) 45%, transparent),
+    0 24px 48px -24px color-mix(in srgb, var(--bg) 90%, transparent);
+}
+
+.wb-window[data-paused] *,
+.wb-window[data-paused] *::before,
+.wb-window[data-paused] *::after {
+  animation-play-state: paused !important;
+}
+
+/* ---- Barra de título e abas ------------------------------------------------ */
+
+.wb-titlebar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.25rem 0.25rem 0.25rem 1rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.wb-lights {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.wb-lights span {
+  width: 0.625rem;
+  height: 0.625rem;
+  border-radius: 999px;
+}
+
+.wb-path {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--text-muted);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.wb-tabs {
+  display: flex;
+  overflow-x: auto;
+  border-bottom: 1px solid var(--line);
+  scrollbar-width: none;
+}
+
+.wb-tab {
+  position: relative;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  padding: 0 0.7rem;
+  border-right: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  color: var(--text-muted);
+  transition:
+    color 200ms,
+    background-color 200ms;
+}
+
+@media (min-width: 40rem) {
+  .wb-tab {
+    padding: 0 1rem;
+    font-size: 0.75rem;
+  }
+}
+
+.wb-tab:hover {
+  color: var(--text-quote);
+}
+
+.wb-tab[aria-selected='true'] {
+  background-color: color-mix(in srgb, var(--bg3) 70%, transparent);
+  color: var(--text);
+}
+
+/* Linha da aba ativa: o gradiente do R, que se desenha ao trocar de aba. */
+.wb-tab[aria-selected='true']::before {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 2px;
+  background-image: var(--gradient-primary);
+  content: '';
+  transform-origin: left;
+  animation: wb-draw-x 500ms var(--ease-out) both;
+}
+
+.wb-tab-dot {
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 2px;
+  background-color: currentColor;
+  opacity: 0.6;
+}
+
+.wb-tab[aria-selected='true'] .wb-tab-dot {
+  background-image: var(--gradient-primary);
+  opacity: 1;
+}
+
+/* ---- Painéis --------------------------------------------------------------- */
+
+.wb-body {
+  display: grid;
+  flex: 1;
+}
+
+@media (min-width: 40rem) {
+  .wb-body {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  }
+}
+
+.wb-code {
+  --number-width: 2.25rem;
+
+  contain: content;
+  overflow: hidden;
+  padding: 1rem 0.75rem 1.25rem 0;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  line-height: 1.85;
+  color: var(--syntax-plain);
+}
+
+@media (min-width: 40rem) {
+  .wb-code {
+    --number-width: 2.75rem;
+
+    font-size: 0.6875rem;
+  }
+}
+
+@media (min-width: 80rem) {
+  .wb-code {
+    font-size: 0.75rem;
+  }
+}
+
+.wb-line {
+  display: flex;
+  align-items: center;
+  white-space: pre;
+}
+
+.wb-line-number {
+  flex: none;
+  width: var(--number-width);
+  padding-right: 0.875rem;
+  color: var(--text-muted);
+  text-align: right;
+  user-select: none;
+}
+
+.wb-indent {
+  flex: none;
+  width: calc(var(--indent) * 2ch);
+}
+
+.wb-typed {
+  display: inline-block;
+  overflow: hidden;
+  width: calc(var(--chars) * 1ch);
+  vertical-align: bottom;
+  /* backwards (e não both): ao terminar, a linha volta ao estilo base, a largura
+     completa. Com "both", erros de arredondamento podem deixar o último passo
+     sem aplicar e linhas curtas somem. */
+  animation: wb-type calc(var(--chars) * var(--char)) steps(var(--chars), end)
+    calc(var(--start) * 1s) backwards;
+}
+
+.wb-caret {
+  display: inline-block;
+  width: 0.55ch;
+  height: 1.25em;
+  margin-left: 1px;
+  vertical-align: middle;
+  background-color: var(--accent);
+  visibility: hidden;
+  animation: wb-caret-on calc(var(--chars) * var(--char) + 0.12s) step-end calc(var(--start) * 1s);
+}
+
+[data-syntax='keyword'] {
+  color: var(--syntax-keyword);
+}
+
+[data-syntax='component'] {
+  color: var(--syntax-component);
+}
+
+[data-syntax='attribute'] {
+  color: var(--syntax-attribute);
+}
+
+[data-syntax='string'] {
+  color: var(--syntax-string);
+}
+
+[data-syntax='punctuation'] {
+  color: var(--syntax-punctuation);
+}
+
+[data-syntax='plain'] {
+  color: var(--syntax-plain);
+}
+
+[data-syntax='comment'] {
+  color: var(--syntax-comment);
+  font-style: italic;
+}
+
+/* O preview: um campo profundo com as cores dos cantos da imagem da marca. */
+.wb-preview {
+  position: relative;
+  overflow: hidden;
+  min-height: 15rem;
+  padding: 1rem;
+  border-top: 1px solid var(--line);
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(
+      120% 80% at 0% 0%,
+      color-mix(in srgb, var(--field-blue) 38%, transparent),
+      transparent 60%
+    ),
+    radial-gradient(
+      120% 90% at 100% 100%,
+      color-mix(in srgb, var(--field-violet) 55%, transparent),
+      transparent 60%
+    );
+}
+
+@media (min-width: 40rem) {
+  .wb-preview {
+    border-top: 0;
+    border-left: 1px solid var(--line);
+  }
+}
+
+/* Varredura de luz quando o projeto "compila". */
+.wb-preview::after {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(
+    105deg,
+    transparent 35%,
+    color-mix(in srgb, var(--brand-blue) 28%, transparent) 50%,
+    transparent 65%
+  );
+  background-size: 260% 100%;
+  content: '';
+  pointer-events: none;
+  animation: wb-sweep 1100ms var(--ease-out) calc(var(--total) * 1s) both;
+}
+
+/* Cada peça surge quando a linha que a cria termina, com um brilho de "hot reload". */
+.wb-part {
+  animation: wb-assemble 650ms var(--ease-out) calc(var(--at) * 1s) both;
+}
+
+/* ---- Status ---------------------------------------------------------------- */
+
+.wb-status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  min-height: 2.75rem;
+  padding: 0 0.25rem 0 1rem;
+  border-top: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--text-muted);
+}
+
+.wb-state {
+  position: relative;
+  display: inline-grid;
+}
+
+.wb-state > span {
+  grid-area: 1 / 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.wb-building {
+  animation: wb-hide-at 1ms linear calc(var(--total) * 1s) forwards;
+}
+
+.wb-building::before {
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 999px;
+  background-color: var(--window-yellow);
+  content: '';
+  animation: wb-pulse 900ms ease-in-out infinite alternate;
+}
+
+.wb-done {
+  color: var(--text-quote);
+  visibility: hidden;
+  animation: wb-show-at 1ms linear calc(var(--total) * 1s) forwards;
+}
+
+.wb-done svg {
+  color: var(--success);
+}
+
+/* ---- Movimentos ------------------------------------------------------------ */
+
+@keyframes wb-type {
+  from {
+    width: 0;
+  }
+}
+
+@keyframes wb-caret-on {
+  from,
+  to {
+    visibility: visible;
+  }
+}
+
+@keyframes wb-draw-x {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+@keyframes wb-assemble {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem) scale(0.96);
+    filter: blur(6px);
+  }
+  55% {
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--brand-blue) 80%, transparent);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    box-shadow: 0 0 0 1px transparent;
+  }
+}
+
+@keyframes wb-sweep {
+  from {
+    background-position: 130% 0;
+    opacity: 1;
+  }
+  to {
+    background-position: -30% 0;
+    opacity: 0;
+  }
+}
+
+@keyframes wb-hide-at {
+  to {
+    visibility: hidden;
+  }
+}
+
+@keyframes wb-show-at {
+  to {
+    visibility: visible;
+  }
+}
+
+@keyframes wb-pulse {
+  to {
+    opacity: 0.35;
+  }
+}

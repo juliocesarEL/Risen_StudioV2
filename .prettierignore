@@ -13,3 +13,6 @@ src/lib/cn-tables.ts
 
 # código de terceiros (React Bits): mantém a formatação original
 src/components/reactbits/vendor
+
+# artefatos do fluxo de design (Impeccable)
+.impeccable
