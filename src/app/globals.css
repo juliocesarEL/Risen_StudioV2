@@ -109,6 +109,9 @@
   --danger: var(--window-red);
   --success: var(--window-green);
   --whatsapp: var(--window-green);
+  /* Botão flutuante de WhatsApp: verde-esmeralda com ícone branco e brilho. */
+  --whatsapp-float: #10b981;
+  --whatsapp-float-hover: #34d399;
 
   /* ---- Superfícies translúcidas ------------------------------------------ */
   --surface-glass: color-mix(in srgb, var(--bg2) 64%, transparent);
@@ -127,9 +130,10 @@
      Escala fluida: cresce suavemente entre 320px e 1440px. */
   /* Títulos em Archivo larga (como o logotipo): tamanhos menores que os de uma
      fonte condensada para a mesma presença. */
-  --font-size-display: clamp(2.125rem, 1.35rem + 3.3vw, 4.5rem);
+  /* Título do hero: 3 linhas no desktop, a última curta o bastante para a bancada subir ao lado. */
+  --font-size-display: clamp(2.125rem, 1.2rem + 2.9vw, 3.5rem);
   --font-size-page-title: clamp(2rem, 1.35rem + 2.6vw, 3.75rem); /* h1 das páginas internas */
-  --font-size-h2: clamp(1.875rem, 1.3rem + 2.3vw, 3.375rem);
+  --font-size-h2: clamp(1.75rem, 1.25rem + 1.9vw, 3rem);
   --font-size-title: clamp(1.5rem, 1.15rem + 1.1vw, 2.125rem); /* destaque entre h2 e h3 */
   --font-size-h3: clamp(1.1875rem, 1.08rem + 0.45vw, 1.4375rem);
   --font-size-lead: clamp(1.0625rem, 0.99rem + 0.36vw, 1.25rem);
@@ -198,6 +202,7 @@
   --shadow-glow-strong:
     inset 0 1px 0 0 color-mix(in srgb, var(--on-gradient) 30%, transparent),
     0 20px 44px -14px color-mix(in srgb, var(--brand-violet) 75%, transparent);
+  --shadow-whatsapp: 0 0 30px color-mix(in srgb, var(--whatsapp-float) 40%, transparent);
   --shadow-window: 0 40px 80px -40px color-mix(in srgb, var(--bg) 95%, transparent);
 }
 
@@ -236,6 +241,8 @@
   --color-danger: var(--danger);
   --color-success: var(--success);
   --color-whatsapp: var(--whatsapp);
+  --color-whatsapp-float: var(--whatsapp-float);
+  --color-whatsapp-float-hover: var(--whatsapp-float-hover);
   --color-avatar: var(--surface-avatar);
   --color-glass: var(--surface-glass);
   --color-surface-card: var(--surface-card);

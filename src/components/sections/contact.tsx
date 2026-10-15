@@ -1,4 +1,4 @@
-import { ArrowUpRight, MapPin } from 'lucide-react'
+import { MapPin } from 'lucide-react'
 
 import { hideWhatsAppFloatProps } from '@/components/layout/layout-markers'
 import { SpotlightCard } from '@/components/reactbits/spotlight-card'
@@ -7,6 +7,7 @@ import { DeferredContactForm } from '@/components/sections/contact/deferred-cont
 import { Reveal } from '@/components/shared/reveal'
 import { Container, Section } from '@/components/shared/section'
 import { SectionHeading } from '@/components/shared/section-heading'
+import { SocialGlyph } from '@/components/shared/social-glyph'
 import { WhatsAppButton } from '@/components/shared/whatsapp-button'
 import type { contactFormCopy, contactSection } from '@/content/contact'
 import type { SocialLink } from '@/types/content'
@@ -119,17 +120,17 @@ export function Contact({
               {social.length > 0 ? (
                 <div className="flex flex-col gap-2">
                   <p className="group-label text-subtle">{directContact.socialTitle}</p>
-                  <ul className="flex flex-wrap gap-x-5">
+                  <ul className="flex flex-wrap gap-2">
                     {social.map((network) => (
                       <li key={network.url}>
                         <a
                           href={network.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex min-h-11 items-center gap-1.5 text-body transition-colors hover:text-foreground"
+                          className="inline-flex min-h-11 items-center gap-2 rounded-pill border border-line bg-chip px-4 text-sm font-medium text-body transition-colors hover:border-line-2 hover:bg-surface-hover hover:text-foreground"
                         >
+                          <SocialGlyph icon={network.icon} />
                           {network.label}
-                          <ArrowUpRight aria-hidden="true" className="size-4 text-subtle" />
                           <span className="sr-only"> {newTabHint}</span>
                         </a>
                       </li>

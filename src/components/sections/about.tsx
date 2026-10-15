@@ -43,7 +43,7 @@ export function About({ id, copy, founder, technologies }: AboutProps) {
         </Reveal>
 
         <div className="flex flex-col gap-10 lg:col-span-7">
-          <SectionHeading copy={copy.heading} titleId={titleId}>
+          <SectionHeading copy={copy.heading} titleId={titleId} layout="stacked">
             <div className="flex flex-col gap-4 text-lead">
               {founder.bio.map((paragraph) => (
                 <p key={paragraph}>{paragraph}</p>

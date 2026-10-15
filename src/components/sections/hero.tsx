@@ -15,8 +15,10 @@ interface HeroProps {
 }
 
 /**
- * Hero: o título largo (como o logotipo) ocupa a linha inteira; abaixo, a
- * proposta e os CTAs ao lado da bancada ao vivo, onde um projeto se constrói.
+ * Hero: o título largo (como o logotipo) abre a página; abaixo, a proposta e
+ * os CTAs ao lado da bancada ao vivo, onde um projeto se constrói. Em telas
+ * largas, a bancada sobe até a última linha do título, a mais curta, e as
+ * duas peças se encaixam em diagonal.
  */
 export function Hero({ id, content, projectsHref }: HeroProps) {
   const titleId = `${id}-titulo`
@@ -34,15 +36,15 @@ export function Hero({ id, content, projectsHref }: HeroProps) {
         className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(55%_45%_at_0%_0%,color-mix(in_srgb,var(--field-blue)_32%,transparent),transparent_70%),radial-gradient(50%_45%_at_100%_100%,color-mix(in_srgb,var(--field-violet)_38%,transparent),transparent_70%),linear-gradient(0deg,var(--bg)_0%,transparent_22%)]"
       />
 
-      <Container className="flex flex-1 flex-col justify-center gap-10 pt-[calc(var(--nav-height)+2.5rem)] pb-16 sm:gap-12 lg:pb-20">
-        <h1
-          id={titleId}
-          className="max-w-[14em] font-display text-display font-bold font-stretch-display"
-        >
-          {content.title.lead} <GradientText>{content.title.highlight}</GradientText>
-        </h1>
+      <Container className="flex flex-1 flex-col justify-center pt-[calc(var(--nav-height)+2.5rem)] pb-16 lg:pb-20">
+        <div className="grid gap-10 sm:gap-12 lg:grid-cols-12 lg:gap-x-12 lg:gap-y-10">
+          <h1
+            id={titleId}
+            className="max-w-[14em] font-display text-display font-bold font-stretch-display lg:col-span-12"
+          >
+            {content.title.lead} <GradientText>{content.title.highlight}</GradientText>
+          </h1>
 
-        <div className="grid items-start gap-10 lg:grid-cols-12 lg:gap-12">
           {/* min-w-0: a coluna não alarga para caber o código do editor. */}
           <div className="flex min-w-0 flex-col gap-8 lg:col-span-5 lg:pt-2">
             <p className="max-w-xl text-lead text-body">{content.subtitle}</p>
@@ -64,7 +66,9 @@ export function Hero({ id, content, projectsHref }: HeroProps) {
             </p>
           </div>
 
-          <div className="min-w-0 lg:col-span-7">
+          {/* A partir de 1280px: colunas 7–12, subindo uma linha do título mais o espaço
+              entre as linhas da grade. A última linha do título termina antes da coluna 7. */}
+          <div className="min-w-0 lg:col-span-7 xl:col-span-6 xl:col-start-7 xl:mt-[calc(-0.88*var(--font-size-display)-2.5rem)]">
             <Workbench />
           </div>
         </div>

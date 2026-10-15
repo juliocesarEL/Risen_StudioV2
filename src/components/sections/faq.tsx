@@ -28,7 +28,12 @@ export function Faq({ id, copy, items, whatsappHref }: FaqProps) {
       <JsonLd data={buildFaqPageJsonLd(items)} />
       <Container className="grid gap-12 lg:grid-cols-12 lg:gap-16">
         <div className="lg:col-span-5">
-          <SectionHeading copy={copy.heading} titleId={titleId} className="lg:sticky lg:top-32">
+          <SectionHeading
+            copy={copy.heading}
+            titleId={titleId}
+            layout="stacked"
+            className="lg:sticky lg:top-32"
+          >
             <div className="flex flex-col items-start gap-4 pt-2">
               <p className="text-body">{copy.moreQuestions}</p>
               <WhatsAppButton href={whatsappHref} source="faq" label={copy.moreQuestionsCta} />

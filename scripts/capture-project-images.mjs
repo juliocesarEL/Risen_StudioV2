@@ -33,7 +33,8 @@ const COVER_WAIT_MS = 7000
 const shots = [
   { file: 'capa.png', selector: null, waitMs: COVER_WAIT_MS },
   { file: 'servicos.png', selector: '#servicos', waitMs: 2500 },
-  { file: 'processo.png', selector: '#processo', waitMs: 2500 },
+  // A linha do tempo liga os 5 pontos em sequência (~3,6 s até o último acender).
+  { file: 'processo.png', selector: '#processo', waitMs: 4500 },
   { file: 'contato.png', selector: '#contato', waitMs: 2500 },
 ]
 

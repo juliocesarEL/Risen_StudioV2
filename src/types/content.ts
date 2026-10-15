@@ -86,9 +86,12 @@ export interface BudgetRange {
   label: string
 }
 
+export type SocialIconId = 'instagram' | 'linkedin' | 'github'
+
 export interface SocialLink {
   label: string
   url: string
+  icon: SocialIconId
 }
 
 export interface TechItem {

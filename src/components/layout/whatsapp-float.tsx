@@ -20,7 +20,7 @@ export function WhatsAppFloat({ href, label }: { href: string; label: string }) 
       aria-label={label}
       inert={hidden}
       data-hidden={hidden}
-      className="fixed right-[max(1rem,env(safe-area-inset-right))] bottom-[max(1rem,env(safe-area-inset-bottom))] z-30 grid size-14 place-items-center rounded-full bg-whatsapp text-on-accent shadow-card ring-4 ring-background/60 transition-[opacity,transform,filter] duration-300 hover:brightness-110 focus-visible:outline-offset-4 data-[hidden=true]:pointer-events-none data-[hidden=true]:translate-y-3 data-[hidden=true]:opacity-0 motion-reduce:transition-none"
+      className="fixed right-[max(1.5rem,env(safe-area-inset-right))] bottom-[max(1.5rem,env(safe-area-inset-bottom))] z-50 flex size-14 items-center justify-center rounded-full bg-whatsapp-float text-white shadow-whatsapp transition-[opacity,translate,scale,background-color] duration-300 hover:scale-110 hover:bg-whatsapp-float-hover focus-visible:outline-offset-4 data-[hidden=true]:pointer-events-none data-[hidden=true]:translate-y-3 data-[hidden=true]:opacity-0 motion-reduce:transition-none"
     >
       <WhatsAppGlyph className="size-7" />
     </WhatsAppLink>

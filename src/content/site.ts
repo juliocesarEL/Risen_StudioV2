@@ -40,9 +40,9 @@ export const siteConfig = {
     },
   },
   social: [
-    { label: 'Instagram', url: 'https://www.instagram.com/risenstudio.dev/' },
-    { label: 'LinkedIn', url: 'https://www.linkedin.com/in/juliocesarel/' },
-    { label: 'GitHub', url: 'https://github.com/juliocesarEL' },
+    { label: 'Instagram', url: 'https://www.instagram.com/risenstudio.dev/', icon: 'instagram' },
+    { label: 'LinkedIn', url: 'https://www.linkedin.com/in/juliocesarel/', icon: 'linkedin' },
+    { label: 'GitHub', url: 'https://github.com/juliocesarEL', icon: 'github' },
   ],
   seo: {
     title: 'Risen Studio — Criação de sites e sistemas web em Salto, SP',

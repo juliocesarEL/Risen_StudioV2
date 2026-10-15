@@ -1,9 +1,10 @@
-import { ArrowUpRight, Mail, MapPin } from 'lucide-react'
+import { Mail, MapPin } from 'lucide-react'
 import { cacheLife } from 'next/cache'
 import Link from 'next/link'
 
 import { hideWhatsAppFloatProps } from '@/components/layout/layout-markers'
 import { Logo } from '@/components/shared/logo'
+import { SocialGlyph } from '@/components/shared/social-glyph'
 import { WhatsAppLink } from '@/components/shared/whatsapp-button'
 import { WhatsAppGlyph } from '@/components/shared/whatsapp-glyph'
 import { footerNav, privacyLink } from '@/content/navigation'
@@ -24,11 +25,23 @@ async function CurrentYear() {
 const linkClass =
   'inline-flex min-h-11 items-center gap-2 text-body transition-colors hover:text-foreground'
 
-function FooterColumn({ title, children }: { title: string; children: React.ReactNode }) {
+/** Redes no rodapé: só o símbolo, num botão redondo com área de toque de 44px. */
+const socialButtonClass =
+  'inline-flex size-11 items-center justify-center rounded-pill border border-line bg-chip text-body transition-colors hover:border-line-2 hover:bg-surface-hover hover:text-foreground'
+
+function FooterColumn({
+  title,
+  listClassName = 'flex flex-col',
+  children,
+}: {
+  title: string
+  listClassName?: string
+  children: React.ReactNode
+}) {
   return (
     <div className="flex flex-col gap-3">
       <h2 className="group-label text-subtle">{title}</h2>
-      <ul className="flex flex-col">{children}</ul>
+      <ul className={listClassName}>{children}</ul>
     </div>
   )
 }
@@ -77,13 +90,19 @@ export function Footer() {
           </li>
         </FooterColumn>
 
-        <FooterColumn title={uiCopy.footer.socialTitle}>
+        <FooterColumn title={uiCopy.footer.socialTitle} listClassName="flex flex-wrap gap-2 pt-1">
           {social.map((network) => (
             <li key={network.url}>
-              <a href={network.url} target="_blank" rel="noopener noreferrer" className={linkClass}>
-                {network.label}
-                <ArrowUpRight aria-hidden="true" className="size-4 text-subtle" />
-                <span className="sr-only"> {uiCopy.newTabHint}</span>
+              <a
+                href={network.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={socialButtonClass}
+              >
+                <SocialGlyph icon={network.icon} className="size-4.5" />
+                <span className="sr-only">
+                  {network.label} {uiCopy.newTabHint}
+                </span>
               </a>
             </li>
           ))}

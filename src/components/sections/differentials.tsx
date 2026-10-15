@@ -18,7 +18,12 @@ export function Differentials({ id, copy, differentials }: DifferentialsProps) {
     <Section id={id} labelledBy={titleId} className="border-y border-line/60 bg-bg2/40">
       <Container className="grid gap-12 lg:grid-cols-12 lg:gap-16">
         <div className="lg:col-span-5">
-          <SectionHeading copy={copy.heading} titleId={titleId} className="lg:sticky lg:top-32" />
+          <SectionHeading
+            copy={copy.heading}
+            titleId={titleId}
+            layout="stacked"
+            className="lg:sticky lg:top-32"
+          />
         </div>
 
         <ul className="flex flex-col lg:col-span-7">

@@ -1,0 +1,226 @@
+/*
+ * Linha do tempo do processo: os pontos se interligam em sequência. Quando a
+ * linha entra na tela ([data-active], posto por process-timeline.tsx), cada
+ * ponto acende, a ligação até o próximo se desenha com um brilho correndo por
+ * ela, e o texto da etapa aparece. Vertical no celular, horizontal no desktop.
+ *
+ * Sem JavaScript ou com movimento reduzido, tudo aparece pronto: o estado
+ * inicial oculto só existe com .js e sem preferência por movimento reduzido.
+ */
+
+.process-timeline {
+  --dot: 0.9375rem;
+  /* Intervalo entre uma etapa e a próxima. */
+  --step: 0.55s;
+  --gap-y: 2.5rem;
+  --gap-x: 1.5rem;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.process-step {
+  position: relative;
+  padding-left: 2.5rem;
+}
+
+.process-node {
+  position: absolute;
+  top: 0.125rem;
+  left: 0;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: var(--dot);
+  height: var(--dot);
+  border: 1px solid color-mix(in srgb, var(--accent) 70%, transparent);
+  border-radius: 999px;
+  background-color: var(--bg);
+}
+
+.process-node-core {
+  width: 0.375rem;
+  height: 0.375rem;
+  border-radius: 999px;
+  background-image: var(--gradient-primary);
+}
+
+/* A ligação até a próxima etapa: trilho fino e, por cima, o gradiente que se desenha. */
+.process-link {
+  position: absolute;
+  top: calc(var(--dot) + 0.125rem);
+  left: calc(var(--dot) / 2 - 0.5px);
+  width: 1px;
+  height: calc(100% + var(--gap-y) - var(--dot));
+  background-color: var(--line2);
+}
+
+.process-link-fill {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(to bottom, var(--brand-blue), var(--brand-violet));
+  transform-origin: top;
+}
+
+.process-link-head {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 0.4375rem;
+  height: 0.4375rem;
+  margin: -0.21875rem 0 0 -0.21875rem;
+  border-radius: 999px;
+  background-color: var(--text);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--brand-blue) 45%, transparent);
+  opacity: 0;
+}
+
+@media (min-width: 64rem) {
+  .process-step {
+    padding-top: 3rem;
+    padding-left: 0;
+  }
+
+  .process-node {
+    top: 0;
+  }
+
+  .process-link {
+    top: calc(var(--dot) / 2 - 0.5px);
+    left: var(--dot);
+    width: calc(100% + var(--gap-x) - var(--dot));
+    height: 1px;
+  }
+
+  .process-link-fill {
+    background-image: linear-gradient(to right, var(--brand-blue), var(--brand-violet));
+    transform-origin: left;
+  }
+
+  .process-link-head {
+    top: 50%;
+    left: 0;
+    margin: -0.21875rem 0 0 -0.21875rem;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .js .process-timeline:not([data-active]) .process-node {
+    border-color: var(--line2);
+  }
+
+  .js .process-timeline:not([data-active]) .process-node-core {
+    transform: scale(0);
+  }
+
+  .js .process-timeline:not([data-active]) .process-link-fill {
+    transform: scaleY(0);
+  }
+
+  .js .process-timeline:not([data-active]) .process-content {
+    opacity: 0;
+    transform: translateY(0.75rem);
+  }
+
+  .process-timeline[data-active] .process-node {
+    animation: process-light 900ms var(--ease-out) calc(var(--i) * var(--step)) both;
+  }
+
+  .process-timeline[data-active] .process-node-core {
+    animation: process-pop 500ms var(--ease-out) calc(var(--i) * var(--step)) both;
+  }
+
+  .process-timeline[data-active] .process-link-fill {
+    animation: process-draw-y var(--step) ease-in-out calc(var(--i) * var(--step) + 0.12s) both;
+  }
+
+  .process-timeline[data-active] .process-link-head {
+    animation: process-travel-y var(--step) ease-in-out calc(var(--i) * var(--step) + 0.12s) both;
+  }
+
+  .process-timeline[data-active] .process-content {
+    animation: process-enter 700ms var(--ease-out) calc(var(--i) * var(--step)) both;
+  }
+
+  @media (min-width: 64rem) {
+    .js .process-timeline:not([data-active]) .process-link-fill {
+      transform: scaleX(0);
+    }
+
+    .process-timeline[data-active] .process-link-fill {
+      animation-name: process-draw-x;
+    }
+
+    .process-timeline[data-active] .process-link-head {
+      animation-name: process-travel-x;
+    }
+  }
+}
+
+/* O ponto acende: a borda ganha cor e um anel de luz se expande e some. */
+@keyframes process-light {
+  from {
+    border-color: var(--line2);
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--brand-blue) 55%, transparent);
+  }
+  to {
+    border-color: color-mix(in srgb, var(--accent) 70%, transparent);
+    box-shadow: 0 0 0 12px transparent;
+  }
+}
+
+@keyframes process-pop {
+  from {
+    transform: scale(0);
+  }
+  60% {
+    transform: scale(1.5);
+  }
+}
+
+@keyframes process-draw-y {
+  from {
+    transform: scaleY(0);
+  }
+}
+
+@keyframes process-draw-x {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+@keyframes process-travel-y {
+  0% {
+    top: 0%;
+    opacity: 0;
+  }
+  15%,
+  85% {
+    opacity: 1;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
+@keyframes process-travel-x {
+  0% {
+    left: 0%;
+    opacity: 0;
+  }
+  15%,
+  85% {
+    opacity: 1;
+  }
+  100% {
+    left: 100%;
+    opacity: 0;
+  }
+}
+
+@keyframes process-enter {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem);
+  }
+}

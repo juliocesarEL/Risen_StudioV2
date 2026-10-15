@@ -14,6 +14,8 @@
   isolation: isolate;
   display: flex;
   flex-direction: column;
+  /* O layout interno depende da largura da janela, não da tela (ver .wb-body). */
+  container-type: inline-size;
   overflow: hidden;
   border: 1px solid var(--line2);
   border-radius: 1.25rem;
@@ -133,9 +135,13 @@
   flex: 1;
 }
 
-@media (min-width: 40rem) {
+/*
+ * O layout interno segue a largura da própria janela (container queries):
+ * empilhado quando estreita; código e preview lado a lado a partir de 33rem.
+ */
+@container (min-width: 33rem) {
   .wb-body {
-    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
   }
 }
 
@@ -151,16 +157,38 @@
   color: var(--syntax-plain);
 }
 
-@media (min-width: 40rem) {
+/* Empilhado, mas com largura sobrando: código maior. */
+@container (min-width: 28rem) {
   .wb-code {
     --number-width: 2.75rem;
 
+    font-size: 0.75rem;
+  }
+}
+
+/*
+ * Lado a lado numa janela média: o código divide espaço com o preview. Na
+ * faixa mais estreita (ex.: o hero entre 1024 e 1279px), 10px para a linha
+ * mais longa caber inteira.
+ */
+@container (min-width: 33rem) {
+  .wb-code {
+    --number-width: 2rem;
+
+    font-size: 0.625rem;
+  }
+}
+
+@container (min-width: 35rem) {
+  .wb-code {
     font-size: 0.6875rem;
   }
 }
 
-@media (min-width: 80rem) {
+@container (min-width: 44rem) {
   .wb-code {
+    --number-width: 2.75rem;
+
     font-size: 0.75rem;
   }
 }
@@ -258,7 +286,7 @@
     );
 }
 
-@media (min-width: 40rem) {
+@container (min-width: 33rem) {
   .wb-preview {
     border-top: 0;
     border-left: 1px solid var(--line);
