@@ -144,10 +144,15 @@
      estreitas a largura cai um pouco, para palavras longas caberem na linha. */
   --display-stretch: 112%;
   --display-stretch-semi: 106%;
+  /* Fonte reserva com a mesma largura de cada estiramento (ver @font-face abaixo). */
+  --fallback-display: 'Archivo Fallback 112';
+  --fallback-semi: 'Archivo Fallback 106';
 
   @media (min-width: 40rem) {
     --display-stretch: 125%;
     --display-stretch-semi: 112%;
+    --fallback-display: 'Archivo Fallback 125';
+    --fallback-semi: 'Archivo Fallback 112';
   }
 
   /* ---- Espaçamento e layout ---------------------------------------------- */
@@ -179,6 +184,67 @@
   --border: var(--line);
   --input: var(--line);
   --ring: var(--accent);
+}
+
+/*
+ * Reservas dos títulos enquanto a Archivo carrega. Esticada (wdth 106–125%),
+ * ela é bem mais larga que a reserva padrão do next/font (Arial na largura
+ * normal): o título nascia com uma linha a menos e "pulava" quando a fonte
+ * chegava (layout shift). Estas reservas são a Arial em negrito ampliada para
+ * a largura de cada estiramento, medida com os títulos do site (peso 600 e 700).
+ */
+@font-face {
+  font-family: 'Archivo Fallback 106';
+  src:
+    local('Arial Bold'), local('Arial-BoldMT'), local('Arimo Bold'), local('Liberation Sans Bold'),
+    local('Roboto Bold');
+  font-weight: 600;
+  size-adjust: 102%;
+}
+
+@font-face {
+  font-family: 'Archivo Fallback 106';
+  src:
+    local('Arial Bold'), local('Arial-BoldMT'), local('Arimo Bold'), local('Liberation Sans Bold'),
+    local('Roboto Bold');
+  font-weight: 700;
+  size-adjust: 105.1%;
+}
+
+@font-face {
+  font-family: 'Archivo Fallback 112';
+  src:
+    local('Arial Bold'), local('Arial-BoldMT'), local('Arimo Bold'), local('Liberation Sans Bold'),
+    local('Roboto Bold');
+  font-weight: 600;
+  size-adjust: 108.6%;
+}
+
+@font-face {
+  font-family: 'Archivo Fallback 112';
+  src:
+    local('Arial Bold'), local('Arial-BoldMT'), local('Arimo Bold'), local('Liberation Sans Bold'),
+    local('Roboto Bold');
+  font-weight: 700;
+  size-adjust: 111.5%;
+}
+
+@font-face {
+  font-family: 'Archivo Fallback 125';
+  src:
+    local('Arial Bold'), local('Arial-BoldMT'), local('Arimo Bold'), local('Liberation Sans Bold'),
+    local('Roboto Bold');
+  font-weight: 600;
+  size-adjust: 122.9%;
+}
+
+@font-face {
+  font-family: 'Archivo Fallback 125';
+  src:
+    local('Arial Bold'), local('Arial-BoldMT'), local('Arimo Bold'), local('Liberation Sans Bold'),
+    local('Roboto Bold');
+  font-weight: 700;
+  size-adjust: 125.4%;
 }
 
 /* Tokens que já pertencem a um namespace do Tailwind ficam definidos aqui uma
@@ -324,12 +390,19 @@
   background-image: var(--gradient-action);
 }
 
+/*
+ * Títulos esticados: além da largura, trocam a fonte reserva por uma da mesma
+ * largura (o --font-display redefinido no próprio elemento vale para o
+ * utilitário font-display). "Archivo" é o nome que o next/font registra.
+ */
 @utility font-stretch-display {
   font-stretch: var(--display-stretch);
+  --font-display: 'Archivo', var(--fallback-display), ui-sans-serif, system-ui, sans-serif;
 }
 
 @utility font-stretch-semi {
   font-stretch: var(--display-stretch-semi);
+  --font-display: 'Archivo', var(--fallback-semi), ui-sans-serif, system-ui, sans-serif;
 }
 
 /* Título discreto de um grupo de itens (benefícios, exemplos, redes...), na
