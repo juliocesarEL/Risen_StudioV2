@@ -17,7 +17,8 @@ interface BrowserFrameProps {
 
 /**
  * Janela no estilo macOS para mockups e capturas de projetos. A proporção é
- * fixa (16:10), então a imagem nunca distorce: ela é recortada a partir do topo.
+ * fixa (16:10), então a imagem nunca distorce: ela é recortada a partir do canto
+ * superior esquerdo, onde ficam o logo e o menu na maioria das telas.
  */
 export function BrowserFrame({
   image,
@@ -54,7 +55,7 @@ export function BrowserFrame({
           fill
           sizes={sizes}
           preload={preload}
-          className={cn('object-cover object-top', imageClassName)}
+          className={cn('object-cover object-left-top', imageClassName)}
         />
       </div>
     </div>

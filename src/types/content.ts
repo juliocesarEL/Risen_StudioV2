@@ -25,7 +25,7 @@ export type ProjectTypeId =
   | 'outro'
 
 /** Origem de um projeto. O selo é obrigatório e nunca pode ser omitido. */
-export type ProjectKind = 'cliente' | 'autoral' | 'conceito'
+export type ProjectKind = 'colaboracao' | 'autoral' | 'conceito'
 
 /** Ícones de interface disponíveis para o conteúdo (mapeados em components/shared/icon.tsx). */
 export type IconName =
@@ -102,6 +102,8 @@ export interface TechItem {
 export interface Founder {
   name: string
   role: string
+  /** Usuário público (ex.: o do LinkedIn), mostrado no cartão de perfil. */
+  handle: string
   bio: string[]
   photo: ImageAsset
 }
@@ -178,7 +180,10 @@ export interface Project {
   name: string
   kind: ProjectKind
   category: ServiceCategoryId
+  /** Capa do card na seção de projetos. */
   cover: ImageAsset
+  /** Imagem de abertura da página do projeto. Sem ela, a página usa a capa. */
+  caseStudyCover?: ImageAsset
   summary: string
   problem: string
   solution: string

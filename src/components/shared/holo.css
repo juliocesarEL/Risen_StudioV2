@@ -1,0 +1,79 @@
+/*
+ * Cartão holográfico (holo-tilt.tsx): o card inclina com o cursor e uma
+ * película nas cores do R (azul, índigo, violeta e um toque de ciano) desliza
+ * por ele, com purpurina fina que brilha só perto do cursor. Sutil de
+ * propósito: é um card de serviço, não uma carta colecionável.
+ *
+ * [data-holo] fica no .holo enquanto o cursor está sobre o card.
+ */
+
+.holo {
+  --holo-x: 50%;
+  --holo-y: 50%;
+  --tilt-x: 0deg;
+  --tilt-y: 0deg;
+
+  perspective: 1100px;
+}
+
+.holo-card {
+  transform: rotateX(var(--tilt-y)) rotateY(var(--tilt-x));
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Seguindo o cursor, a resposta é quase imediata; ao sair, o card volta devagar. */
+.holo[data-holo] .holo-card {
+  transition-duration: 0.15s;
+}
+
+.holo-foil,
+.holo-glitter {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.5s ease-out;
+  /* screen soma luz: sobre o fundo escuro do card, as cores aparecem. */
+  mix-blend-mode: screen;
+}
+
+/* Faixas diagonais de cor que correm conforme o cursor, mais fortes perto dele. */
+.holo-foil {
+  background-image: repeating-linear-gradient(
+    115deg,
+    transparent 0%,
+    #3386fe 4%,
+    #5658f8 8%,
+    #8457fc 12%,
+    #22d3ee 16%,
+    transparent 20%,
+    transparent 26%
+  );
+  background-position: var(--holo-x) var(--holo-y);
+  background-size: 260% 260%;
+  mask-image: radial-gradient(
+    farthest-corner circle at var(--holo-x) var(--holo-y),
+    #000 0%,
+    rgb(0 0 0 / 0.4) 40%,
+    transparent 80%
+  );
+}
+
+/* Purpurina: ruído transformado em pontos claros esparsos, só em volta do cursor. */
+.holo-glitter {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='1' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 11 -7.6'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+  /* Os pontos andam menos que a máscara: uns entram e outros saem, e piscam. */
+  background-position: calc(var(--holo-x) * 0.25) calc(var(--holo-y) * 0.25);
+  mask-image: radial-gradient(circle at var(--holo-x) var(--holo-y), #000 0%, transparent 38%);
+}
+
+.holo[data-holo] .holo-foil {
+  opacity: 0.16;
+}
+
+.holo[data-holo] .holo-glitter {
+  opacity: 0.7;
+}

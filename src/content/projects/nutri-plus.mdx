@@ -1,0 +1,33 @@
+## Contexto e problema
+
+A rotina de um consultório de nutrição vai muito além da consulta. Antes e depois de cada atendimento existem avaliações para registrar, medidas para comparar, planos alimentares para montar, horários para encaixar e pagamentos para acompanhar. Na maioria dos consultórios, isso está espalhado entre planilhas, aplicativos de agenda, conversas no WhatsApp e arquivos soltos.
+
+O resultado é tempo perdido com tarefas administrativas e uma visão fragmentada de cada paciente. Os desafios que guiaram o projeto foram:
+
+- reunir em uma única ficha tudo o que se sabe sobre o paciente, do histórico clínico à evolução;
+- transformar números de avaliação em gráficos que mostrem o progresso de relance;
+- tirar o cálculo de calorias e macronutrientes das mãos do nutricionista;
+- integrar agenda e financeiro aos atendimentos, sem cadastro duplicado;
+- proteger dados de saúde, que são sensíveis por natureza.
+
+## Solução desenvolvida
+
+O Nutri+ é um sistema web próprio da Risen Studio, em desenvolvimento, pensado para o nutricionista que atende sozinho ou em uma clínica pequena.
+
+**O dia em uma tela.** O dashboard abre com os pacientes e planos ativos, as consultas de hoje, a atividade recente do consultório e um bloco de quem precisa de atenção, como pacientes sem avaliação inicial ou sem plano.
+
+**Uma ficha que conta a história do paciente.** Altura, peso, IMC, percentual de gordura, notas clínicas e histórico ficam em um só lugar. Cada avaliação registra medidas de cintura, abdômen e quadril, gordura e massa magra, e os gráficos de evolução mostram o caminho até a meta.
+
+**Planos alimentares sem calculadora.** O plano é montado por refeição e horário, com os alimentos da Tabela Brasileira de Composição de Alimentos (TACO). Calorias, proteínas, carboidratos e gorduras de cada item e o total de cada refeição são calculados automaticamente, e o plano pronto vira um PDF para entregar ao paciente.
+
+**Agenda e financeiro conectados.** A consulta marcada na agenda já carrega o valor do atendimento, e o recibo da consulta sai com um clique. O financeiro mostra o faturamento do mês e do ano, lista os pagamentos pendentes e dispara um e-mail de cobrança para quem está em atraso.
+
+## Bastidores técnicos
+
+**Arquitetura em camadas.** O sistema segue Clean Architecture: as regras do consultório ficam isoladas da interface e dos serviços externos. Trocar o banco, o provedor de login ou a forma de gerar documentos não exige reescrever as regras.
+
+**Design system próprio.** A identidade "Jade & Tangerina" vive em tokens de design (variáveis CSS), sem framework de CSS. Cores, espaçamentos e tipografia mudam em um lugar e se refletem no sistema inteiro.
+
+**Dados de saúde protegidos.** As informações dos pacientes são criptografadas, porque dados de saúde exigem mais cuidado do que um cadastro comum. O acesso é protegido por verificação em duas etapas, e o nutricionista pode exportar os dados de um paciente ou guardar um backup completo do consultório em .zip.
+
+Os nomes e números que aparecem nas telas são fictícios, criados para demonstração.

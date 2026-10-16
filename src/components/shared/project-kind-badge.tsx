@@ -4,11 +4,11 @@ import { cn } from '@/lib/utils'
 import type { ProjectKind } from '@/types/content'
 
 /**
- * O estilo comunica a origem do projeto: preenchido para trabalho de cliente,
+ * O estilo comunica a origem do projeto: preenchido para trabalho em colaboração,
  * contorno para autoral e tracejado para conceito.
  */
 const kindStyles: Record<ProjectKind, string> = {
-  cliente: 'border-transparent bg-accent text-on-accent',
+  colaboracao: 'border-transparent bg-accent text-on-accent',
   autoral: 'border-accent/45 bg-accent-soft text-foreground',
   conceito: 'border-dashed border-line-2 bg-transparent text-quote',
 }

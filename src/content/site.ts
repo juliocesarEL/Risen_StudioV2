@@ -63,14 +63,15 @@ export const siteConfig = {
   founder: {
     name: 'Julio César Lavras',
     role: 'Fundador · desenvolvedor full stack',
+    handle: '@juliocesarel',
     bio: [
       'Sou desenvolvedor full stack, formado em Ciência da Computação. À frente da Risen Studio, acompanho cada projeto do primeiro contato à entrega: entendo a necessidade, desenho a experiência e desenvolvo a solução.',
       'Na prática, você conversa diretamente com quem constrói o seu produto, sem intermediários e sem perder detalhes pelo caminho.',
     ],
-    // SUBSTITUIR: foto real (retrato, proporção 4:5).
+    // Preenche o retrato do cartão de perfil (4:5), centralizada.
     photo: {
-      src: '/images/placeholders/retrato.svg',
-      alt: 'Imagem provisória no lugar da foto de Julio César Lavras',
+      src: '/images/fundador/julio-cesar-lavras.jpeg',
+      alt: 'Retrato de Julio César Lavras, fundador da Risen Studio, de camiseta preta, ao ar livre',
     },
   },
   technologies: [

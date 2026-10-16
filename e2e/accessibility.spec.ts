@@ -1,7 +1,7 @@
 import AxeBuilder from '@axe-core/playwright'
 import { expect, type Page, test } from '@playwright/test'
 
-const PAGES = ['/', '/projetos/site-risen-studio', '/privacidade']
+const PAGES = ['/', '/projetos/nutri-plus', '/privacidade']
 
 /** Critérios avaliados: WCAG 2.0, 2.1 e 2.2 níveis A e AA (inclui contraste de cores). */
 const WCAG_TAGS = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa']

@@ -1,6 +1,6 @@
 import { MapPin } from 'lucide-react'
-import Image from 'next/image'
 
+import { ProfileCard } from '@/components/sections/about/profile-card'
 import { Icon } from '@/components/shared/icon'
 import { REVEAL_STAGGER, Reveal } from '@/components/shared/reveal'
 import { Container, Section } from '@/components/shared/section'
@@ -13,33 +13,25 @@ interface AboutProps {
   id: string
   copy: typeof aboutSection
   founder: Founder
+  /** Cidade e estado, para o cartão de perfil. */
+  location: string
   technologies: TechItem[]
 }
 
-export function About({ id, copy, founder, technologies }: AboutProps) {
+export function About({ id, copy, founder, location, technologies }: AboutProps) {
   const titleId = `${id}-titulo`
 
   return (
     <Section id={id} labelledBy={titleId} className="border-y border-line/60 bg-bg2/40">
       <Container className="grid gap-12 lg:grid-cols-12 lg:gap-16">
+        {/* O cartão acompanha a leitura no desktop (sticky) enquanto o texto ao lado rola. */}
         <Reveal className="lg:col-span-5">
-          <figure className="flex flex-col gap-4 sm:max-w-md lg:max-w-none">
-            <div className="relative aspect-4/5 overflow-hidden rounded-card border border-line bg-avatar">
-              <Image
-                src={founder.photo.src}
-                alt={founder.photo.alt}
-                fill
-                sizes="(min-width: 1280px) 460px, (min-width: 1024px) 38vw, (min-width: 640px) 448px, 100vw"
-                className="object-cover"
-              />
-            </div>
-            <figcaption className="flex flex-col gap-1">
-              <span className="font-display text-h3 font-semibold text-foreground font-stretch-semi">
-                {founder.name}
-              </span>
-              <span className="text-sm text-subtle">{founder.role}</span>
-            </figcaption>
-          </figure>
+          <ProfileCard
+            founder={founder}
+            location={location}
+            ctaLabel={copy.profileCta}
+            className="mx-auto max-w-sm lg:sticky lg:top-28 lg:mx-0 lg:max-w-md"
+          />
         </Reveal>
 
         <div className="flex flex-col gap-10 lg:col-span-7">

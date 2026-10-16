@@ -8,9 +8,9 @@ import {
 } from '@/lib/projects'
 
 describe('layout do portfólio', () => {
-  it('valoriza poucos projetos com destaque + secundários', () => {
-    expect(getProjectsLayout(0)).toBe('spotlight')
-    expect(getProjectsLayout(MIN_PROJECTS_FOR_GRID - 1)).toBe('spotlight')
+  it('com poucos projetos, o convite ao próximo completa a grade', () => {
+    expect(getProjectsLayout(0)).toBe('with-invite')
+    expect(getProjectsLayout(MIN_PROJECTS_FOR_GRID - 1)).toBe('with-invite')
   })
 
   it('usa a grade a partir de 3 projetos', () => {

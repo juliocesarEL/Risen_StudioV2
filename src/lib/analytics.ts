@@ -20,6 +20,7 @@ export type CtaSource =
   | 'bancada'
   | 'servico'
   | 'projetos'
+  | 'sobre'
   | 'necessidade'
   | 'estudo-de-caso'
 

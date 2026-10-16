@@ -47,7 +47,7 @@ export function CaseStudyHero({ project, categoryLabel, backHref, copy }: CaseSt
         </div>
 
         <BrowserFrame
-          image={project.cover}
+          image={project.caseStudyCover ?? project.cover}
           preload
           sizes="(min-width: 1280px) 1216px, 100vw"
           className="mt-4"

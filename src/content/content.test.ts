@@ -31,16 +31,25 @@ describe('conteúdo', () => {
     },
   )
 
+  // Sem estudo de caso, o card inteiro leva ao site no ar: o endereço precisa ser seguro.
+  it.each(projects.filter((project) => project.liveUrl))(
+    'o site no ar de "$slug" usa https',
+    (project) => {
+      expect(new URL(project.liveUrl ?? '').protocol).toBe('https:')
+    },
+  )
+
   it.each(projects)('as imagens de "$slug" existem e têm texto alternativo', (project) => {
-    for (const image of [project.cover, ...(project.gallery ?? [])]) {
+    const images = [project.cover, project.caseStudyCover, ...(project.gallery ?? [])]
+    for (const image of images.filter((item) => item !== undefined)) {
       expect(existsSync(publicFile(image.src)), image.src).toBe(true)
       expect(image.alt.trim().length).toBeGreaterThan(10)
     }
   })
 
-  it('projetos de exemplo nunca se apresentam como trabalho de cliente', () => {
+  it('projetos de exemplo nunca se apresentam como colaboração', () => {
     const placeholders = projects.filter((project) => project.placeholder)
-    expect(placeholders.every((project) => project.kind !== 'cliente')).toBe(true)
+    expect(placeholders.every((project) => project.kind !== 'colaboracao')).toBe(true)
   })
 
   it('os CTAs de serviços e de necessidades usam tipos de projeto ativos no formulário', () => {

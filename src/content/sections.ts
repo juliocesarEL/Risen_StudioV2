@@ -33,16 +33,16 @@ export const projectsSection = {
   heading: {
     title: 'Trabalhos que mostram como pensamos e construímos',
     description:
-      'Cada projeto traz um selo que indica sua origem: feito para um cliente, autoral ou conceito.',
+      'Cada projeto traz um selo que indica sua origem: em colaboração, autoral ou conceito.',
   } satisfies SectionCopy,
   filterLabel: 'Filtrar projetos por categoria',
   filterAll: 'Todos',
   /** Anúncio para leitores de tela após filtrar (singular e plural). */
   filterResult: { one: 'projeto exibido', other: 'projetos exibidos' },
-  caseStudyCta: 'Ver estudo de caso',
+  caseStudyCta: 'Ver projeto',
   liveCta: 'Ver site',
   kindLabels: {
-    cliente: 'Cliente',
+    colaboracao: 'Colaboração',
     autoral: 'Projeto autoral',
     conceito: 'Conceito',
   },
@@ -82,6 +82,7 @@ export const aboutSection = {
   heading: {
     title: 'Quem está por trás da Risen Studio',
   } satisfies SectionCopy,
+  profileCta: 'Falar comigo',
   workingTitle: 'Como trabalhamos',
   workingStyle: [
     {

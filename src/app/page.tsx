@@ -86,6 +86,7 @@ export default function HomePage() {
           id={sectionIds.about}
           copy={aboutSection}
           founder={siteConfig.founder}
+          location={`${siteConfig.location.city}, ${siteConfig.location.state}`}
           technologies={siteConfig.technologies}
         />
       </Suspense>

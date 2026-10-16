@@ -1,15 +1,18 @@
 /*
- * Linha do tempo do processo: os pontos se interligam em sequência. Quando a
- * linha entra na tela ([data-active], posto por process-timeline.tsx), cada
- * ponto acende, a ligação até o próximo se desenha com um brilho correndo por
- * ela, e o texto da etapa aparece. Vertical no celular, horizontal no desktop.
+ * Linha do tempo do processo: estações numeradas que se interligam em
+ * sequência. Quando a linha entra na tela ([data-active], posto por
+ * process-timeline.tsx), cada estação acende, a ligação até a próxima se
+ * desenha com um brilho correndo por ela, e o texto da etapa aparece. Depois
+ * da última, a linha segue até a borda e se esvai: o suporte continua, e um
+ * pulso passa por ela de tempos em tempos. Vertical até 1279px, horizontal no
+ * desktop.
  *
  * Sem JavaScript ou com movimento reduzido, tudo aparece pronto: o estado
  * inicial oculto só existe com .js e sem preferência por movimento reduzido.
  */
 
 .process-timeline {
-  --dot: 0.9375rem;
+  --node: 2.25rem;
   /* Intervalo entre uma etapa e a próxima. */
   --step: 0.55s;
   --gap-y: 2.5rem;
@@ -19,38 +22,76 @@
 
 .process-step {
   position: relative;
-  padding-left: 2.5rem;
+  min-height: var(--node);
+  padding-left: calc(var(--node) + 1.25rem);
 }
 
+/* A estação: círculo com o número da etapa. */
 .process-node {
   position: absolute;
-  top: 0.125rem;
+  top: 0;
   left: 0;
   z-index: 1;
   display: grid;
   place-items: center;
-  width: var(--dot);
-  height: var(--dot);
-  border: 1px solid color-mix(in srgb, var(--accent) 70%, transparent);
+  width: var(--node);
+  height: var(--node);
+  border: 1px solid color-mix(in srgb, var(--accent) 60%, transparent);
   border-radius: 999px;
-  background-color: var(--bg);
+  background-color: color-mix(in srgb, var(--accent) 10%, var(--bg));
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  color: var(--accent);
 }
 
-.process-node-core {
-  width: 0.375rem;
-  height: 0.375rem;
-  border-radius: 999px;
-  background-image: var(--gradient-primary);
+.process-content {
+  display: grid;
+  align-content: start;
+  gap: 0.75rem;
+  /* Alinha a primeira linha do título com o centro da estação. */
+  padding-top: 0.25rem;
+}
+
+/* Tablet e desktop estreito (linha ainda vertical): título e descrição lado a lado. */
+@media (48rem <= width < 80rem) {
+  .process-content {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+    column-gap: 2.5rem;
+  }
 }
 
 /* A ligação até a próxima etapa: trilho fino e, por cima, o gradiente que se desenha. */
 .process-link {
   position: absolute;
-  top: calc(var(--dot) + 0.125rem);
-  left: calc(var(--dot) / 2 - 0.5px);
+  top: var(--node);
+  left: calc(var(--node) / 2 - 0.5px);
   width: 1px;
-  height: calc(100% + var(--gap-y) - var(--dot));
+  height: calc(100% + var(--gap-y) - var(--node));
   background-color: var(--line2);
+}
+
+/*
+ * Depois da última estação, a linha corre até o fim da etapa e se esvai. A
+ * faixa é mais larga que a linha (desenhada no meio dela) para o pulso e o
+ * brilho dele caberem na máscara; overflow: clip segura o pulso dentro dela.
+ */
+.process-link-tail {
+  --band: 1.25rem;
+
+  left: calc(var(--node) / 2 - var(--band) / 2);
+  width: var(--band);
+  height: calc(100% - var(--node));
+  overflow: clip;
+  background: linear-gradient(var(--line2), var(--line2)) center / 1px 100% no-repeat;
+  mask-image: linear-gradient(to bottom, #000 25%, transparent);
+}
+
+.process-link-tail .process-link-fill {
+  inset: 0 auto;
+  left: calc(50% - 0.5px);
+  width: 1px;
 }
 
 .process-link-fill {
@@ -73,20 +114,69 @@
   opacity: 0;
 }
 
-@media (min-width: 64rem) {
+/*
+ * O pulso da linha final: uma camada do tamanho do trilho que desliza por ele
+ * (translate em % do próprio tamanho = do trilho), com o ponto na ponta.
+ */
+.process-link-pulse {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+
+.process-link-pulse::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 0.375rem;
+  height: 0.375rem;
+  margin: -0.1875rem 0 0 -0.1875rem;
+  border-radius: 999px;
+  background-color: var(--brand-violet);
+  box-shadow: 0 0 6px 1px color-mix(in srgb, var(--brand-violet) 70%, transparent);
+}
+
+@media (min-width: 80rem) {
+  /*
+   * Desktop: as etapas dividem as linhas da grade (subgrid), então títulos e
+   * descrições começam na mesma altura em todas as colunas.
+   */
   .process-step {
-    padding-top: 3rem;
+    display: grid;
+    grid-row: span 2;
+    grid-template-rows: subgrid;
+    row-gap: 0;
+    padding-top: calc(var(--node) + 1.5rem);
     padding-left: 0;
   }
 
-  .process-node {
-    top: 0;
+  .process-content {
+    grid-row: span 2;
+    grid-template-rows: subgrid;
+    padding-top: 0;
   }
 
   .process-link {
-    top: calc(var(--dot) / 2 - 0.5px);
-    left: var(--dot);
-    width: calc(100% + var(--gap-x) - var(--dot));
+    top: calc(var(--node) / 2 - 0.5px);
+    left: var(--node);
+    width: calc(100% + var(--gap-x) - var(--node));
+    height: 1px;
+  }
+
+  .process-link-tail {
+    top: calc(var(--node) / 2 - var(--band) / 2);
+    left: var(--node);
+    width: calc(100% - var(--node));
+    height: var(--band);
+    background-size: 100% 1px;
+    mask-image: linear-gradient(to right, #000 25%, transparent);
+  }
+
+  .process-link-tail .process-link-fill {
+    inset: auto 0;
+    top: calc(50% - 0.5px);
+    width: auto;
     height: 1px;
   }
 
@@ -98,17 +188,18 @@
   .process-link-head {
     top: 50%;
     left: 0;
-    margin: -0.21875rem 0 0 -0.21875rem;
+  }
+
+  .process-link-pulse::before {
+    top: 50%;
+    left: 0;
   }
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .js .process-timeline:not([data-active]) .process-node {
     border-color: var(--line2);
-  }
-
-  .js .process-timeline:not([data-active]) .process-node-core {
-    transform: scale(0);
+    color: transparent;
   }
 
   .js .process-timeline:not([data-active]) .process-link-fill {
@@ -121,11 +212,9 @@
   }
 
   .process-timeline[data-active] .process-node {
-    animation: process-light 900ms var(--ease-out) calc(var(--i) * var(--step)) both;
-  }
-
-  .process-timeline[data-active] .process-node-core {
-    animation: process-pop 500ms var(--ease-out) calc(var(--i) * var(--step)) both;
+    animation:
+      process-light 900ms var(--ease-out) calc(var(--i) * var(--step)) both,
+      process-number 500ms var(--ease-out) calc(var(--i) * var(--step)) both;
   }
 
   .process-timeline[data-active] .process-link-fill {
@@ -136,11 +225,22 @@
     animation: process-travel-y var(--step) ease-in-out calc(var(--i) * var(--step) + 0.12s) both;
   }
 
+  /* A linha final se desenha mais devagar, como quem não tem pressa de acabar. */
+  .process-timeline[data-active] .process-link-tail .process-link-fill {
+    animation-duration: calc(var(--step) * 2);
+    animation-timing-function: var(--ease-out);
+  }
+
+  /* Depois da sequência, o pulso passa pela linha final a cada poucos segundos. */
+  .process-timeline[data-active] .process-link-pulse {
+    animation: process-pulse-y 3.6s ease-in-out calc(var(--i) * var(--step) + 1.6s) infinite;
+  }
+
   .process-timeline[data-active] .process-content {
     animation: process-enter 700ms var(--ease-out) calc(var(--i) * var(--step)) both;
   }
 
-  @media (min-width: 64rem) {
+  @media (min-width: 80rem) {
     .js .process-timeline:not([data-active]) .process-link-fill {
       transform: scaleX(0);
     }
@@ -152,27 +252,29 @@
     .process-timeline[data-active] .process-link-head {
       animation-name: process-travel-x;
     }
+
+    .process-timeline[data-active] .process-link-pulse {
+      animation-name: process-pulse-x;
+    }
   }
 }
 
-/* O ponto acende: a borda ganha cor e um anel de luz se expande e some. */
+/* A estação acende: a borda ganha cor e um anel de luz se expande e some. */
 @keyframes process-light {
   from {
     border-color: var(--line2);
     box-shadow: 0 0 0 0 color-mix(in srgb, var(--brand-blue) 55%, transparent);
   }
   to {
-    border-color: color-mix(in srgb, var(--accent) 70%, transparent);
-    box-shadow: 0 0 0 12px transparent;
+    border-color: color-mix(in srgb, var(--accent) 60%, transparent);
+    box-shadow: 0 0 0 14px transparent;
   }
 }
 
-@keyframes process-pop {
+/* O número surge junto com a luz. */
+@keyframes process-number {
   from {
-    transform: scale(0);
-  }
-  60% {
-    transform: scale(1.5);
+    color: transparent;
   }
 }
 
@@ -214,6 +316,37 @@
   }
   100% {
     left: 100%;
+    opacity: 0;
+  }
+}
+
+/* O pulso percorre a linha final em ~55% do ciclo e descansa no resto. */
+@keyframes process-pulse-y {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  55%,
+  100% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes process-pulse-x {
+  0% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  55%,
+  100% {
+    transform: translateX(100%);
     opacity: 0;
   }
 }

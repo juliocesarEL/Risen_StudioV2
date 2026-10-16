@@ -3,8 +3,9 @@ import type { Project } from '@/types/content'
 /**
  * Portfólio.
  *
- * - `kind` define o selo exibido: "cliente", "autoral" ou "conceito". Nunca
- *   apresente um projeto autoral ou conceito como trabalho feito para cliente.
+ * - `kind` define o selo exibido: "colaboracao" (feito com ou para outra
+ *   pessoa ou empresa), "autoral" ou "conceito". Nunca apresente um projeto
+ *   autoral ou conceito como colaboração.
  * - `hasCaseStudy: true` exige o arquivo src/content/projects/<slug>.mdx.
  * - Imagens provisórias devem usar os placeholders neutros de
  *   /public/images/placeholders (nunca capturas inventadas).
@@ -13,93 +14,95 @@ import type { Project } from '@/types/content'
  */
 export const projects: Project[] = [
   {
-    slug: 'site-risen-studio',
-    name: 'Site da Risen Studio',
+    slug: 'nutri-plus',
+    name: 'Nutri+',
     kind: 'autoral',
-    category: 'sites',
+    category: 'sistemas',
     cover: {
-      src: '/images/projects/site-risen-studio/capa.png',
-      alt: 'Página inicial do site da Risen Studio: o título em letras largas e, ao lado, um editor de código montando uma página ao vivo, sobre a cena de partículas',
+      src: '/images/projects/nutri-plus/landing.png',
+      alt: 'Página de apresentação do Nutri+, com o título "Organize sua clínica de nutrição em um só lugar" e uma tela do sistema ao lado',
+    },
+    caseStudyCover: {
+      src: '/images/projects/nutri-plus/dashboard.png',
+      alt: 'Dashboard do Nutri+: pacientes ativos, planos ativos e consultas do dia em destaque, a lista de consultas de hoje e a atividade recente do consultório',
     },
     summary:
-      'O site que você está navegando: cena interativa em WebGL, conteúdo editável em arquivos tipados e um fluxo de orçamento pensado para gerar conversas.',
+      'A rotina inteira do consultório de nutrição em um só lugar: pacientes, avaliações, evolução, planos alimentares, agenda e financeiro. Produto próprio, em desenvolvimento.',
     problem:
-      'O estúdio precisava de uma presença que mostrasse, na prática, o nível de design e de engenharia que entrega, e que transformasse visitas em pedidos de orçamento.',
+      'Nutricionistas dividem o dia entre planilhas, aplicativos de agenda, conversas no WhatsApp e arquivos soltos. Os dados de cada paciente ficam espalhados, montar um plano alimentar toma tempo e acompanhar pagamentos e retornos vira trabalho manual.',
     solution:
-      'Um site em Next.js com conteúdo centralizado, cena de partículas leve no topo, formulário validado no navegador e no servidor e arquitetura em camadas no fluxo de contato.',
+      'Um sistema web que centraliza o consultório: o dashboard mostra o dia e quem precisa de atenção, a ficha reúne avaliações, medidas e a evolução em gráficos, os planos alimentares calculam os macronutrientes pela Tabela TACO e viram PDF, e agenda e financeiro andam junto com os atendimentos.',
     features: [
-      'Cena de partículas em WebGL que reage ao cursor, com versão estática para quem prefere menos movimento',
-      'Formulário de orçamento com validação em tempo real, proteção contra spam e envio por e-mail',
-      'Conteúdo centralizado em arquivos tipados e estudos de caso escritos em MDX',
-      'SEO técnico com metadados, imagens de compartilhamento geradas automaticamente e dados estruturados',
-      'Navegação completa por teclado e contraste adequado em todos os textos',
+      'Dashboard com as consultas do dia, a atividade recente e os pacientes que precisam de atenção',
+      'Ficha do paciente com avaliações, medidas, percentual de gordura, histórico clínico e notas',
+      'Gráficos de evolução do peso e da composição corporal, com meta e progresso',
+      'Planos alimentares com macronutrientes calculados pela Tabela TACO, exportados em PDF',
+      'Agenda semanal com o valor de cada consulta e emissão de recibo do atendimento',
+      'Financeiro com faturamento mensal, pagamentos pendentes e cobrança por e-mail a quem está em atraso',
+      'Dados dos pacientes criptografados, com login protegido por verificação em duas etapas',
+      'Exportação dos dados do paciente e backup completo em arquivo .zip',
     ],
-    stack: [
-      'Next.js',
-      'React',
-      'TypeScript',
-      'Tailwind CSS',
-      'shadcn/ui',
-      'React Bits',
-      'Motion',
-      'Zod',
-      'Resend',
-      'Vercel',
-    ],
+    stack: ['React', 'TypeScript', 'Vite', 'TanStack Query', 'Recharts', 'PostgreSQL'],
     gallery: [
       {
-        src: '/images/projects/site-risen-studio/servicos.png',
-        alt: 'Seção de serviços com três painéis lado a lado: sites, sistemas e integrações',
+        src: '/images/projects/nutri-plus/evolucao-peso.png',
+        alt: 'Evolução de uma paciente no Nutri+: peso inicial, peso atual, meta e progresso, gráfico do peso ao longo de quatro meses e histórico de registros',
       },
       {
-        src: '/images/projects/site-risen-studio/processo.png',
-        alt: 'Linha do tempo com as cinco etapas do processo de trabalho',
+        src: '/images/projects/nutri-plus/financeiro.png',
+        alt: 'Tela financeira do Nutri+: valores recebidos e pendentes do mês, gráfico de faturamento do ano e lista de pagamentos pendentes com aviso de cobrança',
       },
       {
-        src: '/images/projects/site-risen-studio/contato.png',
-        alt: 'Formulário de orçamento ao lado do bloco de contato direto',
+        src: '/images/projects/nutri-plus/pacientes.png',
+        alt: 'Lista de pacientes do Nutri+ em cartões, cada um com objetivo, restrições, peso e IMC',
+      },
+      {
+        src: '/images/projects/nutri-plus/paciente-ficha.png',
+        alt: 'Ficha de uma paciente no Nutri+: altura, peso, IMC, percentual de gordura, última avaliação, notas clínicas e seções de avaliações, histórico, plano alimentar e evolução',
+      },
+      {
+        src: '/images/projects/nutri-plus/avaliacoes-medidas.png',
+        alt: 'Avaliações de uma paciente no Nutri+: gráfico do percentual de gordura e a lista de avaliações com peso, IMC, gordura, massa magra e medidas de cintura, abdômen e quadril',
+      },
+      {
+        src: '/images/projects/nutri-plus/plano-alimentar.png',
+        alt: 'Plano alimentar no Nutri+, organizado por refeição e horário, com calorias e macronutrientes de cada alimento, total calculado e botão para baixar em PDF',
+      },
+      {
+        src: '/images/projects/nutri-plus/agenda.png',
+        alt: 'Agenda do Nutri+: dias da semana com o número de consultas, os atendimentos do dia com horário e valor, resumo da semana e lembretes',
+      },
+      {
+        src: '/images/projects/nutri-plus/landing.png',
+        alt: 'Página de apresentação do Nutri+, com o título "Organize sua clínica de nutrição em um só lugar" e uma tela do sistema ao lado',
       },
     ],
     hasCaseStudy: true,
     featured: true,
   },
   {
-    slug: 'painel-de-gestao',
-    name: 'Painel de gestão para pequenos negócios',
-    kind: 'conceito',
-    category: 'sistemas',
-    cover: {
-      src: '/images/placeholders/projeto.svg',
-      alt: 'Imagem provisória do projeto Painel de gestão para pequenos negócios',
-    },
-    summary:
-      'Estudo de interface para um painel que reúne pedidos, clientes e indicadores do dia em uma única tela.',
-    problem:
-      'Pequenos negócios costumam controlar pedidos e clientes em planilhas e conversas espalhadas.',
-    solution:
-      'Um painel web com visão geral do dia, cadastro de clientes e acompanhamento de pedidos por etapa.',
-    features: ['Visão geral do dia', 'Cadastro de clientes', 'Pedidos organizados por etapa'],
-    hasCaseStudy: false,
-    featured: false,
-    placeholder: true,
-  },
-  {
-    slug: 'landing-page-de-lancamento',
-    name: 'Landing page de lançamento',
-    kind: 'conceito',
+    slug: 'portfolio-ellen-danieli',
+    name: 'Portfólio Ellen Danieli',
+    kind: 'colaboracao',
     category: 'sites',
     cover: {
-      src: '/images/placeholders/projeto.svg',
-      alt: 'Imagem provisória do projeto Landing page de lançamento',
+      src: '/images/projects/ellen-danieli/capa.png',
+      alt: 'Página inicial do portfólio de Ellen Danieli: o título "Design que traduz delicadeza, presença e intenção" em serifa larga, ao lado de um retrato da designer',
     },
     summary:
-      'Estudo de estrutura e narrativa para uma página de captação focada em uma única oferta.',
-    problem: 'Páginas de lançamento perdem conversões quando tentam falar de tudo ao mesmo tempo.',
+      'Portfólio da designer gráfica Ellen Danieli, com domínio próprio. Uma vitrine de leitura editorial, em que tipografia e imagens conduzem a apresentação dos trabalhos, leve e rápida em qualquer tela.',
+    problem:
+      'Uma designer gráfica precisa de um portfólio que seja, ele mesmo, uma prova do seu olhar: os trabalhos têm de aparecer com destaque, sem que o site concorra com eles.',
     solution:
-      'Uma página enxuta, com hierarquia clara, argumentos em ordem de importância e uma única chamada para ação.',
-    features: ['Hierarquia de conteúdo', 'Chamada única para ação', 'Formulário de captação'],
+      'Um site com estrutura editorial, tipografia expressiva e paleta suave, que apresenta cada trabalho como uma peça e carrega rápido mesmo com muitas imagens.',
+    features: [
+      'Apresentação editorial dos trabalhos, com a tipografia como protagonista',
+      'Imagens otimizadas para carregar rápido sem perder a qualidade',
+      'Leitura confortável do celular ao desktop',
+      'Domínio próprio e contato direto para pedidos de orçamento',
+    ],
+    liveUrl: 'https://ellendanieliportfolio.com/',
     hasCaseStudy: false,
     featured: false,
-    placeholder: true,
   },
 ]

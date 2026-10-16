@@ -34,6 +34,13 @@ function NextProjectCard({ copy }: { copy: (typeof projectsSection)['nextProject
   )
 }
 
+/** Colunas do convite, para fechar a fileira com 0, 1 ou 2 projetos (2 colunas no tablet, 3 no desktop). */
+const inviteSpan: Record<number, string> = {
+  0: 'md:col-span-2 lg:col-span-3',
+  1: 'lg:col-span-2',
+  2: 'md:col-span-2 lg:col-span-1',
+}
+
 export function Projects({ id, copy, projects, categories, newTabHint }: ProjectsProps) {
   const titleId = `${id}-titulo`
   const layout = getProjectsLayout(projects.length)
@@ -44,8 +51,6 @@ export function Projects({ id, copy, projects, categories, newTabHint }: Project
   }
   const labelFor = (category: ServiceCategoryId) =>
     categories.find((item) => item.id === category)?.label ?? category
-
-  const [featured, ...others] = projects
 
   return (
     <Section id={id} labelledBy={titleId}>
@@ -64,7 +69,7 @@ export function Projects({ id, copy, projects, categories, newTabHint }: Project
                 filterResult: copy.filterResult,
               }}
             />
-          ) : layout === 'grid' ? (
+          ) : (
             <ul className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
               {projects.map((project, index) => (
                 <li key={project.slug}>
@@ -77,39 +82,15 @@ export function Projects({ id, copy, projects, categories, newTabHint }: Project
                   </Reveal>
                 </li>
               ))}
-            </ul>
-          ) : (
-            // Poucos projetos: um destaque grande e os demais ao lado do convite.
-            <div className="flex flex-col gap-5">
-              {featured ? (
-                <Reveal>
-                  <ProjectCard
-                    project={featured}
-                    variant="featured"
-                    categoryLabel={labelFor(featured.category)}
-                    copy={cardCopy}
-                  />
-                </Reveal>
-              ) : null}
-              <ul className="grid gap-5 md:grid-cols-2">
-                {others.map((project, index) => (
-                  <li key={project.slug}>
-                    <Reveal delay={index * REVEAL_STAGGER} className="h-full">
-                      <ProjectCard
-                        project={project}
-                        categoryLabel={labelFor(project.category)}
-                        copy={cardCopy}
-                      />
-                    </Reveal>
-                  </li>
-                ))}
-                <li className={others.length === 0 ? 'md:col-span-2' : undefined}>
-                  <Reveal delay={others.length * REVEAL_STAGGER} className="h-full">
+              {/* Poucos projetos: o convite ao próximo completa a fileira. */}
+              {layout === 'with-invite' ? (
+                <li className={inviteSpan[projects.length]}>
+                  <Reveal delay={projects.length * REVEAL_STAGGER} className="h-full">
                     <NextProjectCard copy={copy.nextProject} />
                   </Reveal>
                 </li>
-              </ul>
-            </div>
+              ) : null}
+            </ul>
           )}
         </div>
       </Container>

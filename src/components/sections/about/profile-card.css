@@ -1,0 +1,90 @@
+/*
+ * Cartão de perfil do fundador: moldura com o retrato e uma barra de contato.
+ * Sobre a foto, o R da marca se repete em padrão, invisível em repouso: com
+ * o cursor no cartão, a película holográfica brilha através dele, só em volta
+ * do cursor. A inclinação e as coordenadas vêm de holo-tilt.tsx.
+ */
+
+.pcard {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: 0.625rem;
+  border: 1px solid var(--line2);
+  border-radius: 1.75rem;
+  background-color: var(--bg2);
+  box-shadow: var(--shadow-window);
+}
+
+.pcard-portrait {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  border-radius: 1.25rem;
+  background:
+    radial-gradient(
+      90% 70% at 0% 0%,
+      color-mix(in srgb, var(--field-blue) 35%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      90% 70% at 100% 100%,
+      color-mix(in srgb, var(--field-violet) 45%, transparent),
+      transparent 70%
+    ),
+    var(--bg3);
+}
+
+/* O padrão de R: faixas nas cores da marca, visíveis só através dos R repetidos. */
+.pcard-tiles {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  /* screen só clareia: sobre a foto, vira um reflexo colorido. */
+  mix-blend-mode: screen;
+  background-image: repeating-linear-gradient(
+    115deg,
+    #3386fe 0%,
+    #5658f8 6%,
+    #8457fc 12%,
+    #22d3ee 18%,
+    #3386fe 24%
+  );
+  background-position: var(--holo-x) var(--holo-y);
+  background-size: 240% 240%;
+  mask-image:
+    var(--pcard-tile),
+    radial-gradient(
+      circle at var(--holo-x) var(--holo-y),
+      #000 0%,
+      rgb(0 0 0 / 0.25) 25%,
+      transparent 50%
+    );
+  mask-size:
+    4.25rem 4.25rem,
+    100% 100%;
+  mask-repeat: repeat, no-repeat;
+  mask-composite: intersect;
+  opacity: 0;
+  transition: opacity 0.5s ease-out;
+}
+
+.holo[data-holo] .pcard-tiles {
+  opacity: 0.5;
+}
+
+/* Escurece a base do retrato para o nome ficar legível sobre a foto. */
+.pcard-shade {
+  position: absolute;
+  z-index: 1;
+  inset: auto 0 0;
+  height: 50%;
+  background-image: linear-gradient(
+    to top,
+    color-mix(in srgb, var(--bg) 96%, transparent) 0%,
+    color-mix(in srgb, var(--bg) 88%, transparent) 32%,
+    transparent
+  );
+}
