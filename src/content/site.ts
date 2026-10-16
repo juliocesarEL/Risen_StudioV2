@@ -45,7 +45,8 @@ export const siteConfig = {
     { label: 'GitHub', url: 'https://github.com/juliocesarEL', icon: 'github' },
   ],
   seo: {
-    title: 'Risen Studio — Criação de sites e sistemas web em Salto, SP',
+    title: 'Risen Studio',
+    shareTitle: 'Risen Studio — Criação de sites e sistemas web em Salto, SP',
     titleTemplate: '%s | Risen Studio',
     description:
       'Criação de sites, landing pages, sistemas web sob medida e plataformas SaaS para empresas e profissionais de Salto, Itu, Indaiatuba e região, com atendimento local e remoto.',

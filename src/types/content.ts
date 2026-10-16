@@ -140,7 +140,10 @@ export interface SiteConfig {
   }
   social: SocialLink[]
   seo: {
+    /** Título da aba do navegador (e dos resultados de busca) na página inicial. */
     title: string
+    /** Título dos links compartilhados (WhatsApp, LinkedIn...), mais descritivo. */
+    shareTitle: string
     titleTemplate: string
     description: string
     keywords: string[]
