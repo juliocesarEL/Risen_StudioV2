@@ -6,7 +6,8 @@ import { REVEAL_STAGGER, Reveal } from '@/components/shared/reveal'
 import { Container, Section } from '@/components/shared/section'
 import { SectionHeading } from '@/components/shared/section-heading'
 import type { projectsSection } from '@/content/sections'
-import { getProjectsLayout, shouldShowProjectFilters } from '@/lib/projects'
+import { shouldShowNextProjectInvite, shouldShowProjectFilters } from '@/lib/projects'
+import { cn } from '@/lib/utils'
 import type { Project, ServiceCategoryId } from '@/types/content'
 
 interface ProjectsProps {
@@ -34,16 +35,17 @@ function NextProjectCard({ copy }: { copy: (typeof projectsSection)['nextProject
   )
 }
 
-/** Colunas do convite, para fechar a fileira com 0, 1 ou 2 projetos (2 colunas no tablet, 3 no desktop). */
-const inviteSpan: Record<number, string> = {
-  0: 'md:col-span-2 lg:col-span-3',
-  1: 'lg:col-span-2',
-  2: 'md:col-span-2 lg:col-span-1',
+/** Desktop (3 colunas): o convite ocupa as colunas que sobram na última fileira. */
+const inviteSpanDesktop = ['lg:col-span-3', 'lg:col-span-2', 'lg:col-span-1'] as const
+
+/** Colunas do convite: no tablet (2 colunas), largura toda se a quantidade de projetos for par. */
+function inviteSpan(count: number) {
+  return cn(inviteSpanDesktop[count % 3], count % 2 === 0 && 'md:col-span-2')
 }
 
 export function Projects({ id, copy, projects, categories, newTabHint }: ProjectsProps) {
   const titleId = `${id}-titulo`
-  const layout = getProjectsLayout(projects.length)
+  const showInvite = shouldShowNextProjectInvite(projects.length)
   const cardCopy: ProjectCardCopy = {
     caseStudyCta: copy.caseStudyCta,
     liveCta: copy.liveCta,
@@ -82,9 +84,9 @@ export function Projects({ id, copy, projects, categories, newTabHint }: Project
                   </Reveal>
                 </li>
               ))}
-              {/* Poucos projetos: o convite ao próximo completa a fileira. */}
-              {layout === 'with-invite' ? (
-                <li className={inviteSpan[projects.length]}>
+              {/* A última fileira não fecha: o convite ao próximo completa. */}
+              {showInvite ? (
+                <li className={inviteSpan(projects.length)}>
                   <Reveal delay={projects.length * REVEAL_STAGGER} className="h-full">
                     <NextProjectCard copy={copy.nextProject} />
                   </Reveal>

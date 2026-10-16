@@ -1,21 +1,22 @@
 import { describe, expect, it } from 'vitest'
 
 import {
-  getProjectsLayout,
   MIN_PROJECTS_FOR_FILTERS,
-  MIN_PROJECTS_FOR_GRID,
+  shouldShowNextProjectInvite,
   shouldShowProjectFilters,
 } from '@/lib/projects'
 
 describe('layout do portfólio', () => {
-  it('com poucos projetos, o convite ao próximo completa a grade', () => {
-    expect(getProjectsLayout(0)).toBe('with-invite')
-    expect(getProjectsLayout(MIN_PROJECTS_FOR_GRID - 1)).toBe('with-invite')
+  it('o convite ao próximo projeto completa a última fileira', () => {
+    expect(shouldShowNextProjectInvite(0)).toBe(true)
+    expect(shouldShowNextProjectInvite(1)).toBe(true)
+    expect(shouldShowNextProjectInvite(2)).toBe(true)
+    expect(shouldShowNextProjectInvite(4)).toBe(true)
   })
 
-  it('usa a grade a partir de 3 projetos', () => {
-    expect(getProjectsLayout(MIN_PROJECTS_FOR_GRID)).toBe('grid')
-    expect(getProjectsLayout(12)).toBe('grid')
+  it('sem convite quando as fileiras fecham', () => {
+    expect(shouldShowNextProjectInvite(3)).toBe(false)
+    expect(shouldShowNextProjectInvite(6)).toBe(false)
   })
 
   it('mostra filtros apenas a partir de 6 projetos', () => {

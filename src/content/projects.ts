@@ -132,4 +132,29 @@ export const projects: Project[] = [
     hasCaseStudy: false,
     featured: false,
   },
+  {
+    slug: 'quilate-veiculos',
+    name: 'Quilate Veículos',
+    kind: 'conceito',
+    category: 'sites',
+    cover: {
+      src: '/images/projects/quilate-veiculos/capa.png',
+      alt: 'Página inicial da Quilate Veículos: o título "Seminovo com procedência, sem surpresa depois da compra", a foto de um SUV branco e o checklist de entrada de cada carro, com o botão de falar no WhatsApp',
+    },
+    summary:
+      'Landing page para uma revenda de seminovos, com um único objetivo: gerar conversas no WhatsApp. Cada carro, simulação e botão abre a conversa com a mensagem pronta, já com o modelo e o preço do anúncio.',
+    problem:
+      'Em revenda de carros, o interesse esfria rápido: quem precisa procurar o contato ou explicar de qual carro está falando muitas vezes desiste antes de mandar a primeira mensagem.',
+    solution:
+      'Uma página que leva tudo para o WhatsApp: o estoque, o simulador de parcelas, a avaliação do usado e cada botão abrem a conversa com a mensagem já escrita, sem formulário que fique sem resposta.',
+    features: [
+      'Estoque em que cada carro abre o WhatsApp com modelo, ano e preço já escritos',
+      'Simulação de parcela e avaliação do usado que terminam em uma conversa',
+      'Checklist de procedência para passar confiança antes do primeiro contato',
+      'Perguntas frequentes e localização da loja para quem quer ver o carro de perto',
+    ],
+    liveUrl: 'https://quilate-veiculos.vercel.app/',
+    hasCaseStudy: false,
+    featured: false,
+  },
 ]

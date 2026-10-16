@@ -7,10 +7,8 @@ const showPlaceholders = process.env.NODE_ENV !== 'production'
 
 /** A partir desta quantidade de projetos, os filtros por categoria aparecem. */
 export const MIN_PROJECTS_FOR_FILTERS = 6
-/** Abaixo desta quantidade, o convite ao próximo projeto completa a grade. */
-export const MIN_PROJECTS_FOR_GRID = 3
-
-export type ProjectsLayout = 'with-invite' | 'grid'
+/** Colunas da grade de projetos no desktop. */
+export const PROJECT_COLUMNS = 3
 
 export function getPublishedProjects(): Project[] {
   const visible = allProjects.filter((project) => showPlaceholders || !project.placeholder)
@@ -18,8 +16,12 @@ export function getPublishedProjects(): Project[] {
   return [...visible].sort((a, b) => Number(b.featured) - Number(a.featured))
 }
 
-export function getProjectsLayout(count: number): ProjectsLayout {
-  return count < MIN_PROJECTS_FOR_GRID ? 'with-invite' : 'grid'
+/**
+ * O convite ao próximo projeto aparece quando a última fileira da grade não
+ * fecha (e quando ainda não há projetos), para nenhum card ficar sozinho.
+ */
+export function shouldShowNextProjectInvite(count: number): boolean {
+  return count === 0 || count % PROJECT_COLUMNS !== 0
 }
 
 export function shouldShowProjectFilters(count: number): boolean {
