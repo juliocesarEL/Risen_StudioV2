@@ -10,6 +10,23 @@ const ORGANIZATION_ID_FRAGMENT = '#organizacao'
 
 const organizationId = () => absoluteUrl(`/${ORGANIZATION_ID_FRAGMENT}`)
 
+/**
+ * O site em si. O Google usa o `name` daqui como nome do site nos resultados
+ * de busca (no lugar do endereço "risenstudio.com.br").
+ */
+export function buildWebSiteJsonLd(): JsonLdObject {
+  return {
+    '@context': SCHEMA_CONTEXT,
+    '@type': 'WebSite',
+    '@id': absoluteUrl('/#site'),
+    name: siteConfig.name,
+    alternateName: ['Risen', 'risenstudio.com.br'],
+    url: absoluteUrl('/'),
+    inLanguage: siteConfig.locale,
+    publisher: { '@id': organizationId() },
+  }
+}
+
 /** Estúdio como negócio local (ProfessionalService é um tipo de LocalBusiness). */
 export function buildOrganizationJsonLd(): JsonLdObject {
   const { location, contact, social } = siteConfig

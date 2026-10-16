@@ -49,7 +49,7 @@ export const siteConfig = {
     shareTitle: 'Risen Studio — Criação de sites e sistemas web em Salto, SP',
     titleTemplate: '%s | Risen Studio',
     description:
-      'Criação de sites, landing pages, sistemas web sob medida e plataformas SaaS para empresas e profissionais de Salto, Itu, Indaiatuba e região, com atendimento local e remoto.',
+      'Sites, landing pages e sistemas web sob medida, pensados para trazer clientes e organizar a operação do seu negócio. Em Salto, Itu, Indaiatuba e todo o Brasil.',
     keywords: [
       'criação de sites em Salto',
       'criação de sites em Itu',

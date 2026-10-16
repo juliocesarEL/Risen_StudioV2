@@ -31,7 +31,7 @@ import { siteConfig } from '@/content/site'
 import { uiCopy } from '@/content/ui'
 import { getCategoryLabel, getProjectCategories, getPublishedProjects } from '@/lib/projects'
 import { budgetRangeOptions, projectTypeOptions } from '@/lib/schemas/contact'
-import { buildOrganizationJsonLd } from '@/lib/seo/json-ld'
+import { buildOrganizationJsonLd, buildWebSiteJsonLd } from '@/lib/seo/json-ld'
 import { getStudioWhatsAppUrl } from '@/lib/whatsapp'
 
 export default function HomePage() {
@@ -46,6 +46,7 @@ export default function HomePage() {
   // hidrata uma de cada vez e devolve o controle ao navegador entre elas.
   return (
     <>
+      <JsonLd data={buildWebSiteJsonLd()} />
       <JsonLd data={buildOrganizationJsonLd()} />
 
       <Hero id={sectionIds.hero} content={heroContent} projectsHref={`#${sectionIds.projects}`} />

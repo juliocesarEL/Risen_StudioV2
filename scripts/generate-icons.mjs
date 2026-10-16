@@ -5,7 +5,7 @@
  *
  * Saídas:
  *  - src/app/icon.svg          favicon vetorial (navegadores modernos)
- *  - src/app/favicon.ico       favicon 32×32 (navegadores e robôs antigos)
+ *  - src/app/favicon.ico       favicon 32, 48 e 96 px (navegadores e Google, que pede múltiplos de 48)
  *  - src/app/apple-icon.png    ícone de tela inicial do iOS (180×180)
  *  - public/brand/icon-*.png   ícones do manifesto e logo do JSON-LD
  *
@@ -39,22 +39,27 @@ const faviconSvg = framed({ frame: 32, padding: 5, background: brandColors.bg, r
 /** Ícones de app: quadrado cheio (o sistema aplica o próprio recorte) com margem segura. */
 const appIconSvg = framed({ frame: 32, padding: 8, background: brandColors.bg })
 
-/** Empacota um PNG em um arquivo .ico (formato aceito por todos os navegadores). */
-function pngToIco(png, size) {
+/** Empacota PNGs ([png, tamanho]) em um arquivo .ico (formato aceito por todos os navegadores). */
+function pngsToIco(images) {
   const header = Buffer.alloc(6)
   header.writeUInt16LE(0, 0)
   header.writeUInt16LE(1, 2)
-  header.writeUInt16LE(1, 4)
-  const entry = Buffer.alloc(16)
-  entry.writeUInt8(size, 0)
-  entry.writeUInt8(size, 1)
-  entry.writeUInt8(0, 2)
-  entry.writeUInt8(0, 3)
-  entry.writeUInt16LE(1, 4)
-  entry.writeUInt16LE(32, 6)
-  entry.writeUInt32LE(png.length, 8)
-  entry.writeUInt32LE(header.length + entry.length, 12)
-  return Buffer.concat([header, entry, png])
+  header.writeUInt16LE(images.length, 4)
+  let offset = header.length + images.length * 16
+  const entries = images.map(([png, size]) => {
+    const entry = Buffer.alloc(16)
+    entry.writeUInt8(size, 0)
+    entry.writeUInt8(size, 1)
+    entry.writeUInt8(0, 2)
+    entry.writeUInt8(0, 3)
+    entry.writeUInt16LE(1, 4)
+    entry.writeUInt16LE(32, 6)
+    entry.writeUInt32LE(png.length, 8)
+    entry.writeUInt32LE(offset, 12)
+    offset += png.length
+    return entry
+  })
+  return Buffer.concat([header, ...entries, ...images.map(([png]) => png)])
 }
 
 const browser = await chromium.launch()
@@ -70,7 +75,10 @@ async function renderPng(svg, size) {
 
 await mkdir(join('public', 'brand'), { recursive: true })
 await writeFile(join('src', 'app', 'icon.svg'), `${faviconSvg}\n`)
-await writeFile(join('src', 'app', 'favicon.ico'), pngToIco(await renderPng(faviconSvg, 32), 32))
+const faviconSizes = [32, 48, 96]
+const faviconPngs = []
+for (const size of faviconSizes) faviconPngs.push([await renderPng(faviconSvg, size), size])
+await writeFile(join('src', 'app', 'favicon.ico'), pngsToIco(faviconPngs))
 await writeFile(join('src', 'app', 'apple-icon.png'), await renderPng(appIconSvg, 180))
 await writeFile(join('public', 'brand', 'icon-192.png'), await renderPng(appIconSvg, 192))
 await writeFile(join('public', 'brand', 'icon-512.png'), await renderPng(appIconSvg, 512))
