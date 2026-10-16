@@ -133,13 +133,13 @@ export const projects: Project[] = [
     featured: false,
   },
   {
-    slug: 'quilate-veiculos',
-    name: 'Quilate Veículos',
+    slug: 'aval-veiculos',
+    name: 'Aval Veículos',
     kind: 'conceito',
     category: 'sites',
     cover: {
-      src: '/images/projects/quilate-veiculos/capa.png',
-      alt: 'Página inicial da Quilate Veículos: o título "Seminovo com procedência, sem surpresa depois da compra", a foto de um SUV branco e o checklist de entrada de cada carro, com o botão de falar no WhatsApp',
+      src: '/images/projects/aval-veiculos/capa.png',
+      alt: 'Página inicial da Aval Veículos: o título "Seminovo com procedência, sem surpresa depois da compra", a foto de um SUV branco e o checklist de entrada de cada carro, com o botão de falar no WhatsApp',
     },
     summary:
       'Landing page para uma revenda de seminovos, com um único objetivo: gerar conversas no WhatsApp. Cada carro, simulação e botão abre a conversa com a mensagem pronta, já com o modelo e o preço do anúncio.',
@@ -153,7 +153,7 @@ export const projects: Project[] = [
       'Checklist de procedência para passar confiança antes do primeiro contato',
       'Perguntas frequentes e localização da loja para quem quer ver o carro de perto',
     ],
-    liveUrl: 'https://quilate-veiculos.vercel.app/',
+    liveUrl: 'https://aval-veiculos.vercel.app/',
     hasCaseStudy: false,
     featured: false,
   },
