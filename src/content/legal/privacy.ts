@@ -4,6 +4,6 @@ export const privacyPage = {
   description:
     'Como a Risen Studio trata os dados enviados pelo formulário de orçamento, conforme a LGPD.',
   // AJUSTAR: data da última revisão do texto (AAAA-MM-DD).
-  lastUpdated: '2026-10-14',
+  lastUpdated: '2026-10-16',
   lastUpdatedLabel: 'Última atualização',
 }
