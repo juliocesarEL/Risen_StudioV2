@@ -3,9 +3,10 @@ import type { Project } from '@/types/content'
 /**
  * Portfólio.
  *
- * - `kind` define o selo exibido: "colaboracao" (feito com ou para outra
- *   pessoa ou empresa), "autoral" ou "conceito". Nunca apresente um projeto
- *   autoral ou conceito como colaboração.
+ * - `kind` define o selo exibido: "autoral" (produto próprio), "colaboracao"
+ *   (feito junto com outra pessoa), "cliente" (trabalho contratado) ou
+ *   "conceito". Nunca apresente um projeto autoral ou conceito como trabalho
+ *   para terceiros.
  * - `hasCaseStudy: true` exige o arquivo src/content/projects/<slug>.mdx.
  * - Imagens provisórias devem usar os placeholders neutros de
  *   /public/images/placeholders (nunca capturas inventadas).
@@ -22,6 +23,7 @@ export const projects: Project[] = [
       src: '/images/projects/nutri-plus/landing.png',
       alt: 'Página de apresentação do Nutri+, com o título "Organize sua clínica de nutrição em um só lugar" e uma tela do sistema ao lado',
     },
+    logo: '/images/projects/nutri-plus/logo.png',
     caseStudyCover: {
       src: '/images/projects/nutri-plus/dashboard.png',
       alt: 'Dashboard do Nutri+: pacientes ativos, planos ativos e consultas do dia em destaque, a lista de consultas de hoje e a atividade recente do consultório',
@@ -102,6 +104,31 @@ export const projects: Project[] = [
       'Domínio próprio e contato direto para pedidos de orçamento',
     ],
     liveUrl: 'https://ellendanieliportfolio.com/',
+    hasCaseStudy: false,
+    featured: false,
+  },
+  {
+    slug: 'notas-de-cafe',
+    name: 'Notas de Café',
+    kind: 'cliente',
+    category: 'sites',
+    cover: {
+      src: '/images/projects/notas-de-cafe/capa.png',
+      alt: 'Página inicial do Notas de Café: o título "Uma marca que transforma café em experiência sensorial" em serifa elegante, ao lado de um painel verde-escuro sobre a essência da marca',
+    },
+    summary:
+      'Site completo para uma marca autoral que une café e música. Storytelling sensorial, catálogo com carrinho e pedido finalizado direto no WhatsApp, com identidade visual criada do zero.',
+    problem:
+      'Uma marca nova de café precisava de presença própria: contar sua história, apresentar os grãos e vender sem depender de marketplace nem de um checkout complicado.',
+    solution:
+      'Um site com narrativa sensorial, que conduz da história da marca ao catálogo, com carrinho e finalização do pedido pelo WhatsApp, sobre uma identidade visual construída do zero.',
+    features: [
+      'Identidade visual criada do zero, da tipografia à paleta',
+      'Storytelling sensorial que apresenta a marca e os grãos',
+      'Catálogo com carrinho de compras',
+      'Pedido finalizado direto no WhatsApp',
+    ],
+    liveUrl: 'https://www.notasdecaféoficial.com.br/',
     hasCaseStudy: false,
     featured: false,
   },

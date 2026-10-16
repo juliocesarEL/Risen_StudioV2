@@ -33,7 +33,7 @@ export const projectsSection = {
   heading: {
     title: 'Trabalhos que mostram como pensamos e construímos',
     description:
-      'Cada projeto traz um selo que indica sua origem: em colaboração, autoral ou conceito.',
+      'Cada projeto traz um selo que indica sua origem: autoral, colaboração, cliente ou conceito.',
   } satisfies SectionCopy,
   filterLabel: 'Filtrar projetos por categoria',
   filterAll: 'Todos',
@@ -42,8 +42,9 @@ export const projectsSection = {
   caseStudyCta: 'Ver projeto',
   liveCta: 'Ver site',
   kindLabels: {
-    colaboracao: 'Colaboração',
     autoral: 'Projeto autoral',
+    colaboracao: 'Colaboração',
+    cliente: 'Cliente',
     conceito: 'Conceito',
   },
   nextProject: {

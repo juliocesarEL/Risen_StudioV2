@@ -1,4 +1,5 @@
 import { ArrowRight, ArrowUpRight } from 'lucide-react'
+import Image from 'next/image'
 import Link from 'next/link'
 
 import { BrowserFrame } from '@/components/shared/browser-frame'
@@ -48,7 +49,10 @@ export function ProjectCard({
           <span className="text-sm text-subtle">{categoryLabel}</span>
         </div>
 
-        <Heading className="font-display text-h3 font-semibold text-foreground font-stretch-semi">
+        <Heading className="flex items-center gap-3 font-display text-h3 font-semibold text-foreground font-stretch-semi">
+          {project.logo ? (
+            <Image src={project.logo} alt="" width={36} height={36} className="size-9 shrink-0" />
+          ) : null}
           {primaryHref ? (
             // O link "estica" sobre o card inteiro: um único destino para mouse, toque e teclado.
             opensLiveSite ? (

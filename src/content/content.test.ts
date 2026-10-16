@@ -47,9 +47,15 @@ describe('conteúdo', () => {
     }
   })
 
-  it('projetos de exemplo nunca se apresentam como colaboração', () => {
+  it.each(projects.filter((project) => project.logo))('o logo de "$slug" existe', (project) => {
+    expect(existsSync(publicFile(project.logo ?? ''))).toBe(true)
+  })
+
+  it('projetos de exemplo nunca se apresentam como trabalho para terceiros', () => {
     const placeholders = projects.filter((project) => project.placeholder)
-    expect(placeholders.every((project) => project.kind !== 'colaboracao')).toBe(true)
+    expect(
+      placeholders.every((project) => project.kind !== 'colaboracao' && project.kind !== 'cliente'),
+    ).toBe(true)
   })
 
   it('os CTAs de serviços e de necessidades usam tipos de projeto ativos no formulário', () => {

@@ -57,19 +57,18 @@ O modelo comentado está em [`.env.example`](.env.example).
 
 ## Scripts
 
-| Comando                       | O que faz                                                                                                                                                                |
-| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `pnpm dev`                    | Servidor de desenvolvimento.                                                                                                                                             |
-| `pnpm build` / `pnpm start`   | Build de produção e servidor de produção.                                                                                                                                |
-| `pnpm check`                  | Tipos + lint + formatação + testes unitários. Rode antes de publicar.                                                                                                    |
-| `pnpm typecheck`              | Gera os tipos de rota do Next e roda o TypeScript.                                                                                                                       |
-| `pnpm lint` / `pnpm lint:fix` | ESLint (inclui as regras de fronteira da arquitetura).                                                                                                                   |
-| `pnpm format`                 | Prettier (inclui a ordenação de classes do Tailwind).                                                                                                                    |
-| `pnpm test`                   | Testes unitários (Vitest).                                                                                                                                               |
-| `pnpm test:e2e`               | Testes ponta a ponta e de acessibilidade (Playwright), em desktop e celular.                                                                                             |
-| `pnpm screenshots`            | Capturas nas larguras de referência (320 a 1920 px); acusa rolagem horizontal.                                                                                           |
-| `pnpm capture:project-images` | Recaptura as imagens do projeto "Site da Risen Studio" (com `pnpm dev` rodando; ou `--gpu --url=...` a partir do servidor de produção, numa máquina com placa de vídeo). |
-| `pnpm generate:icons`         | Gera favicon, ícone da Apple e ícones do manifesto a partir do logo.                                                                                                     |
+| Comando                       | O que faz                                                                      |
+| ----------------------------- | ------------------------------------------------------------------------------ |
+| `pnpm dev`                    | Servidor de desenvolvimento.                                                   |
+| `pnpm build` / `pnpm start`   | Build de produção e servidor de produção.                                      |
+| `pnpm check`                  | Tipos + lint + formatação + testes unitários. Rode antes de publicar.          |
+| `pnpm typecheck`              | Gera os tipos de rota do Next e roda o TypeScript.                             |
+| `pnpm lint` / `pnpm lint:fix` | ESLint (inclui as regras de fronteira da arquitetura).                         |
+| `pnpm format`                 | Prettier (inclui a ordenação de classes do Tailwind).                          |
+| `pnpm test`                   | Testes unitários (Vitest).                                                     |
+| `pnpm test:e2e`               | Testes ponta a ponta e de acessibilidade (Playwright), em desktop e celular.   |
+| `pnpm screenshots`            | Capturas nas larguras de referência (320 a 1920 px); acusa rolagem horizontal. |
+| `pnpm generate:icons`         | Gera favicon, ícone da Apple e ícones do manifesto a partir do logo.           |
 
 Exemplo de capturas: `pnpm screenshots --url=http://localhost:3000 --paths=/,/privacidade --full`.
 

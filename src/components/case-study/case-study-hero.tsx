@@ -1,4 +1,5 @@
 import { ArrowLeft, ArrowUpRight } from 'lucide-react'
+import Image from 'next/image'
 import Link from 'next/link'
 
 import { BrowserFrame } from '@/components/shared/browser-frame'
@@ -31,7 +32,17 @@ export function CaseStudyHero({ project, categoryLabel, backHref, copy }: CaseSt
             <ProjectKindBadge kind={project.kind} />
             <span className="text-sm text-subtle">{categoryLabel}</span>
           </div>
-          <h1 className="font-display text-page-title font-bold text-foreground font-stretch-display">
+          <h1 className="flex items-center gap-4 font-display text-page-title font-bold text-foreground font-stretch-display sm:gap-5">
+            {project.logo ? (
+              <Image
+                src={project.logo}
+                alt=""
+                width={72}
+                height={72}
+                preload
+                className="size-[1.2em] shrink-0"
+              />
+            ) : null}
             {project.name}
           </h1>
           <p className="max-w-2xl text-lead text-body">{project.summary}</p>

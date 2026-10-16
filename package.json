@@ -16,7 +16,6 @@
     "test:e2e": "playwright test",
     "check": "pnpm typecheck && pnpm lint && pnpm format:check && pnpm test",
     "screenshots": "node scripts/screenshots.mjs",
-    "capture:project-images": "node scripts/capture-project-images.mjs",
     "generate:icons": "node scripts/generate-icons.mjs"
   },
   "dependencies": {

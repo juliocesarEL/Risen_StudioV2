@@ -25,7 +25,7 @@ export type ProjectTypeId =
   | 'outro'
 
 /** Origem de um projeto. O selo é obrigatório e nunca pode ser omitido. */
-export type ProjectKind = 'colaboracao' | 'autoral' | 'conceito'
+export type ProjectKind = 'autoral' | 'colaboracao' | 'cliente' | 'conceito'
 
 /** Ícones de interface disponíveis para o conteúdo (mapeados em components/shared/icon.tsx). */
 export type IconName =
@@ -182,6 +182,11 @@ export interface Project {
   category: ServiceCategoryId
   /** Capa do card na seção de projetos. */
   cover: ImageAsset
+  /**
+   * Logo do projeto (PNG ou SVG com fundo transparente), ao lado do nome no
+   * card e na página do projeto. Decorativo: o nome já aparece ao lado.
+   */
+  logo?: string
   /** Imagem de abertura da página do projeto. Sem ela, a página usa a capa. */
   caseStudyCover?: ImageAsset
   summary: string

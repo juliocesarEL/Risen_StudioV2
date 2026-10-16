@@ -70,7 +70,7 @@ A Risen é um estúdio conduzido pelo próprio fundador, **Julio César Lavras**
 
 ## Evidence on Hand
 
-- **Projeto autoral:** o próprio site da Risen, com capturas reais em `public/images/projects/site-risen-studio/`.
+- **Projetos reais:** Nutri+ (autoral, em desenvolvimento), Portfólio Ellen Danieli (colaboração) e Notas de Café (cliente), com capturas em `public/images/projects/`.
 - **Fundador:** Julio César Lavras, formado em Ciência da Computação, desenvolvedor full stack.
 - **Tecnologias do fundador:** JavaScript, TypeScript, React, Node.js, Express, SQLite e PostgreSQL.
 - **Não existem e não podem ser inventados:**
