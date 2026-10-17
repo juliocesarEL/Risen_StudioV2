@@ -257,6 +257,8 @@ export interface Need {
   id: string
   statement: string
   solution: string
+  /** Resposta da Risen na conversa da seção "Qual é o seu momento?". */
+  reply: string
   projectType: ProjectTypeId
   whatsappMessage: string
 }

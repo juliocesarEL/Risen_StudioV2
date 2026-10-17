@@ -100,7 +100,16 @@ export const needsSection = {
   } satisfies SectionCopy,
   solutionLabel: 'Solução indicada',
   quoteCta: 'Pedir orçamento',
-  whatsappCta: 'Falar no WhatsApp',
+  whatsappCta: 'Continuar no WhatsApp',
+  /** A seção é uma conversa: as situações são respostas rápidas e a Risen responde. */
+  chat: {
+    optionsLabel: 'Respostas rápidas',
+    title: 'Risen Studio',
+    subtitle: 'Conversa direta com quem desenvolve',
+    greeting: 'Oi! Me conta: qual é o seu momento?',
+    typing: 'Risen Studio está digitando…',
+    visitor: 'Você',
+  },
 }
 
 export const aboutSection = {
