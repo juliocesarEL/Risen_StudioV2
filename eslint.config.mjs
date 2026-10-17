@@ -91,6 +91,8 @@ const eslintConfig = defineConfig([
     'playwright-report/**',
     'test-results/**',
     'next-env.d.ts',
+    // Capturas e scripts de conferência locais (fora do git).
+    '.screenshots/**',
     // Tabelas do `cn` geradas no build (ver cn.config.mjs).
     'src/lib/cn-tables.ts',
   ]),

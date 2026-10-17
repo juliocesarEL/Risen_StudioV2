@@ -1,0 +1,83 @@
+# Integração contínua: a cada push e pull request, o código passa pelas mesmas
+# verificações feitas localmente. O deploy (CD) fica com a Vercel: cada push na
+# main vai para produção e cada pull request ganha um link de pré-visualização.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+# Um novo push no mesmo branch cancela a execução anterior, que ficou obsoleta.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  qualidade:
+    name: Tipos, lint, formatação e testes unitários
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+
+      # Lê a versão do pnpm do campo "packageManager" do package.json.
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: TypeScript
+        run: pnpm typecheck
+
+      - name: ESLint (inclui as fronteiras da arquitetura)
+        run: pnpm lint
+
+      - name: Prettier
+        run: pnpm format:check
+
+      - name: Testes unitários (Vitest)
+        run: pnpm test
+
+  e2e:
+    name: Build e testes ponta a ponta (Playwright)
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      # Desktop e celular rodam no Chromium: só ele é baixado.
+      - name: Navegador do Playwright
+        run: pnpm exec playwright install --with-deps chromium
+
+      # O Playwright faz o build de produção e sobe o servidor sozinho
+      # (playwright.config.ts), sempre sem chave de e-mail: nada é enviado.
+      - name: Testes ponta a ponta e de acessibilidade
+        run: pnpm test:e2e
+
+      - name: Relatório em caso de falha
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 7

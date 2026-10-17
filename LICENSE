@@ -1,0 +1,24 @@
+Copyright (c) 2026 Julio César Lavras (Risen Studio). Todos os direitos reservados.
+
+Este repositório é público apenas para consulta e estudo. Nenhuma licença de uso
+é concedida: sem autorização prévia e por escrito do autor, não é permitido
+copiar, modificar, distribuir, publicar ou reutilizar, no todo ou em parte:
+
+  - o código-fonte deste site;
+  - a marca Risen Studio, o logotipo, o monograma "R" e a identidade visual;
+  - os textos, o conteúdo e as imagens, inclusive as capturas de projetos de
+    clientes, que pertencem aos respectivos titulares.
+
+Ler o código, mencioná-lo e criar um fork dentro do GitHub (conforme os Termos
+de Serviço do GitHub) são permitidos.
+
+Componentes de terceiros mantêm as próprias licenças, e esta nota não se aplica
+a eles:
+
+  - bibliotecas listadas em package.json (Next.js, React e as demais), sob as
+    licenças de cada pacote;
+  - componentes do React Bits em src/components/reactbits/vendor/, sob a
+    licença do projeto React Bits (https://reactbits.dev);
+  - fontes Archivo e Martian Mono, sob a SIL Open Font License 1.1.
+
+Contato para autorizações: risenstudiooficial@gmail.com

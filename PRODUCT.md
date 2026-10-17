@@ -38,10 +38,9 @@ A Risen é um estúdio conduzido pelo próprio fundador, **Julio César Lavras**
 
 ## Operating Context
 
-- Contato pelo formulário (Server Action com Resend, ainda não configurado) ou pelo WhatsApp (11) 98958-7895.
-- Instagram: https://www.instagram.com/risenstudio.dev/. LinkedIn e GitHub pessoais do fundador entram depois.
-- Domínio: risenstudio.com.br. Ele já hospeda o site atual e será usado por este.
-- Deploy previsto na Vercel.
+- Contato pelo formulário (Server Action com Resend) ou pelo WhatsApp (11) 98958-7895.
+- Instagram: https://www.instagram.com/risenstudio.dev/. LinkedIn e GitHub do fundador no rodapé e no contato.
+- Domínio: risenstudio.com.br, publicado na Vercel.
 
 ## Capabilities and Constraints
 
@@ -49,13 +48,7 @@ A Risen é um estúdio conduzido pelo próprio fundador, **Julio César Lavras**
 - **Serviços:** lojas virtuais **não** são oferecidas.
 - **Preços e prazos:** nada de valores ou prazos fixos.
 - **Envio do formulário:** nunca simular. Sem a chave do Resend, o site mostra um erro honesto.
-- **Projetos:** todo projeto exibe o selo obrigatório "Cliente", "Projeto autoral" ou "Conceito". Os filtros só aparecem com 6 ou mais projetos.
-- **Em aberto:**
-  - projetos reais de clientes;
-  - e-mail comercial;
-  - configuração do Resend;
-  - links do LinkedIn e do GitHub;
-  - dados do controlador para a política de privacidade.
+- **Projetos:** todo projeto exibe o selo obrigatório "Projeto autoral", "Colaboração", "Cliente" ou "Conceito". A página inicial mostra até 6; os demais ficam em `/projetos`.
 
 ## Brand Commitments
 
@@ -64,9 +57,9 @@ A Risen é um estúdio conduzido pelo próprio fundador, **Julio César Lavras**
   - o monograma "R", com a curva em gradiente e a perna dividida em um traço branco e outro em gradiente;
   - o logotipo "RISΞN", com o E em três barras.
   - Arquivos: `public/images/favicon.jpeg` e `public/images/og-image.jpeg`.
-- **Cores da marca:** o site deve seguir as cores do logo, um gradiente azul-elétrico → índigo → violeta sobre um fundo quase preto azulado. O usuário pediu explicitamente para "puxar a paleta da Risen".
+- **Cores da marca:** o site segue as cores do logo, um gradiente azul-elétrico → índigo → violeta sobre um fundo quase preto azulado.
 - **Voz:** português do Brasil, direta e próxima, sem jargão de agência.
-- **O que evitar:** cara de template. É o que faria o resultado parecer errado para o usuário.
+- **O que evitar:** cara de template.
 
 ## Evidence on Hand
 

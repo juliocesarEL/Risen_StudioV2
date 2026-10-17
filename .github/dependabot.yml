@@ -1,0 +1,18 @@
+# Atualizações de dependências: um pull request por mês, com as atualizações
+# agrupadas. O CI roda em cada um antes de qualquer merge.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: monthly
+    open-pull-requests-limit: 3
+    groups:
+      dependencias:
+        patterns: ['*']
+        update-types: [minor, patch]
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
