@@ -9,6 +9,22 @@ import { subscribeToQuoteIntent } from '@/lib/quote-intent'
 const PRELOAD_MARGIN = '100% 0px'
 /** Interações dentro do formulário que antecipam o carregamento. */
 const INTENT_EVENTS = ['pointerdown', 'focusin'] as const
+/**
+ * Interações em qualquer lugar da página que também carregam o formulário.
+ *
+ * Enquanto o formulário não carrega, a parte dele vinda do servidor ainda não
+ * foi hidratada, e o React segura qualquer navegação do Next (links de âncora,
+ * do menu, dos cards de projeto) até ela hidratar. Carregar na primeira
+ * interação faz o link funcionar no mesmo clique: o pointerdown e o keydown
+ * chegam antes do click, e a navegação só espera o pacote do formulário baixar.
+ */
+const PAGE_INTENT_EVENTS = ['pointerdown', 'keydown'] as const
+/**
+ * Garantia final: sem nenhum dos gatilhos acima, o formulário carrega quando o
+ * navegador fica ocioso depois de abrir a página (no máximo neste prazo, em ms).
+ * O carregamento inicial continua leve e o formulário nunca fica pendente.
+ */
+const IDLE_LOAD_TIMEOUT_MS = 5000
 
 function loadContactForm() {
   return import('@/components/sections/contact/contact-form').then((module) => ({
@@ -25,7 +41,7 @@ function createGate() {
   return { promise, open }
 }
 
-/** Chama `onNeeded` quando o formulário se aproxima da tela ou recebe interação. */
+/** Chama `onNeeded` quando o formulário se aproxima da tela ou quando a pessoa interage com a página. */
 function watchForNeed(container: HTMLElement, onNeeded: () => void): () => void {
   const observer = new IntersectionObserver(
     (entries) => {
@@ -35,11 +51,28 @@ function watchForNeed(container: HTMLElement, onNeeded: () => void): () => void 
   )
   observer.observe(container)
   INTENT_EVENTS.forEach((type) => container.addEventListener(type, onNeeded))
+  PAGE_INTENT_EVENTS.forEach((type) =>
+    document.addEventListener(type, onNeeded, { capture: true, passive: true }),
+  )
+  // Voltar e avançar do navegador também são navegações do Next.
+  window.addEventListener('popstate', onNeeded)
+  const idle =
+    'requestIdleCallback' in window
+      ? window.requestIdleCallback(onNeeded, { timeout: IDLE_LOAD_TIMEOUT_MS })
+      : undefined
+  const fallback =
+    idle === undefined ? window.setTimeout(onNeeded, IDLE_LOAD_TIMEOUT_MS) : undefined
   const unsubscribe = subscribeToQuoteIntent(onNeeded)
 
   return () => {
     observer.disconnect()
     INTENT_EVENTS.forEach((type) => container.removeEventListener(type, onNeeded))
+    PAGE_INTENT_EVENTS.forEach((type) =>
+      document.removeEventListener(type, onNeeded, { capture: true }),
+    )
+    window.removeEventListener('popstate', onNeeded)
+    if (idle !== undefined) window.cancelIdleCallback(idle)
+    window.clearTimeout(fallback)
     unsubscribe()
   }
 }
