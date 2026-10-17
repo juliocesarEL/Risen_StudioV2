@@ -150,6 +150,14 @@ test.describe('celular', () => {
     await expect(menu).toBeHidden()
     await expect(menuButton).toBeFocused()
 
+    // Um item do menu leva à seção (o menu fecha antes de rolar).
+    await menuButton.click()
+    await menu.getByRole('link', { name: /^Processo/ }).click()
+    await expect(menu).toBeHidden()
+    await expect(page).toHaveURL(/#processo$/)
+    await expect(page.locator('#processo')).toBeInViewport()
+    await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }))
+
     // CTA dentro do menu leva ao formulário.
     await menuButton.click()
     await menu.getByRole('link', { name: 'Solicitar orçamento' }).click()

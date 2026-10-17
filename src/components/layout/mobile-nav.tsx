@@ -2,7 +2,7 @@
 
 import { ArrowRight, MapPin, Menu, X } from 'lucide-react'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { useRef, useState } from 'react'
 
 import '@/components/layout/mobile-nav.css'
@@ -23,7 +23,7 @@ import type { NavItem } from '@/content/navigation'
 import { useActiveSection } from '@/hooks/use-active-section'
 import type { SocialLink } from '@/types/content'
 
-import type { CSSProperties } from 'react'
+import type { CSSProperties, MouseEvent } from 'react'
 
 interface MobileNavProps {
   items: NavItem[]
@@ -42,6 +42,15 @@ interface MobileNavProps {
   whatsappHref: string
 }
 
+/** Cliques com Ctrl/Cmd/Shift ou botão do meio ficam com o navegador (nova aba, etc.). */
+function isModifiedClick(event: MouseEvent) {
+  return event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0
+}
+
+function prefersReducedMotion() {
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches
+}
+
 /** Posição de cada peça na cascata de entrada (mobile-nav.css). */
 const stagger = (index: number) => ({ '--i': index }) as CSSProperties
 
@@ -50,6 +59,10 @@ const stagger = (index: number) => ({ '--i': index }) as CSSProperties
  * enquanto aberto, fecha com Esc e devolve o foco ao botão — exceto quando um
  * link leva a outra parte da página, caso em que o foco segue o destino.
  *
+ * Os links não navegam no clique: o menu fecha primeiro e só depois a página
+ * rola até a seção. Navegar no mesmo clique não funciona: o link some com o
+ * menu, o Link do Next cancela a navegação e a rolagem fica travada pelo menu.
+ *
  * Visual: os campos de cor da marca nos cantos e o R em contorno ao fundo,
  * como no hero; seções grandes, cada uma com uma linha do que tem lá; a seção
  * em que a pessoa está fica marcada; contato e redes no rodapé.
@@ -57,7 +70,10 @@ const stagger = (index: number) => ({ '--i': index }) as CSSProperties
 export function MobileNav({ items, social, copy, whatsappHref }: MobileNavProps) {
   const [open, setOpen] = useState(false)
   const navigatingRef = useRef(false)
+  /** Destino escolhido no menu, seguido assim que o menu termina de fechar. */
+  const pendingHrefRef = useRef<string | null>(null)
   const pathname = usePathname()
+  const router = useRouter()
   const activeSection = useActiveSection(
     items.map((item) => item.sectionId),
     pathname === '/',
@@ -66,6 +82,41 @@ export function MobileNav({ items, social, copy, whatsappHref }: MobileNavProps)
   function closeForNavigation() {
     navigatingRef.current = true
     setOpen(false)
+  }
+
+  /** Clique num link do menu: guarda o destino (o href do próprio link) e fecha o menu. */
+  function handleNavClick(event: MouseEvent<HTMLAnchorElement>) {
+    if (isModifiedClick(event)) return
+    event.preventDefault()
+    pendingHrefRef.current = event.currentTarget.getAttribute('href')
+    closeForNavigation()
+  }
+
+  /** Com o menu fechado (e a rolagem liberada): rola até a seção ou troca de página. */
+  function followPendingHref() {
+    const href = pendingHrefRef.current
+    pendingHrefRef.current = null
+    if (!href) return
+
+    const [path = '/', hash] = href.split('#')
+    if (pathname !== (path || '/')) {
+      router.push(href)
+      return
+    }
+
+    const target = hash ? document.getElementById(hash) : null
+    window.history.pushState(null, '', hash ? `#${hash}` : path)
+    if (target) {
+      target.scrollIntoView({
+        behavior: prefersReducedMotion() ? 'auto' : 'smooth',
+        block: 'start',
+      })
+      // O foco segue o destino, para leitores de tela anunciarem a seção.
+      if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1')
+      target.focus({ preventScroll: true })
+    } else {
+      window.scrollTo({ top: 0, behavior: prefersReducedMotion() ? 'auto' : 'smooth' })
+    }
   }
 
   return (
@@ -83,6 +134,8 @@ export function MobileNav({ items, social, copy, whatsappHref }: MobileNavProps)
         onCloseAutoFocus={(event) => {
           if (navigatingRef.current) event.preventDefault()
           navigatingRef.current = false
+          // Um quadro depois: a trava de rolagem do menu já saiu da página.
+          requestAnimationFrame(followPendingHref)
         }}
       >
         {/* Fundo: campos de cor da marca nos cantos e o R em contorno, como no hero. */}
@@ -93,9 +146,7 @@ export function MobileNav({ items, social, copy, whatsappHref }: MobileNavProps)
         <GhostMark className="mnav-mark pointer-events-none absolute -right-24 -bottom-20 -z-10 size-[26rem] text-foreground/[0.06]" />
 
         <div className="flex h-nav items-center justify-between gap-3 px-5">
-          <SheetClose asChild>
-            <Logo onClick={() => (navigatingRef.current = true)} />
-          </SheetClose>
+          <Logo onClick={handleNavClick} />
           <SheetClose asChild>
             <Button
               variant="outline"
@@ -117,32 +168,30 @@ export function MobileNav({ items, social, copy, whatsappHref }: MobileNavProps)
               const isActive = activeSection === item.sectionId
               return (
                 <li key={item.sectionId} className="mnav-stagger relative" style={stagger(index)}>
-                  <SheetClose asChild>
-                    <Link
-                      href={`/#${item.sectionId}`}
-                      onClick={() => (navigatingRef.current = true)}
-                      aria-current={isActive ? 'true' : undefined}
-                      className="group flex min-h-16 items-center justify-between gap-4 py-2.5"
-                    >
-                      <span className="flex min-w-0 flex-col gap-1">
-                        <span className="flex items-center gap-3 font-display text-[1.75rem] leading-none font-semibold text-foreground font-stretch-display group-aria-current:bg-gradient-primary group-aria-current:bg-clip-text group-aria-current:text-transparent">
-                          {item.label}
+                  <Link
+                    href={`/#${item.sectionId}`}
+                    onClick={handleNavClick}
+                    aria-current={isActive ? 'true' : undefined}
+                    className="group flex min-h-16 items-center justify-between gap-4 py-2.5"
+                  >
+                    <span className="flex min-w-0 flex-col gap-1">
+                      <span className="flex items-center gap-3 font-display text-[1.75rem] leading-none font-semibold text-foreground font-stretch-display group-aria-current:bg-gradient-primary group-aria-current:bg-clip-text group-aria-current:text-transparent">
+                        {item.label}
+                      </span>
+                      {item.description ? (
+                        // Em telas baixas, só os nomes: o menu inteiro cabe sem rolar.
+                        <span className="truncate text-sm text-subtle [@media(max-height:44rem)]:hidden">
+                          {item.description}
                         </span>
-                        {item.description ? (
-                          // Em telas baixas, só os nomes: o menu inteiro cabe sem rolar.
-                          <span className="truncate text-sm text-subtle [@media(max-height:44rem)]:hidden">
-                            {item.description}
-                          </span>
-                        ) : null}
-                      </span>
-                      <span
-                        aria-hidden="true"
-                        className="grid size-9 shrink-0 place-items-center rounded-pill border border-line-2 text-body transition-colors duration-300 group-hover:border-transparent group-hover:bg-accent group-hover:text-on-accent group-aria-current:border-transparent group-aria-current:bg-accent group-aria-current:text-on-accent"
-                      >
-                        <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-0.5" />
-                      </span>
-                    </Link>
-                  </SheetClose>
+                      ) : null}
+                    </span>
+                    <span
+                      aria-hidden="true"
+                      className="grid size-9 shrink-0 place-items-center rounded-pill border border-line-2 text-body transition-colors duration-300 group-hover:border-transparent group-hover:bg-accent group-hover:text-on-accent group-aria-current:border-transparent group-aria-current:bg-accent group-aria-current:text-on-accent"
+                    >
+                      <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+                    </span>
+                  </Link>
                   <span
                     aria-hidden="true"
                     className="mnav-rule absolute inset-x-0 bottom-0 h-px origin-left bg-line"
