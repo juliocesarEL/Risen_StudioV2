@@ -8,6 +8,11 @@ interface RevealProps {
   className?: string
   /** Atraso em segundos (para itens em sequência). */
   delay?: number
+  /**
+   * "card": o bloco sobe inclinado em 3D e a imagem dentro dele se revela de
+   * cima para baixo (cards de projeto). Padrão: sobe e aparece.
+   */
+  variant?: 'card'
 }
 
 /**
@@ -18,9 +23,13 @@ interface RevealProps {
  * O estado inicial (oculto) só vale com JavaScript ativo e sem preferência por
  * movimento reduzido — nos demais casos o conteúdo aparece direto (globals.css).
  */
-export function Reveal({ children, className, delay = 0 }: RevealProps) {
+export function Reveal({ children, className, delay = 0, variant }: RevealProps) {
   return (
-    <div data-reveal="" data-reveal-delay={delay > 0 ? delay : undefined} className={className}>
+    <div
+      data-reveal={variant ?? ''}
+      data-reveal-delay={delay > 0 ? delay : undefined}
+      className={className}
+    >
       {children}
     </div>
   )

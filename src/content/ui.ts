@@ -8,6 +8,8 @@ export const uiCopy = {
   openMenu: 'Abrir menu',
   menuTitle: 'Menu',
   menuDescription: 'Navegue pelas seções do site.',
+  closeMenu: 'Fechar menu',
+  menuContactNote: 'Atendimento em Salto, SP, e remoto para todo o Brasil.',
   whatsappFloat: 'Conversar no WhatsApp',
   newTabHint: '(abre em nova aba)',
   provisionalImage: 'Imagem provisória',

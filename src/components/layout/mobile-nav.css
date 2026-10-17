@@ -1,0 +1,44 @@
+/*
+ * Menu do celular (mobile-nav.tsx). Ao abrir, as peças entram em cascata, de
+ * cima para baixo (--i = posição), e o R de fundo surge girando de leve. A
+ * regra global de movimento reduzido zera tudo isso.
+ */
+
+.mnav {
+  --mnav-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .mnav[data-state='open'] .mnav-stagger {
+    animation: mnav-in 650ms var(--mnav-ease) calc(120ms + var(--i, 0) * 55ms) both;
+  }
+
+  .mnav[data-state='open'] .mnav-mark {
+    animation: mnav-mark 1100ms var(--mnav-ease) 80ms both;
+  }
+
+  /* A linha sob cada item se desenha da esquerda para a direita. */
+  .mnav[data-state='open'] .mnav-rule {
+    animation: mnav-rule 700ms var(--mnav-ease) calc(180ms + var(--i, 0) * 55ms) both;
+  }
+}
+
+@keyframes mnav-in {
+  from {
+    opacity: 0;
+    transform: translateY(1.25rem);
+  }
+}
+
+@keyframes mnav-mark {
+  from {
+    opacity: 0;
+    transform: translate(2rem, 2rem) rotate(-8deg) scale(0.92);
+  }
+}
+
+@keyframes mnav-rule {
+  from {
+    transform: scaleX(0);
+  }
+}

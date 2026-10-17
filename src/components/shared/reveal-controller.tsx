@@ -18,6 +18,19 @@ const DRAW = { duration: 1.4 }
  */
 const TITLE = { duration: 1.1, fromScale: 0.84, fromBlur: '8px' }
 
+/**
+ * Cards (data-reveal="card"): sobem inclinados, como uma carta pousando na
+ * mesa; a imagem dentro deles se revela de cima para baixo, saindo de um zoom.
+ * A imagem é animada por transform e o recorte por clip-path, que não disputam
+ * com o zoom do hover (feito pela propriedade scale).
+ */
+const CARD = {
+  duration: 1,
+  distance: '3.5rem',
+  tilt: '14deg',
+  media: { delay: 0.18, duration: 1.2, fromScale: 1.22 },
+}
+
 /** A entrada começa quando o elemento passa 10% da altura da tela. */
 const VIEWPORT_MARGIN = '0px 0px -10% 0px'
 const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)'
@@ -51,14 +64,38 @@ function reveal(element: HTMLElement) {
     return
   }
 
+  const delay = Number(element.dataset.revealDelay ?? 0)
+
+  if (element.dataset.reveal === 'card') {
+    animate(
+      element,
+      {
+        opacity: [0, 1],
+        transform: [
+          `perspective(1400px) translateY(${CARD.distance}) rotateX(${CARD.tilt})`,
+          'perspective(1400px) translateY(0) rotateX(0deg)',
+        ],
+      },
+      { duration: CARD.duration, delay, ease: EASE_OUT },
+    )
+    const image = element.querySelector('img')
+    const frame = image?.parentElement
+    if (image && frame) {
+      const media = {
+        duration: CARD.media.duration,
+        delay: delay + CARD.media.delay,
+        ease: EASE_OUT,
+      }
+      animate(frame, { clipPath: ['inset(0 0 100% 0)', 'inset(0 0 0% 0)'] }, media)
+      animate(image, { transform: [`scale(${CARD.media.fromScale})`, 'none'] }, media)
+    }
+    return
+  }
+
   animate(
     element,
     { opacity: [0, 1], transform: [`translateY(${ENTRANCE.distance})`, 'none'] },
-    {
-      duration: ENTRANCE.duration,
-      delay: Number(element.dataset.revealDelay ?? 0),
-      ease: EASE_OUT,
-    },
+    { duration: ENTRANCE.duration, delay, ease: EASE_OUT },
   )
 }
 

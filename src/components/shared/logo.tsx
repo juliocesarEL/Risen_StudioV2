@@ -5,6 +5,8 @@ import { uiCopy } from '@/content/ui'
 import { brandMark } from '@/lib/brand-mark'
 import { cn } from '@/lib/utils'
 
+import type { ComponentProps } from 'react'
+
 const MARK_GRADIENT_ID = 'risen-mark-gradient'
 
 /**
@@ -69,13 +71,23 @@ export function GhostMark({ className }: { className?: string }) {
 }
 
 /** Logotipo completo com link para a página inicial. */
-export function Logo({ className }: { className?: string }) {
+/**
+ * Aceita as props de um link (exceto o destino), para poder fechar o menu ao navegar.
+ * `compact`: em celulares estreitos (até 399px), mostra só "RISEN", para a
+ * barra de navegação caber inteira.
+ */
+export function Logo({
+  className,
+  compact = false,
+  ...props
+}: Omit<ComponentProps<typeof Link>, 'href'> & { compact?: boolean }) {
   const [firstWord, ...rest] = siteConfig.name.split(' ')
 
   return (
     <Link
       href="/"
       aria-label={uiCopy.homeLink}
+      {...props}
       className={cn(
         'group inline-flex min-h-11 items-center gap-3 rounded-md text-foreground',
         className,
@@ -85,7 +97,12 @@ export function Logo({ className }: { className?: string }) {
       <span className="flex items-baseline gap-2 font-display leading-none font-stretch-display">
         <span className="text-lg font-semibold tracking-[0.2em] uppercase">{firstWord}</span>
         {rest.length > 0 ? (
-          <span className="text-xs font-medium tracking-[0.32em] text-subtle uppercase">
+          <span
+            className={cn(
+              'text-xs font-medium tracking-[0.32em] text-subtle uppercase',
+              compact && 'max-[24.9375rem]:hidden',
+            )}
+          >
             {rest.join(' ')}
           </span>
         ) : null}

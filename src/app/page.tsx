@@ -60,6 +60,7 @@ export default function HomePage() {
           projects={projects}
           categories={categories}
           newTabHint={uiCopy.newTabHint}
+          moreProjectsHref="/projetos"
         />
       </Suspense>
       <Suspense>

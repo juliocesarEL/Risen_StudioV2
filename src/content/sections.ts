@@ -40,6 +40,22 @@ export const projectsSection = {
   /** Anúncio para leitores de tela após filtrar (singular e plural). */
   filterResult: { one: 'projeto exibido', other: 'projetos exibidos' },
   caseStudyCta: 'Ver projeto',
+  /** Link para a página /projetos (aparece quando há mais projetos do que cabe na página inicial). */
+  viewMore: 'Ver mais projetos',
+  /**
+   * Vaga aberta: card vazio que completa a grade. O título muda conforme a
+   * frente de serviço, em rodízio, e o botão já leva ao orçamento daquele tipo.
+   */
+  openSlot: {
+    titles: {
+      sites: 'Seu site pode estar aqui',
+      sistemas: 'Seu sistema pode estar aqui',
+      integracoes: 'Sua automação pode estar aqui',
+    },
+    description: 'Conte sua ideia e vamos tirar do papel juntos.',
+    badge: 'Vaga aberta',
+    cta: 'Começar meu projeto',
+  },
   liveCta: 'Ver site',
   kindLabels: {
     autoral: 'Projeto autoral',
@@ -52,6 +68,14 @@ export const projectsSection = {
     description: 'Conte o que você tem em mente e vamos desenhar o caminho juntos.',
     cta: 'Solicitar orçamento',
   },
+}
+
+/** Página /projetos: o portfólio completo. */
+export const projectsPage = {
+  title: 'Projetos',
+  description:
+    'Mais trabalhos da Risen Studio. Os espaços abertos estão reservados para os próximos projetos, e um deles pode ser o seu.',
+  backToHome: 'Voltar ao início',
 }
 
 export const differentialsSection = {

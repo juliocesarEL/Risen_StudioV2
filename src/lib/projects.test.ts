@@ -1,22 +1,54 @@
 import { describe, expect, it } from 'vitest'
 
 import {
+  countOpenSlots,
+  getHomeProjects,
+  getMoreProjects,
+  hasMoreProjects,
+  HOME_PROJECTS_LIMIT,
   MIN_PROJECTS_FOR_FILTERS,
-  shouldShowNextProjectInvite,
   shouldShowProjectFilters,
 } from '@/lib/projects'
+import type { Project } from '@/types/content'
 
 describe('layout do portfólio', () => {
-  it('o convite ao próximo projeto completa a última fileira', () => {
-    expect(shouldShowNextProjectInvite(0)).toBe(true)
-    expect(shouldShowNextProjectInvite(1)).toBe(true)
-    expect(shouldShowNextProjectInvite(2)).toBe(true)
-    expect(shouldShowNextProjectInvite(4)).toBe(true)
+  const fakeProjects = (count: number) =>
+    Array.from({ length: count }, (_, index) => ({ slug: `p${index}` }) as Project)
+
+  it('a página inicial mostra no máximo duas fileiras de projetos', () => {
+    expect(HOME_PROJECTS_LIMIT).toBe(6)
+    expect(getHomeProjects(fakeProjects(4))).toHaveLength(4)
+    expect(getHomeProjects(fakeProjects(12)).map((project) => project.slug)).toEqual([
+      'p0',
+      'p1',
+      'p2',
+      'p3',
+      'p4',
+      'p5',
+    ])
   })
 
-  it('sem convite quando as fileiras fecham', () => {
-    expect(shouldShowNextProjectInvite(3)).toBe(false)
-    expect(shouldShowNextProjectInvite(6)).toBe(false)
+  it('a página /projetos recebe os projetos que não cabem na inicial', () => {
+    expect(getMoreProjects(fakeProjects(4))).toHaveLength(0)
+    expect(getMoreProjects(fakeProjects(9)).map((project) => project.slug)).toEqual([
+      'p6',
+      'p7',
+      'p8',
+    ])
+  })
+
+  it('as vagas abertas completam a última fileira e o mínimo da página', () => {
+    expect(countOpenSlots(4)).toBe(2)
+    expect(countOpenSlots(5)).toBe(1)
+    expect(countOpenSlots(6)).toBe(0)
+    expect(countOpenSlots(0, 12)).toBe(12)
+    expect(countOpenSlots(7, 12)).toBe(5)
+    expect(countOpenSlots(13, 12)).toBe(2)
+  })
+
+  it('o link para mais projetos só aparece quando sobram projetos', () => {
+    expect(hasMoreProjects(fakeProjects(6))).toBe(false)
+    expect(hasMoreProjects(fakeProjects(7))).toBe(true)
   })
 
   it('mostra filtros apenas a partir de 6 projetos', () => {

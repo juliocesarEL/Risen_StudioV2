@@ -2,10 +2,13 @@
 
 import { useState } from 'react'
 
-import { type ProjectCardCopy, ProjectCard } from '@/components/sections/projects/project-card'
-import { REVEAL_STAGGER, Reveal } from '@/components/shared/reveal'
+import type { ProjectCardCopy } from '@/components/sections/projects/project-card'
+import { ProjectGrid } from '@/components/sections/projects/project-grid'
 import { Button } from '@/components/ui/button'
+import { countOpenSlots } from '@/lib/project-slots'
 import type { Project, ServiceCategoryId } from '@/types/content'
+
+import type { ComponentProps } from 'react'
 
 const ALL = 'todos'
 
@@ -20,16 +23,23 @@ interface FilterableProjectsProps {
     filterResult: { one: string; other: string }
   }
   cardCopy: ProjectCardCopy
+  headingLevel?: 'h2' | 'h3'
+  openSlotCopy?: ComponentProps<typeof ProjectGrid>['openSlotCopy']
+  /** Mínimo de espaços na grade (projetos + vagas abertas). */
+  minSlots?: number
 }
 
 const pluralRules = new Intl.PluralRules('pt-BR')
 
-/** Grade com filtros por categoria (exibida a partir de 6 projetos). */
+/** Grade com filtros por categoria (página /projetos, a partir de 6 projetos). */
 export function FilterableProjects({
   projects,
   categories,
   copy,
   cardCopy,
+  headingLevel,
+  openSlotCopy,
+  minSlots = 0,
 }: FilterableProjectsProps) {
   const [activeFilter, setActiveFilter] = useState<FilterId>(ALL)
   const visibleProjects =
@@ -69,21 +79,14 @@ export function FilterableProjects({
         {visibleProjects.length} {resultLabel}
       </p>
 
-      <ul className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-        {visibleProjects.map((project, index) => (
-          <li key={project.slug}>
-            <Reveal delay={index * REVEAL_STAGGER} className="h-full">
-              <ProjectCard
-                project={project}
-                copy={cardCopy}
-                categoryLabel={
-                  categories.find((category) => category.id === project.category)?.label ?? ''
-                }
-              />
-            </Reveal>
-          </li>
-        ))}
-      </ul>
+      <ProjectGrid
+        projects={visibleProjects}
+        categories={categories}
+        cardCopy={cardCopy}
+        headingLevel={headingLevel}
+        openSlotCopy={openSlotCopy}
+        openSlots={openSlotCopy ? countOpenSlots(visibleProjects.length, minSlots) : 0}
+      />
     </div>
   )
 }

@@ -16,14 +16,28 @@ export type SectionId = (typeof sectionIds)[keyof typeof sectionIds]
 export interface NavItem {
   label: string
   sectionId: SectionId
+  /** Linha curta exibida no menu do celular, abaixo do nome da seção. */
+  description?: string
 }
 
 export const mainNav: NavItem[] = [
-  { label: 'Serviços', sectionId: sectionIds.services },
-  { label: 'Projetos', sectionId: sectionIds.projects },
-  { label: 'Processo', sectionId: sectionIds.process },
-  { label: 'Sobre', sectionId: sectionIds.about },
-  { label: 'FAQ', sectionId: sectionIds.faq },
+  {
+    label: 'Serviços',
+    sectionId: sectionIds.services,
+    description: 'Sites, sistemas e integrações',
+  },
+  {
+    label: 'Projetos',
+    sectionId: sectionIds.projects,
+    description: 'Trabalhos que já saíram do papel',
+  },
+  {
+    label: 'Processo',
+    sectionId: sectionIds.process,
+    description: 'Do primeiro contato à entrega',
+  },
+  { label: 'Sobre', sectionId: sectionIds.about, description: 'Quem está por trás da Risen' },
+  { label: 'FAQ', sectionId: sectionIds.faq, description: 'Respostas para as dúvidas comuns' },
 ]
 
 export const footerNav: NavItem[] = [

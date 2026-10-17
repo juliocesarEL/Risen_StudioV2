@@ -492,6 +492,10 @@
       transform: scale(0);
     }
 
+    .js [data-reveal='card']:not([data-revealed]) {
+      transform: perspective(1400px) translateY(3.5rem) rotateX(14deg);
+    }
+
     /* Títulos "se alargam" ao entrar, como o logotipo largo (ver reveal-controller). */
     .js [data-reveal='title']:not([data-revealed]) {
       opacity: 0;
