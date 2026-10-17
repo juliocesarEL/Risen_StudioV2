@@ -9,6 +9,9 @@ export default defineConfig({
   fullyParallel: true,
   forbidOnly: Boolean(process.env.CI),
   retries: process.env.CI ? 2 : 0,
+  // A máquina do GitHub Actions tem 4 núcleos: dois navegadores em paralelo,
+  // mais o servidor de teste, sem disputar processador.
+  workers: process.env.CI ? 2 : undefined,
   reporter: process.env.CI ? 'github' : 'list',
   timeout: 60_000,
   use: {
@@ -30,6 +33,7 @@ export default defineConfig({
     reuseExistingServer: false,
     // Sem provedor de e-mail: os testes nunca enviam mensagens reais, mesmo
     // que exista um .env.local configurado.
-    env: { RESEND_API_KEY: '', CONTACT_TO_EMAIL: '' },
+    // Imagens sem otimização só neste build: ver next.config.ts.
+    env: { RESEND_API_KEY: '', CONTACT_TO_EMAIL: '', E2E_UNOPTIMIZED_IMAGES: '1' },
   },
 })

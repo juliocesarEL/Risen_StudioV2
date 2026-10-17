@@ -1,8 +1,5 @@
 import { expect, type Page, test } from '@playwright/test'
 
-/** Atraso artificial do código do formulário, para interagir antes de ele carregar. */
-const FORM_CODE_DELAY_MS = 2500
-
 /**
  * O formulário é hidratado sob demanda (o código carrega quando ele se
  * aproxima da tela). Espera o formulário ficar interativo.
@@ -33,6 +30,18 @@ async function expectNoHorizontalScroll(page: Page) {
   expect(overflow).toBeLessThanOrEqual(0)
 }
 
+/**
+ * Cada teste (e cada nova tentativa) envia de um "IP" diferente. O formulário
+ * limita os envios por IP; sem isso, os envios de todos os testes saem do mesmo
+ * endereço e se acumulam, e o limite responde no lugar do erro esperado.
+ */
+test.beforeEach(async ({ page }, testInfo) => {
+  const octet = (value: number) => Math.abs(value) % 256
+  await page.setExtraHTTPHeaders({
+    'x-forwarded-for': `10.${octet(testInfo.workerIndex)}.${octet(testInfo.retry)}.${octet(Math.floor(Math.random() * 256))}`,
+  })
+})
+
 test.describe('fluxo de orçamento', () => {
   test('CTA de serviço leva ao formulário com o tipo de projeto pré-selecionado', async ({
     page,
@@ -61,8 +70,10 @@ test.describe('fluxo de orçamento', () => {
     await page.goto('/#contato')
     await page.getByRole('button', { name: 'Enviar solicitação' }).click()
 
+    // O clique acontece antes de o JavaScript do formulário chegar: o envio fica
+    // guardado e é repetido quando ele carrega. Daí a mesma espera de waitForQuoteForm.
     const name = page.locator('#contato form').getByLabel('Nome', { exact: true })
-    await expect(name).toBeFocused()
+    await expect(name).toBeFocused({ timeout: 15_000 })
     await expect(name).toHaveAttribute('aria-invalid', 'true')
     await expect(name).toHaveAccessibleDescription('Informe seu nome (mínimo de 2 caracteres).')
     await expect(
@@ -84,13 +95,17 @@ test.describe('fluxo de orçamento', () => {
   })
 
   test('o que for digitado antes de o formulário carregar não se perde', async ({ page }) => {
-    // Atrasa o pacote do formulário (o único que contém o Zod).
+    // Segura o pacote do formulário (o único que contém o Zod) até o teste
+    // liberar: a digitação acontece com certeza antes de ele carregar, por mais
+    // lenta que esteja a máquina.
+    let releaseFormCode = () => {}
+    const formCodeReleased = new Promise<void>((resolve) => {
+      releaseFormCode = resolve
+    })
     await page.route('**/_next/static/chunks/*.js', async (route) => {
       const response = await route.fetch()
       const body = await response.text()
-      if (body.includes('ZodError')) {
-        await new Promise((resolve) => setTimeout(resolve, FORM_CODE_DELAY_MS))
-      }
+      if (body.includes('ZodError')) await formCodeReleased
       await route.fulfill({ response, body })
     })
     await page.goto('/#contato')
@@ -102,6 +117,7 @@ test.describe('fluxo de orçamento', () => {
     await phone.fill('11912345678')
     await expect(page.locator('#contato [data-form-ready]')).toHaveCount(0)
 
+    releaseFormCode()
     await waitForQuoteForm(page)
     await expect(name).toHaveValue('Maria Souza')
     await expect(phone).toHaveValue('(11) 91234-5678')

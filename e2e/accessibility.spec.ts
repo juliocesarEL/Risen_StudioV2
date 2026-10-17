@@ -16,7 +16,22 @@ async function revealEverything(page: Page) {
     }
     window.scrollTo({ top: 0, behavior: 'instant' })
   })
-  await page.waitForTimeout(1000)
+  // Contraste se mede com tudo opaco: espera a conversa da seção "Qual é o seu
+  // momento?" terminar e as animações finitas (entradas, fades) acabarem.
+  // Sem isso, um botão ainda em fade é medido meio transparente.
+  await page.waitForFunction(
+    () =>
+      !document.querySelector('.nchat-actions[data-hidden]') &&
+      document.getAnimations().every(
+        (animation) =>
+          animation.playState !== 'running' ||
+          animation.effect?.getTiming().iterations === Infinity ||
+          // A bancada do hero digita as três abas em sequência (longa e sem fades).
+          Boolean((animation.effect as KeyframeEffect | null)?.target?.closest?.('.wb-window')),
+      ),
+    undefined,
+    { timeout: 15_000 },
+  )
 }
 
 for (const path of PAGES) {

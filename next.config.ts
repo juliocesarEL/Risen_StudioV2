@@ -28,6 +28,11 @@ const nextConfig: NextConfig = {
   partialPrefetching: true,
   poweredByHeader: false,
   images: {
+    // Só no build dos testes ponta a ponta (playwright.config.ts): sem otimizar
+    // imagens, o servidor de teste não fica ocupado codificando AVIF de capturas
+    // grandes enquanto os testes rodam em paralelo (o que atrasava o JavaScript
+    // das páginas e derrubava testes). Em produção, nada muda.
+    unoptimized: process.env.E2E_UNOPTIMIZED_IMAGES === '1',
     formats: ['image/avif', 'image/webp'],
     qualities: [75, 90],
   },
