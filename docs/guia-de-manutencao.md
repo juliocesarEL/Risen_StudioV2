@@ -120,6 +120,25 @@ O deploy é contínuo pela Vercel, ligada ao repositório do GitHub:
 O GitHub Actions (`.github/workflows/ci.yml`) roda tipos, lint, formatação,
 testes unitários, build e testes ponta a ponta em cada push e pull request.
 
+**Auditoria de segurança** (`.github/workflows/seguranca.yml`): roda
+`pnpm audit --audit-level high` em cada push e pull request e toda segunda-feira
+às 8h, mesmo sem mudanças no código. Se aparecer uma vulnerabilidade alta ou
+crítica, ela falha e o GitHub avisa por e-mail. Para resolver:
+
+1. Rode `pnpm audit` para ver o pacote, a versão corrigida e o caminho (quem
+   depende dele).
+2. Se for uma dependência direta, atualize-a: `pnpm add pacote@versão`.
+3. Se for indireta (dentro de outro pacote), tente primeiro
+   `pnpm update pacote --depth 99`, que sobe a versão no `pnpm-lock.yaml` sem
+   mexer no `package.json`. Se o pacote pai travar uma versão antiga, atualize
+   o pai.
+4. Rode `pnpm check` e `pnpm build`, confira com `pnpm audit` e faça o push.
+
+Se ainda não existir correção e a falha não afetar o site (por exemplo, só uma
+ferramenta de linha de comando), dá para ignorar aquele alerta específico no
+workflow, com o código GHSA: `pnpm audit --audit-level high --ignore GHSA-xxxx-xxxx-xxxx`.
+Remova a exceção quando a correção sair.
+
 **Configuração na Vercel:**
 
 1. As variáveis da tabela acima ficam em **Settings → Environments →

@@ -1,0 +1,42 @@
+# Auditoria de dependências: falha se algum pacote instalado (do site ou das
+# ferramentas) tiver uma vulnerabilidade conhecida de gravidade alta ou crítica.
+# Roda em cada push e pull request e, toda segunda-feira, mesmo sem mudanças no
+# código: uma falha nova pode ser publicada depois do deploy, como aconteceu com
+# o Next.js 16.4.0. Quando a execução semanal falha, o GitHub avisa por e-mail.
+name: Segurança
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    # Segunda-feira, 8h no horário de Brasília (11h UTC).
+    - cron: '0 11 * * 1'
+  workflow_dispatch:
+
+concurrency:
+  group: seguranca-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  auditoria:
+    name: Auditoria de dependências (pnpm audit)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v7
+
+      # Lê a versão do pnpm do campo "packageManager" do package.json.
+      - uses: pnpm/action-setup@v6
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+
+      # O audit lê o pnpm-lock.yaml e consulta a base de vulnerabilidades do
+      # npm: não precisa instalar nada.
+      - name: Vulnerabilidades altas ou críticas
+        run: pnpm audit --audit-level high

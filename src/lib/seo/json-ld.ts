@@ -9,6 +9,10 @@ const SCHEMA_CONTEXT = 'https://schema.org'
 const ORGANIZATION_ID_FRAGMENT = '#organizacao'
 
 const organizationId = () => absoluteUrl(`/${ORGANIZATION_ID_FRAGMENT}`)
+const founderId = () => absoluteUrl('/#fundador')
+
+/** Perfis pessoais do fundador; os demais (Instagram) são da empresa. */
+const FOUNDER_PROFILES = new Set(['linkedin', 'github'])
 
 /**
  * O site em si. O Google usa o `name` daqui como nome do site nos resultados
@@ -30,6 +34,10 @@ export function buildWebSiteJsonLd(): JsonLdObject {
 /** Estúdio como negócio local (ProfessionalService é um tipo de LocalBusiness). */
 export function buildOrganizationJsonLd(): JsonLdObject {
   const { location, contact, social } = siteConfig
+  const areaServed = [
+    ...location.serviceAreas.map((city) => ({ '@type': 'City', name: city })),
+    { '@type': 'Country', name: 'Brasil' },
+  ]
 
   return {
     '@context': SCHEMA_CONTEXT,
@@ -49,17 +57,57 @@ export function buildOrganizationJsonLd(): JsonLdObject {
       addressRegion: location.state,
       addressCountry: location.country,
     },
-    areaServed: [
-      ...location.serviceAreas.map((city) => ({ '@type': 'City', name: city })),
-      { '@type': 'Country', name: 'Brasil' },
-    ],
+    areaServed,
+    founder: { '@id': founderId() },
+    // As três frentes de serviço, cada uma descrita como um Service.
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'Serviços',
+      itemListElement: services.map((service) => ({
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: service.title,
+          serviceType: service.shortTitle,
+          description: service.description,
+          areaServed,
+          provider: { '@id': organizationId() },
+        },
+      })),
+    },
     knowsAbout: services.flatMap((service) => [
       service.title,
       ...service.examples
         .filter((example) => example.enabled !== false)
         .map((example) => example.label),
     ]),
-    sameAs: social.map((network) => network.url),
+    sameAs: social
+      .filter((network) => !FOUNDER_PROFILES.has(network.icon))
+      .map((network) => network.url),
+  }
+}
+
+/**
+ * O fundador como pessoa: quem está por trás do estúdio, com o LinkedIn e o
+ * GitHub dele. Assistentes de IA e o Google usam isso para ligar a marca à
+ * pessoa que a conduz.
+ */
+export function buildFounderJsonLd(): JsonLdObject {
+  const { founder, social, technologies } = siteConfig
+
+  return {
+    '@context': SCHEMA_CONTEXT,
+    '@type': 'Person',
+    '@id': founderId(),
+    name: founder.name,
+    jobTitle: 'Desenvolvedor full stack',
+    description: founder.bio.join(' '),
+    image: absoluteUrl(founder.photo.src),
+    worksFor: { '@id': organizationId() },
+    knowsAbout: ['Ciência da Computação', ...technologies.map((technology) => technology.name)],
+    sameAs: social
+      .filter((network) => FOUNDER_PROFILES.has(network.icon))
+      .map((network) => network.url),
   }
 }
 

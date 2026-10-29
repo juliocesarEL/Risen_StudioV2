@@ -5,6 +5,7 @@
 **Site comercial de um estúdio de desenvolvimento web, do design ao deploy.**
 
 [![CI](https://github.com/juliocesarEL/Risen_StudioV2/actions/workflows/ci.yml/badge.svg)](https://github.com/juliocesarEL/Risen_StudioV2/actions/workflows/ci.yml)
+[![Segurança](https://github.com/juliocesarEL/Risen_StudioV2/actions/workflows/seguranca.yml/badge.svg)](https://github.com/juliocesarEL/Risen_StudioV2/actions/workflows/seguranca.yml)
 ![Next.js](https://img.shields.io/badge/Next.js-16-000000?logo=nextdotjs&logoColor=white)
 ![React](https://img.shields.io/badge/React-19-149ECA?logo=react&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white)
@@ -57,9 +58,11 @@ cara de template.
 - **Página estável enquanto carrega.** Os títulos usam uma fonte larga; fontes
   reservas com a mesma largura evitam que o texto "pule" quando ela chega
   (Cumulative Layout Shift praticamente zero).
-- **SEO técnico completo.** Metadata por página, imagens de compartilhamento
-  geradas no build, sitemap, robots e dados estruturados (`ProfessionalService`,
-  `WebSite`, `FAQPage`, `CreativeWork` e `BreadcrumbList`).
+- **SEO, GEO e AEO.** Metadata por página, imagens de compartilhamento geradas
+  no build, sitemap, robots e dados estruturados (`ProfessionalService` com os
+  serviços, `Person` para o fundador, `WebSite`, `FAQPage`, `CreativeWork` e
+  `BreadcrumbList`). Para assistentes de IA, um [`/llms.txt`](https://risenstudio.com.br/llms.txt)
+  gerado a partir do mesmo conteúdo do site.
 - **Acessibilidade testada.** WCAG 2.2 AA verificado com axe em todas as
   páginas, navegação completa por teclado, foco visível e alvos de toque de 44 px.
 - **Conteúdo separado do código.** Nenhum texto fica dentro dos componentes:
@@ -147,6 +150,9 @@ vazia: nunca enviam mensagens reais.
   pull request ganha um link de pré-visualização.
 - **Dependências:** o Dependabot abre, uma vez por mês, um pull request com as
   atualizações agrupadas, que passa pelo CI antes de qualquer merge.
+- **Segurança:** o [`pnpm audit`](.github/workflows/seguranca.yml) roda em cada
+  push e pull request e toda semana, mesmo sem mudanças no código, e falha se
+  alguma dependência tiver uma vulnerabilidade alta ou crítica.
 
 ## Rodando localmente
 
